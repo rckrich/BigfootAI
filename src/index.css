@@ -11,3 +11,75 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Appcontainer {
+  width: 100%;
+  height: 100%;
+  /* Add your background pattern here */
+  background: rgba(29, 31, 32, 0.904)
+    radial-gradient(rgba(255, 255, 255, 0.712) 10%, transparent 1%);
+
+  background-size: 11px 11px;
+}
+
+.rowContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ColumnContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebarContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: rgba(26, 0, 139, 0.267);
+  height: 100vh;
+  width: 15vw;
+}
+
+.ChatboxContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+  width: 85vw;
+  background-color: rgba(26, 0, 139, 0.267);
+}
+
+.ChatHistoryPrefabContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: rgb(217, 255, 0);
+  height: 70px;
+  width: 100%;
+
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.sidebarInput{
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.ChatHistoryText{
+  padding: 0;
+  border: 0;
+  margin: 0;
+  margin-bottom: 0;
+
+}
