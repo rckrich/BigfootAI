@@ -9,7 +9,7 @@ export const Sidebar = () => {
 
             <div className="rowContainer">
                 <img src= {account} alt="account"></img>
-                <h3>John Smith</h3>
+                <h3 style={{color: "white"}}>John Smith</h3>
                 <img src= {sidebar} alt="sidebar"></img>
             </div>
 

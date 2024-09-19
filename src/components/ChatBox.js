@@ -10,7 +10,7 @@ import {
 export const ChatBox = () => {
     return (
         <div className="ChatboxContainer">
-            <h3 style={{textAlign: "center", width: "100%", paddingTop:"10px"}}>Tiktok Trends 2024</h3>
+            <h3 style={{textAlign: "center", width: "100%", paddingTop:"10px", color: "white"}}>Tiktok Trends 2024</h3>
             <div style={{ position: "relative", height: "100%", width: "100%" }}>
             
             <MainContainer >
