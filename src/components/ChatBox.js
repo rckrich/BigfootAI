@@ -10,12 +10,12 @@ import {
 export const ChatBox = () => {
     return (
         <div className="ChatboxContainer">
-            <h3 style={{textAlign: "center", width: "100%", paddingTop:"10px", color: "white"}}>Tiktok Trends 2024</h3>
+            <h3 style={{textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", color: "white", backgroundColor: "rgba(49, 24, 24, 0.39)"}}>Tiktok Trends 2024</h3>
             <div style={{ position: "relative", height: "100%", width: "100%" }}>
             
-            <MainContainer >
-                <ChatContainer style={{backgroundColor: "red" , color: "blue"}}>
-                <MessageList>
+            <MainContainer className="overrideStyle">
+                <ChatContainer className="overrideStyle">
+                <MessageList className="overrideStyle">
                     <Message
                     model={{
                         message: "Hello my friend",
@@ -24,7 +24,7 @@ export const ChatBox = () => {
                     }}
                     />
 
-                    <Message
+                    <Message 
                     model={{
                         message: "bla bla",
                         sentTime: "just now",
@@ -33,7 +33,7 @@ export const ChatBox = () => {
                     }}
                     />  
                 </MessageList>
-                <MessageInput placeholder="Type message here" />
+                <MessageInput placeholder="Type message here" className="overrideStyle" />
                 </ChatContainer>
             </MainContainer>
             </div>

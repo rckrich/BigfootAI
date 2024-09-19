@@ -37,7 +37,7 @@ code {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: rgba(26, 0, 139, 0.267);
+  background-color: rgba(49, 24, 24, 0.39);
   height: 100vh;
   width: 15vw;
 }
@@ -48,17 +48,17 @@ code {
   align-items: flex-start;
   height: 100vh;
   width: 85vw;
-  background-color: rgba(26, 0, 139, 0.267);
+  background-color: rgba(47, 0, 255, 0.096);
 }
 
 .ChatHistoryPrefabContainer{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: rgb(217, 255, 0);
+  background-color: rgba(44, 44, 44, 0.61);
   height: 70px;
   width: 100%;
-
+  padding: 10px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -69,11 +69,12 @@ code {
 .sidebarInput{
   width: 100%;
   background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  border-color: rgb(255, 255, 255);
 }
 
 .ChatHistoryText{
@@ -81,5 +82,15 @@ code {
   border: 0;
   margin: 0;
   margin-bottom: 0;
+  color: white;
+}
 
+.overrideStyle{
+  background-color:rgba(12, 3, 53, 0) !important; 
+  border-color: rgba(0, 0, 0, 0)!important; 
+}
+
+.imgClear{
+  background-color: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, 0);
 }
