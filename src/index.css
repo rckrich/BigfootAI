@@ -26,6 +26,7 @@ code {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 .ColumnContainer{
   display: flex;
@@ -40,6 +41,15 @@ code {
   background-color: rgba(49, 24, 24, 0.39);
   height: 100vh;
   width: 15vw;
+  
+}
+
+.sidebarContainerAni{
+  transition: 1s ease-in-out;
+  -webkit-transition: 1s ease-in-out;
+  -moz-transition: 1s ease-in-out;
+  -ms-transition: 1s ease-in-out;
+  -o-transition: 1s ease-in-out;
 }
 
 .ChatboxContainer{
@@ -47,8 +57,26 @@ code {
   flex-direction: column;
   align-items: flex-start;
   height: 100vh;
-  width: 85vw;
+  width: 100vw;
   background-color: rgba(47, 0, 255, 0.096);
+}
+
+.sidebarClosed{
+  display: flex;
+  flex-direction: column;
+  align-items: "center";
+  background-color: rgba(49, 24, 24, 0.39);
+  height: 100vh;
+  width: 40px;
+  
+}
+
+.sidebarClosedAni{
+  transition: .5s ease-in-out;
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -ms-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
 }
 
 .ChatHistoryPrefabContainer{
@@ -58,7 +86,16 @@ code {
   background-color: rgba(44, 44, 44, 0.61);
   height: 70px;
   width: 100%;
-  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.ChatHistoryPlaceHolderContainer{
+  height: 70px;
+  width: 100%;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -83,6 +120,12 @@ code {
   margin: 0;
   margin-bottom: 0;
   color: white;
+  font-size: 1vw;
+}
+
+.TitleText{
+  font-size: 1.5vw;
+  color: white;
 }
 
 .overrideStyle{
@@ -93,4 +136,23 @@ code {
 .imgClear{
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0);
+}
+
+.placeHolderOverride{
+  height: 100% !important;
+  width: 100% !important;
+  
+}
+
+.placeHolderOverrideChat{
+  height: 100% !important;
+  width: 100% !important;
+  position: relative;
+  right: 10px;
+}
+.messagePlaceHolderContainer{
+  padding-top: 10px;
+  width: 200px;
+  height: 50px;
+  overflow: hidden;
 }
