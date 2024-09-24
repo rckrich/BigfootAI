@@ -39,7 +39,7 @@ code {
   flex-direction: column;
   align-items: flex-start;
   background-color: rgba(49, 24, 24, 0.39);
-  height: 100vh;
+  height: 95vh;
   width: 15vw;
   
 }
@@ -136,6 +136,12 @@ code {
 .imgClear{
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0);
+  display: flex;
+}
+
+.CreateNewChatText{
+  color: white;
+  margin-bottom: 0;
 }
 
 .placeHolderOverride{
@@ -155,4 +161,16 @@ code {
   width: 200px;
   height: 50px;
   overflow: hidden;
+}
+
+
+.cs-message--incoming .cs-message__content {
+  background-color: rgba(60, 106, 255, 0.582) !important;
+}
+.cs-message__content{
+  background-color: rgba(12, 185, 70, 0.582) !important;
+}
+
+.cs-message__html-content{
+  color: white;
 }

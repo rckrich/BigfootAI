@@ -19,7 +19,7 @@ export const ChatBox = () => {
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyle">
                 <MessageList className="overrideStyle">
-                    <Message
+                    <Message 
                     model={{
                         message: "Hello my friend",
                         sentTime: "just now",
@@ -38,7 +38,7 @@ export const ChatBox = () => {
                     <MessagePlaceHolder></MessagePlaceHolder>
 
                 </MessageList>
-                <MessageInput placeholder="Type message here" className="overrideStyle" />
+                <MessageInput placeholder="Type message here" className="overrideStyle" attachButton={false} />
                 </ChatContainer>
             </MainContainer>
             </div>

@@ -6,7 +6,7 @@ export const ChatHistoryPlaceholder = () => {
             <div className="ChatHistoryPlaceHolderContainer">
                 <Placeholder as="p" animation="glow" className="placeHolderOverride">
                 <Placeholder className="placeHolderOverride" bg="dark"/>
-
+                
                 </Placeholder>
 
 
