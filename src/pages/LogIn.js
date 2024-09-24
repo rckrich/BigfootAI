@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const LogIn = () => {
 
@@ -7,6 +8,8 @@ export const LogIn = () => {
     const gotToNewPage=()=>{
         navigate("/home");
     }
+
+    const [errorMessage, setErrorMessage] = useState(true)
 
     return (
         <div style={{display:"flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center"}}>
@@ -31,14 +34,11 @@ export const LogIn = () => {
                         </svg>
                     </span>
                     </div>
+                    {errorMessage ? <div><p className="errorMessage">Check your password or account</p></div> : null}
                     <button class="submit" onClick={() => gotToNewPage()} href="/home"> 
                     Sign in
                 </button>
 
-                <p class="signup-link">
-                    No account?
-                    <a href="/home">Sign up</a>
-                </p>
             </form>
 
         </div>

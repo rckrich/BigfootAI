@@ -38,7 +38,7 @@ export const ChatBox = () => {
                     <MessagePlaceHolder></MessagePlaceHolder>
 
                 </MessageList>
-                <MessageInput placeholder="Type message here" className="overrideStyle" attachButton={false} />
+                <MessageInput placeholder="Type message here" className="overrideStyle" attachButton={false} fancyScroll={false} />
                 </ChatContainer>
             </MainContainer>
             </div>

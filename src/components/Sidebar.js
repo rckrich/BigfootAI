@@ -25,7 +25,14 @@ export const Sidebar = () => {
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 <ChatHistoryPlaceholder></ChatHistoryPlaceholder>
-
+                <ChatHistoryPrefab></ChatHistoryPrefab>
+                <ChatHistoryPrefab></ChatHistoryPrefab>
+                <ChatHistoryPrefab></ChatHistoryPrefab>
+                <ChatHistoryPrefab></ChatHistoryPrefab>
+                <ChatHistoryPrefab></ChatHistoryPrefab>
+                <ChatHistoryPrefab></ChatHistoryPrefab>
+                <ChatHistoryPrefab></ChatHistoryPrefab>
+                <ChatHistoryPrefab></ChatHistoryPrefab>
                 </div>
                 <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", }}>
                     <button className= "imgClear"> <p className="CreateNewChatText">CREAR NUEVO CHAT</p> <img src={add}></img></button>

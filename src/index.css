@@ -41,7 +41,8 @@ code {
   background-color: rgba(49, 24, 24, 0.39);
   height: 95vh;
   width: 15vw;
-  
+  flex-wrap:  nowrap;
+  overflow-y: scroll;
 }
 
 .sidebarContainerAni{
@@ -173,4 +174,10 @@ code {
 
 .cs-message__html-content{
   color: white;
+}
+
+.errorMessage{
+  color: red;
+  text-align: center;
+  font-size: .8vw;
 }
