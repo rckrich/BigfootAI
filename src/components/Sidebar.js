@@ -31,8 +31,6 @@ export const Sidebar = () => {
         <>
         {isOpen ?
             <div className="ColumnContainer" style={{justifyContent: "flex-start"}}>
-                <div className="sidebarContainer">
-
                 <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", paddingTop: "10px"}}>
                     <button className= "imgClear" onClick={toggleDropdown} ref={botonRef}> <img src={account} alt="sidebar"></img>
                     </button>
@@ -51,6 +49,9 @@ export const Sidebar = () => {
                     <h3 className="TitleText">John Smith</h3>
                     <img src= {sidebar} alt="sidebar"  onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
+                <div className="sidebarContainer">
+
+                
 
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 <ChatHistoryPlaceholder></ChatHistoryPlaceholder>
