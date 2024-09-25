@@ -4,9 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from './pages/Home';
 import { LogIn } from './pages/LogIn';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-
+import React, { useContext } from "react";
+import { ElementContextPopUp } from "./context/PopUpContext";
+import { PopUpPrefab } from "./components/PopUpPrefab";
 function App() {
+
+  const { value } = useContext(ElementContextPopUp);
+
   return (
+    <>
     <div className="Appcontainer">
       <Router>
         <Routes>
@@ -15,8 +21,12 @@ function App() {
         </Routes>
         
       </Router>
-
+      
+    
     </div>
+    {value === "" ? null : <PopUpPrefab identifier={"edit"}></PopUpPrefab>}
+    </>
+    
   );
 }
 
