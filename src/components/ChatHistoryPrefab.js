@@ -22,6 +22,10 @@ export const ChatHistoryPrefab = () => {
         changeValuePopUP("eliminate");
     } 
 
+    const handleClickEdit = () => {
+        changeValuePopUP("edit");
+    } 
+
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
         return () => {
@@ -44,8 +48,8 @@ export const ChatHistoryPrefab = () => {
                     {isClicked && (
                         <div className="dropdown-menu show" style={{
                             position: "absolute",
-                            top: "50px",
-                            left: "25px",
+                            top: "30px",
+                            left: "90px",
                             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                             width: "10px",
                             maxWidth: "10px",
@@ -56,7 +60,7 @@ export const ChatHistoryPrefab = () => {
                             justifyContent: "center",
                             alignItems: "center",
                         }}>
-                            <button className="dropdown-item" >
+                            <button className="dropdown-item" onClick={handleClickEdit} >
                                 Editar
                             </button>
                             <button className="dropdown-item" onClick={handleClickDelete}>

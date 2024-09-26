@@ -1,29 +1,28 @@
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import {MainContainer, ChatContainer, MessageList, Message, MessageInput, MessageTextContent } from "@chatscope/chat-ui-kit-react";
+import {MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from "@chatscope/chat-ui-kit-react";
 import { MessagePlaceHolder } from "./MessagePlaceHolder";
 import { ElementContextThread } from "../context/ThreadContext";
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 
 export const ChatBox = () => {
 
     const { Active } = useContext(ElementContextThread);
     const [UserMessage, setUserMessage] = useState("Hello what can you do");
+    const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
     const assistant_id = "asst_My2L0JuJiUoSQPQItZS9llpc";
 
     useEffect(() => {
-        
-
         fetchMessages();
-
-        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const handleMessageToThread =( ) => {
         if(UserMessage === ""){
             
         }else{
+            setWaiting(true);
             fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
                 method: 'POST',
                 headers: {
@@ -37,6 +36,7 @@ export const ChatBox = () => {
                     "content": `${UserMessage}`
                 })
               })
+              .then(response => response.json()) 
                 .then(data => handleRun())
         
                 .catch(error => console.error('Error:', error));
@@ -57,12 +57,16 @@ export const ChatBox = () => {
             })
           })
           .then(response => response.json()) 
-            .then(data => checkRunStatus(data.id))
+            .then(data => {
+
+                checkRunStatus(data.id)
+            })
     
             .catch(error => console.error('Error:', error));
     }
 
     const checkRunStatus = (runId) => {
+        console.log(runId);
         const interval = setInterval(() => {
             fetch(`https://api.openai.com/v1/threads/thread_abc123/runs/${runId}/status`, {
                 method: 'GET',
@@ -75,6 +79,7 @@ export const ChatBox = () => {
                 .then(response => response.json())
                 .then(data => {
                     if(data.status === undefined) {
+                        setWaiting(false);
                         clearInterval(interval);  
                     }
                     if (data.status === 'completed') {
@@ -128,8 +133,9 @@ export const ChatBox = () => {
                             direction: "incoming"
                         }}></Message> }</>
                     ))}</> : null}
-
+                    {waiting === true ? <TypingIndicator className="typingOverride" content="Assistant is thinking" /> : <></>}
                 </MessageList>
+
                 <MessageInput onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyle" attachButton={false} fancyScroll={false} />
                 </ChatContainer>
             </MainContainer>

@@ -32,7 +32,7 @@ export const Sidebar = () => {
         <>
         {isOpen ?
             <div className="ColumnContainer" style={{justifyContent: "flex-start",}}>
-                <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", paddingTop: "10px"}}>
+                <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", paddingTop: "10px", alignItems: "center"}}>
                     <button className= "imgClear" onClick={toggleDropdown} ref={botonRef}> <img src={account} alt="sidebar"></img>
                     </button>
                     {isDisplay && (
