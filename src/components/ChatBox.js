@@ -15,11 +15,10 @@ export const ChatBox = () => {
         <div className="ChatboxContainer">
             <h3 style={{textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "rgba(49, 24, 24, 0.69)"}} className="TitleText">Tiktok Trends 2024</h3>
             <div style={{ position: "relative", height: "100%", width: "100%" }}>
-            
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyle">
                 <MessageList className="overrideStyle">
-                    <Message 
+                    <Message
                     model={{
                         message: "Hello my friend",
                         sentTime: "just now",
@@ -27,14 +26,14 @@ export const ChatBox = () => {
                     }}
                     />
 
-                    <Message 
+                    <Message
                     model={{
                         message: "bla bla",
                         sentTime: "just now",
                         sender: "pepe",
                         direction: "incoming",
                     }}
-                    />  
+                    />
                     <MessagePlaceHolder></MessagePlaceHolder>
 
                 </MessageList>

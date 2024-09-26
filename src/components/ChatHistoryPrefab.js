@@ -30,7 +30,6 @@ export const ChatHistoryPrefab = () => {
                     </div>
 
                     <button className= "imgClear" onClick={handleClick} ref={botonRef}>
-                    
                         <img src={more} alt="more"  style={{paddingRight: "10px"}}/>
                     </button>
                     {isClicked && (

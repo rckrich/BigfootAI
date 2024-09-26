@@ -1,13 +1,20 @@
 import { ChatHistoryPrefab } from "./ChatHistoryPrefab"
 import { ChatHistoryPlaceholder } from "./ChatHistoryPlaceHolder"
+import axios from 'axios';
 import add from "../img/add.svg"
 import account from "../img/account.svg";
 import sidebar from "../img/sidebar.svg";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { AssistantManager } from "./assistant_manager";
+
+let assistant_manager;
+let UpdateChatLog;
 export const Sidebar = () => {
     const[isOpen, setIsOpen] = useState(true)
     const[isDisplay, setIsDisplay] = useState(false)
+    const [response, setResponse] = useState('');
+    const [loading, setLoading] = useState(false);
     const botonRef = useRef(null);
     const navigate = useNavigate()
     const toggleDropdown = () => {
@@ -27,6 +34,37 @@ export const Sidebar = () => {
           document.removeEventListener('click', handleClickOutside);
         };
       }, []);
+    const handleClick = async () => {
+        setLoading(true);
+        console.log("AAAAA");
+        try{
+            assistant_manager = new AssistantManager();
+            console.log(assistant_manager.assistant.id);
+
+            await assistant_manager.initialize("gpt-4o");
+            if(assistant_manager.thread === null){
+                await assistant_manager.create_thread();
+                console.log(assistant_manager.thread.id);
+            }
+
+            await assistant_manager.add_message_to_thread(
+                "user",
+                "Explicame que puedes hacer"
+            )
+
+            await assistant_manager.run_assistant();
+
+            await assistant_manager.wait_for_completion();
+
+            let last_message = await assistant_manager.process_message();
+            UpdateChatLog(last_message);
+
+            await assistant_manager.run_steps();
+        }catch(error)
+        {
+            console.log(error);
+        }
+      };
     return (
         <>
         {isOpen ?
@@ -51,8 +89,6 @@ export const Sidebar = () => {
                 </div>
                 <div className="sidebarContainer">
 
-                
-
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 <ChatHistoryPlaceholder></ChatHistoryPlaceholder>
                 <ChatHistoryPrefab></ChatHistoryPrefab>
@@ -68,7 +104,7 @@ export const Sidebar = () => {
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 </div>
                 <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", }}>
-                    <button className= "imgClear"> <p className="CreateNewChatText">CREAR NUEVO CHAT</p> <img src={add}></img></button>
+                    <button className= "imgClear" onClick={handleClick}> <p className="CreateNewChatText">CREAR NUEVO CHAT</p> <img src={add}></img></button>
                 </div>
 
             </div>
