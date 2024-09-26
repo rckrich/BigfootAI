@@ -24,7 +24,7 @@ function App() {
       
     
     </div>
-    {value === "" ? null : <PopUpPrefab identifier={"edit"}></PopUpPrefab>}
+    {value === "" ? null : <PopUpPrefab identifier={value}></PopUpPrefab>}
     </>
     
   );

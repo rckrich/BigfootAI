@@ -1,6 +1,9 @@
 import more from "../img/more.svg";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { ElementContextPopUp } from "../context/PopUpContext";
 export const ChatHistoryPrefab = () => {
+
+    const { changeValuePopUP } = useContext(ElementContextPopUp);
     const [isClicked, setIsClicked] = useState(false);
     const botonRef = useRef(null);
     const handleClickOutside = (event) => {
@@ -14,6 +17,11 @@ export const ChatHistoryPrefab = () => {
         }
         setIsClicked(!isClicked);
     };
+
+    const handleClickDelete = () => {
+        changeValuePopUP("eliminate");
+    } 
+
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
         return () => {
@@ -51,7 +59,7 @@ export const ChatHistoryPrefab = () => {
                             <button className="dropdown-item" >
                                 Editar
                             </button>
-                            <button className="dropdown-item">
+                            <button className="dropdown-item" onClick={handleClickDelete}>
                                 Eliminar
                             </button>
                         </div>

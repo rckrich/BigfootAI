@@ -6,11 +6,53 @@ import { ElementContextThread } from "../context/ThreadContext";
 export const PopUpPrefab = ({identifier}) => {
 
   const { changeValuePopUP } = useContext(ElementContextPopUp);
-  const { value } = useContext(ElementContextThread);
-  
+  const { changeActive, value } = useContext(ElementContextThread);
   const handleInputChange = () => {
     changeValuePopUP("");
   };
+  console.log(identifier);
+
+
+  const apiKey = "";
+
+  const handleNewThread =( ) => {
+      fetch('https://api.openai.com/v1/threads', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,  
+            'Content-Type': 'application/json',
+            'OpenAI-Beta' : 'assistants=v2'    
+          },
+          body: JSON.stringify({
+            
+          })
+        })
+          .then(response => response.json())
+          .then(data => changeActive(data.id))
+          .then(data => console.log(data))
+  
+          .catch(error => console.error('Error:', error));
+        changeValuePopUP("");
+  }
+
+  const handleEliminateThread =( ) => {
+    fetch(`https://api.openai.com/v1/threads/${value}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,  
+        'Content-Type': 'application/json',
+        'OpenAI-Beta' : 'assistants=v2'    
+      },
+      body: JSON.stringify({
+        
+      })
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+
+      .catch(error => console.error('Error:', error));
+    changeValuePopUP("");
+  }
 
   if(identifier === "new") {
     return (
@@ -37,7 +79,7 @@ export const PopUpPrefab = ({identifier}) => {
           <button
             className="styleButtonPopUpDesktop"
             onClick={() => {
-              handleInputChange();
+              handleNewThread();
             }}
           >
             <h3 style={{ color: "white" }}>Aceptar</h3>
@@ -67,7 +109,7 @@ export const PopUpPrefab = ({identifier}) => {
           <button
             className="styleCancelButtonPopUpDesktop"
             onClick={() => {
-              handleInputChange();
+              handleEliminateThread();
             }}
           >
             <h3 style={{ color: "white" }}>Eliminar</h3>

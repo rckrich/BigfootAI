@@ -1,10 +1,11 @@
 import { ChatHistoryPrefab } from "./ChatHistoryPrefab"
 import { ChatHistoryPlaceholder } from "./ChatHistoryPlaceHolder"
-import add from "../img/add.svg"
+
 import account from "../img/account.svg";
 import sidebar from "../img/sidebar.svg";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import{ CreateChat} from "./CreateChat"
 export const Sidebar = () => {
     const[isOpen, setIsOpen] = useState(true)
     const[isDisplay, setIsDisplay] = useState(false)
@@ -67,10 +68,7 @@ export const Sidebar = () => {
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 </div>
-                <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", }}>
-                    <button className= "imgClear"> <p className="CreateNewChatText">CREAR NUEVO CHAT</p> <img src={add}></img></button>
-                </div>
-
+                <CreateChat></CreateChat>
             </div>
 
          : <div className="sidebarClosed">
