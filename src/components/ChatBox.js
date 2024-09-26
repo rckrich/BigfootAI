@@ -22,6 +22,11 @@ export const ChatBox = () => {
         if(UserMessage === ""){
             
         }else{
+
+
+
+
+
             setWaiting(true);
             fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
                 method: 'POST',
@@ -68,7 +73,7 @@ export const ChatBox = () => {
     const checkRunStatus = (runId) => {
         console.log(runId);
         const interval = setInterval(() => {
-            fetch(`https://api.openai.com/v1/threads/thread_abc123/runs/${runId}/status`, {
+            fetch(`https://api.openai.com/v1/threads/${Active}/runs/${runId}/status`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
@@ -133,7 +138,7 @@ export const ChatBox = () => {
                             direction: "incoming"
                         }}></Message> }</>
                     ))}</> : null}
-                    {waiting === true ? <TypingIndicator className="typingOverride" content="Assistant is thinking" /> : <></>}
+                    {waiting === false ? <TypingIndicator className="typingOverride" content="Assistant is thinking" /> : <></>}
                 </MessageList>
 
                 <MessageInput onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyle" attachButton={false} fancyScroll={false} />
