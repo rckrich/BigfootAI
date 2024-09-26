@@ -12,7 +12,7 @@ export const CreateChat = () => {
 
 
     return (
-        <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", }}>
+        <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", height: "100%", alignItems: "center" }}>
                     <button className= "imgClear" onClick={handleClick}> <p className="CreateNewChatText">CREAR NUEVO CHAT</p> <img src={add}></img></button>
         </div>
     )

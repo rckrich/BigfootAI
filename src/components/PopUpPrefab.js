@@ -13,13 +13,11 @@ export const PopUpPrefab = ({identifier}) => {
   console.log(identifier);
 
 
-  const apiKey = "";
-
   const handleNewThread =( ) => {
       fetch('https://api.openai.com/v1/threads', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${apiKey}`,  
+            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,  
             'Content-Type': 'application/json',
             'OpenAI-Beta' : 'assistants=v2'    
           },
@@ -39,7 +37,7 @@ export const PopUpPrefab = ({identifier}) => {
     fetch(`https://api.openai.com/v1/threads/${value}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,  
+        'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,  
         'Content-Type': 'application/json',
         'OpenAI-Beta' : 'assistants=v2'    
       },

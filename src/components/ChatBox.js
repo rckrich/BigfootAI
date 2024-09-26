@@ -9,16 +9,14 @@ export const ChatBox = () => {
 
     const { Active } = useContext(ElementContextThread);
     const [UserMessage, setUserMessage] = useState("Hello what can you do");
-    const [checkRun, setCheckRun] = useState(false);
     const [messages, setMessages] = useState([]);
-    const apiKey = "";
     const assistant_id = "asst_My2L0JuJiUoSQPQItZS9llpc";
 
-    console.log(Active);
     useEffect(() => {
         
-        console.log("uwu");
-        handleMessageToThread();
+
+        fetchMessages();
+
         
     },[])
 
@@ -29,7 +27,7 @@ export const ChatBox = () => {
             fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
                 method: 'POST',
                 headers: {
-                  'Authorization': `Bearer ${apiKey}`,  
+                  'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,  
                   'Content-Type': 'application/json',
                   'OpenAI-Beta' : 'assistants=v2',
                  
@@ -39,9 +37,7 @@ export const ChatBox = () => {
                     "content": `${UserMessage}`
                 })
               })
-                .then(response => console.log(response.json()))
                 .then(data => handleRun())
-                .then(data => console.log(data))
         
                 .catch(error => console.error('Error:', error));
         }
@@ -52,7 +48,7 @@ export const ChatBox = () => {
         fetch(`https://api.openai.com/v1/threads/${Active}/runs`, {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${apiKey}`,  
+              'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,  
               'Content-Type': 'application/json',
               'OpenAI-Beta' : 'assistants=v2',
             },
@@ -60,9 +56,8 @@ export const ChatBox = () => {
                 "assistant_id" : `${assistant_id}`
             })
           })
-            .then(response => console.log(response.json()))
-            .then(data => checkRunStatus(data.run_id))
-            .then(data => console.log(data))
+          .then(response => response.json()) 
+            .then(data => checkRunStatus(data.id))
     
             .catch(error => console.error('Error:', error));
     }
@@ -72,7 +67,7 @@ export const ChatBox = () => {
             fetch(`https://api.openai.com/v1/threads/thread_abc123/runs/${runId}/status`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${apiKey}`,
+                    'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
                     'Content-Type': 'application/json',
                     'OpenAI-Beta': 'assistants=v2',
                 }
@@ -87,7 +82,6 @@ export const ChatBox = () => {
                         fetchMessages();  
                     } else {
                         
-                        console.log('Run status:', data.status);
                     }
                 })
                 .catch(error => {
@@ -101,17 +95,18 @@ export const ChatBox = () => {
         fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${apiKey}`,
+                'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
                 'Content-Type': 'application/json',
                 'OpenAI-Beta': 'assistants=v2',
             }
         })
-            .then(response => response.json())
+        .then(response => response.json()) 
             .then(data => {
-                setMessages(data.messages);  
-                console.log('Messages fetched:', data.messages);
+                setMessages(data.data.reverse());
+                console.log(messages);
             })
             .catch(error => console.error('Error fetching messages:', error));
+        
     }
 
     return (
@@ -121,24 +116,18 @@ export const ChatBox = () => {
             
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyle">
-                <MessageList className="overrideStyle"> 
-                    <Message 
-                    model={{
-                        message: "Hello my friend",
-                        sentTime: "just now",
-                        sender: "Joe",
-                    }}
-                    />
-
-                    <Message 
-                    model={{
-                        message: "bla bla",
-                        sentTime: "just now",
-                        sender: "pepe",
-                        direction: "incoming",
-                    }}
-                    />  
-                    <MessagePlaceHolder></MessagePlaceHolder>
+                <MessageList className="overrideStyleMessageList" > 
+                {messages !== <></> ? <>{messages.map(item => (
+                        <>{item.role === "user" ? <Message key={item.id} model={{
+                            message: item.content[0].text.value,
+                            sender: item.role,
+                            direction: "outgoing"
+                        }}></Message> : <Message model={{
+                            message: item.content[0].text.value,
+                            sender: item.role,
+                            direction: "incoming"
+                        }}></Message> }</>
+                    ))}</> : null}
 
                 </MessageList>
                 <MessageInput onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyle" attachButton={false} fancyScroll={false} />

@@ -27,6 +27,7 @@ code {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  align-items: flex-start;
 }
 .ColumnContainer{
   display: flex;
@@ -39,7 +40,7 @@ code {
   flex-direction: column;
   align-items: flex-start;
   background-color: rgba(49, 24, 24, 0.39);
-  height: 90vh;
+  height: 86vh;
   width: 15vw;
   flex-wrap:  nowrap;
   overflow-y: scroll;
@@ -57,9 +58,8 @@ code {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
-  background-color: rgba(47, 0, 255, 0.096);
 }
 
 .sidebarClosed{
@@ -132,6 +132,11 @@ code {
 .overrideStyle{
   background-color:rgba(12, 3, 53, 0) !important; 
   border-color: rgba(0, 0, 0, 0)!important; 
+}
+.overrideStyleMessageList{
+  background-color: rgba(47, 0, 255, 0.096)!important; 
+  border-color: rgba(0, 0, 0, 0)!important; 
+  
 }
 
 .imgClear{
