@@ -10,7 +10,7 @@ import { Await } from "react-router-dom";
 export const ChatBox = () => {
 
     const { Active } = useContext(ElementContextThread);
-    const [UserMessage, setUserMessage] = useState("asdfasdf");
+    const [UserMessage, setUserMessage] = useState("");
     const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
     const assistant_id = "asst_My2L0JuJiUoSQPQItZS9llpc";
@@ -21,7 +21,6 @@ export const ChatBox = () => {
         fetchMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-
 
     const handleMessageToThread =( ) => {
         if(UserMessage === ""){
@@ -139,8 +138,17 @@ export const ChatBox = () => {
             for (let index = 0; index < messages.length; index++) {
 
                 if(index === messages.length - 1 && newMessageToType) {
-                    let helper = messages[index].content[0].text.value;
-                    messageList.push(<TypingAni WordToType={{helper}}></TypingAni>)
+                    if(messages[index].role === "user"){
+                        messageList.push(<Message key={messages[index].id} model={{
+                            message: messages[index].content[0].text.value,
+                            sender: messages[index].role,
+                            direction: "outgoing"
+                        }}></Message>)
+                    }else{
+                        let helper = messages[index].content[0].text.value;
+                        messageList.push(<TypingAni WordToType={{helper}}></TypingAni>)
+                    }
+                    
                 }else{
                     if(messages[index].role === "user"){
                         messageList.push(<Message key={messages[index].id} model={{

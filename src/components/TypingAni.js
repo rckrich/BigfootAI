@@ -7,7 +7,7 @@ export const TypingAni = ({WordToType}) => {
     const [value, setValue] = useState("");
     const [count, setCount] = useState(0);
     
-    const str = JSON.stringify(WordToType.helper);
+    const str = WordToType.helper;
 
     useEffect(() => { 
         if(str === value){
@@ -20,7 +20,7 @@ export const TypingAni = ({WordToType}) => {
                     setValue(value + str[index])
                 }
             }
-        }, 50)
+        }, 20)
         
     })
 
