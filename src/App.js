@@ -7,6 +7,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import React, { useContext } from "react";
 import { ElementContextPopUp } from "./context/PopUpContext";
 import { PopUpPrefab } from "./components/PopUpPrefab";
+import { Test } from "./pages/Test";
 function App() {
 
   const { value } = useContext(ElementContextPopUp);
@@ -16,7 +17,7 @@ function App() {
     <div className="Appcontainer">
       <Router>
         <Routes>
-          <Route path= "" element={<LogIn></LogIn>}/>
+          <Route path= "" element={<Test></Test>}/>
           <Route path= "home" element={<Home></Home>}/>
         </Routes>
         

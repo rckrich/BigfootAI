@@ -3,33 +3,26 @@ import {MainContainer, ChatContainer, MessageList, Message, MessageInput, Typing
 import { MessagePlaceHolder } from "./MessagePlaceHolder";
 import { ElementContextThread } from "../context/ThreadContext";
 import React, { useState, useEffect, useContext } from 'react';
+import { TypingAni } from "./TypingAni";
+import { Await } from "react-router-dom";
 
 
 export const ChatBox = () => {
 
     const { Active } = useContext(ElementContextThread);
-    const [UserMessage, setUserMessage] = useState("Hello what can you do");
+    const [UserMessage, setUserMessage] = useState("asdfasdf");
     const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
     const assistant_id = "asst_My2L0JuJiUoSQPQItZS9llpc";
-    const [pendingMessage, setPendingMessage] = useState(null);
-    
+    const [newMessageToType, setnewMessageToType] = useState();
+    let messageList = [];
+
     useEffect(() => {
         fetchMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    const typeAssistantMessage = (messageContent, callback) => {
-        let currentIndex = 0;
-        let typingMessage = "";
-        const typingInterval = setInterval(() => {
-            typingMessage += messageContent[currentIndex];
-            currentIndex++;
-            callback(typingMessage);
-            if (currentIndex === messageContent.length) {
-                clearInterval(typingInterval);
-            }
-        }, 50);
-    }
+
+
     const handleMessageToThread =( ) => {
         if(UserMessage === ""){
            return;
@@ -41,9 +34,9 @@ export const ChatBox = () => {
                 role: "user",
                 content: [{ text: { value: UserMessage } }]
             };
-            setMessages((prevMessages) => [newUserMessage, ...prevMessages]);
+            setMessages(prevMessages => [...prevMessages, newUserMessage]);
+
             setUserMessage("");
-            fetchMessages(newUserMessage);
             setWaiting(true);
             fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
                 method: 'POST',
@@ -86,9 +79,9 @@ export const ChatBox = () => {
     }
 
     const checkRunStatus = (runId) => {
-        console.log(runId);
+
         const interval = setInterval(() => {
-            fetch(`https://api.openai.com/v1/threads/${Active}/runs/${runId}/`, {
+            fetch(`https://api.openai.com/v1/threads/${Active}/runs/${runId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
@@ -99,31 +92,15 @@ export const ChatBox = () => {
                 .then(response => response.json())
                 .then(data => {
                     if(data.status === undefined) {
+                        setnewMessageToType(false);
                         setWaiting(false);
                         clearInterval(interval);
                     }
                     if (data.status === 'completed') {
+                        setnewMessageToType(true);
                         clearInterval(interval);
-                        fetchMessages().then((fetchMessages) => {
-                            const assistantMessage = fetchMessages.find(
-                                msg => msg.role === "assistant"
-                            );
-                            if (assistantMessage) {
-                                typeAssistantMessage(
-                                    assistantMessage.content[0].text.value,
-                                    (partialMessage)=> {
-                                        const updatedMessage ={
-                                            ...assistantMessage,
-                                            content: [{text: {value: partialMessage}}]
-                                        };
-                                        setMessages(prevMessages => [
-                                            updatedMessage,
-                                            ...prevMessages.filter(msg => msg.id != assistantMessage.id)
-                                        ])
-                                    }
-                                )
-                            }
-                        });
+                        setWaiting(false);
+                        fetchMessages();
                     } else {
 
                     }
@@ -146,10 +123,43 @@ export const ChatBox = () => {
         })
         .then(response => response.json())
             .then(data => {
-                setMessages(data.data.reverse());
-                console.log(messages);
+
+                if(data.length !== 0){
+                    
+                    setMessages(data.data.reverse());
+                }
+                
             })
             .catch(error => console.error('Error fetching messages:', error));
+    }
+
+    if(true){
+        messageList.push(<></>)
+        if(messages !== undefined){
+            for (let index = 0; index < messages.length; index++) {
+
+                if(index === messages.length - 1 && newMessageToType) {
+                    let helper = messages[index].content[0].text.value;
+                    messageList.push(<TypingAni WordToType={{helper}}></TypingAni>)
+                }else{
+                    if(messages[index].role === "user"){
+                        messageList.push(<Message key={messages[index].id} model={{
+                            message: messages[index].content[0].text.value,
+                            sender: messages[index].role,
+                            direction: "outgoing"
+                        }}></Message>)
+                    }
+                    if(messages[index].role === "assistant"){
+                        messageList.push(<Message key={messages[index].id} model={{
+                            message: messages[index].content[0].text.value,
+                            sender: messages[index].role,
+                            direction: "incoming"
+                        }}></Message>)
+                    }
+                }
+            }
+        }
+
     }
 
     return (
@@ -159,18 +169,8 @@ export const ChatBox = () => {
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyle">
                 <MessageList className="overrideStyleMessageList" >
-                {messages !== <></> ? <>{messages.map(item => (
-                        <>{item.role === "user" ? <Message key={item.id} model={{
-                            message: item.content[0].text.value,
-                            sender: item.role,
-                            direction: "outgoing"
-                        }}></Message> : <Message model={{
-                            message: item.content[0].text.value,
-                            sender: item.role,
-                            direction: "incoming"
-                        }}></Message> }</>
-                    ))}</> : null}
-                    {waiting === false ? <TypingIndicator className="typingOverride" content="Assistant is thinking" /> : <></>}
+                    <>{messageList}</>
+                    {waiting === true ? <TypingIndicator className="typingOverride" content="Assistant is thinking" /> : <></>}
                 </MessageList>
 
                 <MessageInput onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyle" attachButton={false} fancyScroll={false} />
