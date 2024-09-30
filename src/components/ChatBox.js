@@ -18,7 +18,6 @@ export const ChatBox = () => {
     let messageList = [];
 
     useEffect(() => {
-        console.log(messages);
         fetchMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -141,8 +140,6 @@ export const ChatBox = () => {
     function formatText(text) {
         let helper = text;
         helper.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') 
-        //text.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') 
-        //console.log(text.content[0].text.value);
         return helper;
     }
 
