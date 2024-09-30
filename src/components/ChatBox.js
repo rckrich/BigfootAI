@@ -18,6 +18,7 @@ export const ChatBox = () => {
     let messageList = [];
 
     useEffect(() => {
+        console.log(messages);
         fetchMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -124,16 +125,32 @@ export const ChatBox = () => {
             .then(data => {
 
                 if(data.length !== 0){
-                    
-                    setMessages(data.data.reverse());
+                    formatArrayText(data.data.reverse());
+
                 }
                 
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
+    const formatArrayText = (text) => {
+        for (let index = 0; index < text.length; index++) {
+            setMessages(prevMessages => [...prevMessages, formatText(text[index])]);
+        }
+      };
+
+    function formatText(text) {
+        let helper = text;
+        helper.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') 
+        //text.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') 
+        //console.log(text.content[0].text.value);
+        return helper;
+    }
 
     if(true){
         messageList.push(<></>)
+        for (let index = 0; index < messages.length; index++) {
+
+        }
         if(messages !== undefined){
             for (let index = 0; index < messages.length; index++) {
 
