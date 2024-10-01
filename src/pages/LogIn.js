@@ -13,11 +13,11 @@ export const LogIn = () => {
 
     return (
         <div style={{display:"flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center"}}>
-            
                 <form class="form">
-                <p class="form-title">Sign in to your account</p>
+                <p class="form-title">Bienvenido</p>
+                    <p class="form-text">Inicia sesión en tu cuenta</p>
                     <div class="input-container">
-                    <input placeholder="Enter email" type="email"/>
+                    <input placeholder="Introducir correo electrónico" type="email"/>
                     <span>
                         <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
@@ -25,7 +25,7 @@ export const LogIn = () => {
                     </span>
                 </div>
                 <div class="input-container">
-                    <input placeholder="Enter password" type="password"/>
+                    <input placeholder="Introducir contraseña" type="password"/>
 
                     <span>
                         <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +36,7 @@ export const LogIn = () => {
                     </div>
                     {errorMessage ? <div><p className="errorMessage">Check your password or account</p></div> : null}
                     <button class="submit" onClick={() => gotToNewPage()} href="/home"> 
-                    Sign in
+                    Iniciar sesión
                 </button>
 
             </form>

@@ -43,7 +43,6 @@ export const ChatBox = () => {
             };
             setMessages((prevMessages) => [newUserMessage, ...prevMessages]);
             setUserMessage("");
-            fetchMessages(newUserMessage);
             setWaiting(true);
             fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
                 method: 'POST',
