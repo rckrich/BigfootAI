@@ -186,7 +186,7 @@ export const ChatBox = () => {
 
     return (
         <div className="ChatboxContainer">
-            <h3 style={{textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "rgba(49, 24, 24, 0.69)"}} className="TitleText">Tiktok Trends 2024</h3>
+            <h3 style={{textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">Tiktok Trends 2024</h3>
             <div style={{ position: "relative", height: "100%", width: "100%" }}>
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyle">
@@ -195,7 +195,7 @@ export const ChatBox = () => {
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Assistant is thinking" /> : <></>}
                 </MessageList>
 
-                <MessageInput onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyle" attachButton={false} fancyScroll={false} />
+                <MessageInput onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyle" attachButton={false} fancyScroll={false}/>
                 </ChatContainer>
             </MainContainer>
             </div>

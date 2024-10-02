@@ -36,20 +36,20 @@ export const ChatHistoryPrefab = () => {
         <div style={{paddingTop: "10px", width: "100%", paddingRight: "5px"}}>
             <div className="ChatHistoryPrefabContainer" style={{position: "relative"}}>
                 <div className="rowContainer" style={{justifyContent: "space-between", width: "100%", height:"100%", }}>
-                    <div className="ColumnContainer" style={{paddingLeft: "10px", paddingTop: "5px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
+                    <div className="ColumnContainer" style={{paddingLeft: "10px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
+                        <p className="ChatHistoryTime" style={{paddingBottom: "5px"}}>1 Month Ago</p>
                         <p className="ChatHistoryText">Tiktok Trends 2024</p>
-                        <p className="ChatHistoryText">1 Month Ago</p>
                     </div>
 
                     <button className= "imgClear" onClick={handleClick} ref={botonRef}>
                     
-                        <img src={more} alt="more"  style={{paddingRight: "10px"}}/>
+                        <img src={more} alt="more"  style={{paddingRight: "10px", paddingTop: "25px", width: "40px"}}/>
                     </button>
                     {isClicked && (
                         <div className="dropdown-menu show" style={{
                             position: "absolute",
-                            top: "30px",
-                            left: "90px",
+                            top: "60px",
+                            left: "85px",
                             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                             width: "10px",
                             maxWidth: "10px",

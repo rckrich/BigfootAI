@@ -31,15 +31,15 @@ export const Sidebar = () => {
     return (
         <>
         {isOpen ?
-            <div className="ColumnContainer" style={{justifyContent: "flex-start",}}>
-                <div className="rowContainer" style={{justifyContent: "space-evenly", width: "100%", paddingTop: "10px", alignItems: "center"}}>
-                    <button className= "imgClear" onClick={toggleDropdown} ref={botonRef}> <img src={account} alt="sidebar"></img>
+            <div className="ColumnContainer" style={{justifyContent: "flex-start", height: "100vh"}}>
+                <div className="rowContainer" style={{ width: "100%", paddingTop: "10px",alignItems: "center"}}>
+                    <button className= "imgClear" onClick={toggleDropdown} ref={botonRef}> <img src={account} alt="sidebar" style={{width: "50px"}}></img>
                     </button>
                     {isDisplay && (
                         <div className="dropdown-menu show" style = {{
                             position: "absolute",
-                            top: "40px",
-                            left: "15px",
+                            top: "65px",
+                            left: "20px",
                             zIndex: 1000,
                         }}>
                             <button className="dropdown-item" onClick={handleLogout} >
@@ -47,7 +47,7 @@ export const Sidebar = () => {
                             </button>
                         </div>
                     )}
-                    <h3 className="TitleText">John Smith</h3>
+                    <h3 className="TitleText" style={{paddingTop: "10px", paddingRight: "70px"}}>John Smith</h3>
                     <img src= {sidebar} alt="sidebar"  onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
                 <div className="sidebarContainer">
@@ -73,7 +73,7 @@ export const Sidebar = () => {
 
          : <div className="sidebarClosed">
 
-            <div className="rowContainer" style={{ paddingTop: "20px" }}>
+            <div className="rowContainer" style={{ paddingTop: "20px"}}>
 
              <img src= {sidebar} alt="sidebar"  onClick={()=> setIsOpen(!isOpen)}></img>
             </div>
