@@ -32,8 +32,8 @@ export const Sidebar = () => {
         <>
         {isOpen ?
             <div className="ColumnContainer" style={{justifyContent: "flex-start", height: "100vh"}}>
-                <div className="rowContainer" style={{ width: "100%", paddingTop: "10px",alignItems: "center"}}>
-                    <button className= "imgClear" onClick={toggleDropdown} ref={botonRef}> <img src={account} alt="sidebar" style={{width: "50px"}}></img>
+                <div className="rowContainer" style={{ width: "100%", paddingTop: "10px",alignItems: "center", justifyContent: "space-evenly"}}>
+                    <button className= "imgClear" onClick={toggleDropdown} ref={botonRef}> <img src={account} alt="sidebar" style={{width: "30px"}}></img>
                     </button>
                     {isDisplay && (
                         <div className="dropdown-menu show" style = {{
@@ -47,8 +47,8 @@ export const Sidebar = () => {
                             </button>
                         </div>
                     )}
-                    <h3 className="TitleText" style={{paddingTop: "10px", paddingRight: "70px"}}>John Smith</h3>
-                    <img src= {sidebar} alt="sidebar"  onClick={()=> setIsOpen(!isOpen)}></img>
+                    <h2 className="TitleText" style={{ textAlign: "center"}}>John Smith</h2>
+                    <img src= {sidebar} alt="sidebar" style={{width: "30px"}}  onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
                 <div className="sidebarContainer">
 
@@ -73,9 +73,9 @@ export const Sidebar = () => {
 
          : <div className="sidebarClosed">
 
-            <div className="rowContainer" style={{ paddingTop: "20px"}}>
+            <div className="rowContainer" style={{ paddingTop: "30px"}}>
 
-             <img src= {sidebar} alt="sidebar"  onClick={()=> setIsOpen(!isOpen)}></img>
+             <img src= {sidebar} alt="sidebar"style={{ width: "30px"}} onClick={()=> setIsOpen(!isOpen)}></img>
             </div>
 
          </div>
