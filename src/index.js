@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import { ElementProviderPopUp } from "./context/PopUpContext";
 import { ElementProviderThread } from "./context/ThreadContext";
+import { ElementProviderAccess } from "./context/AccessContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ElementProviderPopUp>
-<ElementProviderThread>
-      <App />
-</ElementProviderThread>
+    <ElementProviderThread>
+        <ElementProviderAccess>
+            <App />
+        </ElementProviderAccess>
+    </ElementProviderThread>
   </ElementProviderPopUp>
 );
 
