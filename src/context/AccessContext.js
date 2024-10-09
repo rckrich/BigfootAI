@@ -3,13 +3,13 @@ import React, { createContext, useState } from "react";
 const ElementContextAccess = createContext();
 
 const ElementProviderAccess= ({ children }) => {
-  const [value, setValue] = useState("");
-  const changeValueThread = (newValue) => {
-    setValue(newValue);
+  const [valueToken, setValueToken] = useState("");
+  const changeValueToken = (newValue) => {
+    setValueToken(newValue);
   };
 
   return (
-    <ElementContextAccess.Provider value={{ value, changeValueThread}}>
+    <ElementContextAccess.Provider value={{ valueToken, changeValueToken}}>
       {children}
     </ElementContextAccess.Provider>
   );

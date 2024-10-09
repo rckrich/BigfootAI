@@ -265,6 +265,20 @@ code {
   -o-border-radius: 5px;
 }
 
+.styleButtonPopUpLogin {
+  background-image: linear-gradient(rgb(127, 119, 240), rgb(222, 103, 238));
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.178);
+  border-color: rgba(255, 255, 255, 0);
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  min-height: 50px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
 .styleCancelButtonPopUpDesktop {
   background-image: linear-gradient(rgb(139, 14, 14), rgb(224, 52, 52));
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.178);

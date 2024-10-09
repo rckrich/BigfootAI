@@ -9,26 +9,25 @@ export const LogIn = () => {
     const inputRefPassword = useRef(null);
     const gotToNewPage= async ()=>{
         console.log("1");
-            if(inputRefEmail.current.value.trim() === "" && inputRefPassword.current.value.trim() === ""){
-                    try{
-                        const response = await fetch("http://165.22.178.7/api/v1/login",{
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                email: inputRefEmail.value,
-                                password: inputRefPassword.value,
-                            })
-                        });
-                        if(!response.ok){
-                            throw new Error("Error en la petición");
-                        }
-                        navigate("/home");
-                    }catch (error){
-                        console.log(error);
-                        setError(true);
-                    }
+        console.log(inputRefEmail.current.value);
+            if(inputRefEmail.current.value.trim() !== "" && inputRefPassword.current.value.trim() !== ""){
+                    
+                    const response = fetch("http://165.22.178.7/api/v1/login",{
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email: inputRefEmail.current.value,
+                            password: inputRefPassword.current.value,
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .then(data => navigate("/home"))
+                    .catch(error => console.error('Error:', error));
+
+                    
             }
     }
 
@@ -37,17 +36,17 @@ export const LogIn = () => {
 
     return (
         <div style={{display:"flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center"}}>
-                <form class="form">
+                <div class="form">
                 <p class="form-title">Bienvenido</p>
                     <p class="form-text">Inicia sesión en tu cuenta</p>
                     <div class="input-container">
-                    <input placeholder="Introducir correo electrónico" type="email" ref={inputRefEmail}/>
-                    <span>
-                        <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
-                        </svg>
-                    </span>
-                </div>
+                        <input placeholder="Introducir correo electrónico" type="email" ref={inputRefEmail}/>
+                        <span>
+                            <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                        </span>
+                    </div>
                 <div class="input-container">
                     <input placeholder="Introducir contraseña" type="password" ref={inputRefPassword}/>
 
@@ -59,11 +58,10 @@ export const LogIn = () => {
                     </span>
                     </div>
                     {errorMessage ? <div><p className="errorMessage">Check your password or account</p></div> : null}
-                    <button class="submit" onClick={() => gotToNewPage()} href="/home"> 
-                       Iniciar sesión
-                    </button>
+                    <button className="styleButtonPopUpLogin" onClick={() => gotToNewPage()}></button>
 
-            </form>
+
+                </div>
 
         </div>
     )
