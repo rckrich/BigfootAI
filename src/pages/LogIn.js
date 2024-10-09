@@ -1,13 +1,37 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const LogIn = () => {
 
-    const navigate = useNavigate()
-
-    const gotToNewPage=()=>{
-        navigate("/home");
+    const navigate = useNavigate();
+    const [error, setError] = useState(false);
+    const inputRefEmail = useRef(null);
+    const inputRefPassword = useRef(null);
+    const gotToNewPage= async ()=>{
+        console.log("1");
+            if(inputRefEmail.current.value.trim() === "" && inputRefPassword.current.value.trim() === ""){
+                    try{
+                        const response = await fetch("http://165.22.178.7/api/v1/login",{
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                email: inputRefEmail.value,
+                                password: inputRefPassword.value,
+                            })
+                        });
+                        if(!response.ok){
+                            throw new Error("Error en la petición");
+                        }
+                        navigate("/home");
+                    }catch (error){
+                        console.log(error);
+                        setError(true);
+                    }
+            }
     }
+
 
     const [errorMessage, setErrorMessage] = useState(true)
 
@@ -17,7 +41,7 @@ export const LogIn = () => {
                 <p class="form-title">Bienvenido</p>
                     <p class="form-text">Inicia sesión en tu cuenta</p>
                     <div class="input-container">
-                    <input placeholder="Introducir correo electrónico" type="email"/>
+                    <input placeholder="Introducir correo electrónico" type="email" ref={inputRefEmail}/>
                     <span>
                         <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
@@ -25,7 +49,7 @@ export const LogIn = () => {
                     </span>
                 </div>
                 <div class="input-container">
-                    <input placeholder="Introducir contraseña" type="password"/>
+                    <input placeholder="Introducir contraseña" type="password" ref={inputRefPassword}/>
 
                     <span>
                         <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,8 +60,8 @@ export const LogIn = () => {
                     </div>
                     {errorMessage ? <div><p className="errorMessage">Check your password or account</p></div> : null}
                     <button class="submit" onClick={() => gotToNewPage()} href="/home"> 
-                    Iniciar sesión
-                </button>
+                       Iniciar sesión
+                    </button>
 
             </form>
 
