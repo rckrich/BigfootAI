@@ -1,6 +1,6 @@
 import { ChatHistoryPrefab } from "./ChatHistoryPrefab"
 import { ChatHistoryPlaceholder } from "./ChatHistoryPlaceHolder"
-
+import more from "../img/more.svg";
 import account from "../img/account.svg";
 import sidebar from "../img/sidebar.svg";
 import { useNavigate } from "react-router-dom";
@@ -43,6 +43,7 @@ export const Sidebar = () => {
                             zIndex: 1000,
                         }}>
                             <button className="dropdown-item" onClick={handleLogout} >
+                                <img src={more} style={{color: "black", paddingRight: "10px"}}></img>
                                 Logout
                             </button>
                         </div>

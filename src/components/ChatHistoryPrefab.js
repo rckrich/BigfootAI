@@ -54,16 +54,16 @@ export const ChatHistoryPrefab = () => {
                         <p className="ChatHistoryText">Tiktok Trends 2024</p>
                     </div>
                     <Dropdown className= "imgClear" style={{
-                        paddingRight: "15px", 
-                        paddingTop: "25px", 
+                        paddingRight: "15px",
+                        paddingTop: "25px",
                         width: "40px"
                     }}>
                     <Dropdown.Toggle as={CustomToggle} variant="success" id="dropdown-basic">
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Editar</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Eliminar</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1"><img src={more} style={{color: "black", paddingRight: "20px"}}></img>Editar</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" style={{color: "red"}}><img src={more} style={{color: "black", paddingRight: "20px"}}></img>Eliminar</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
                 </div>
