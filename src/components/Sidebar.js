@@ -4,9 +4,22 @@ import more from "../img/more.svg";
 import account from "../img/account.svg";
 import sidebar from "../img/sidebar.svg";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import{ CreateChat} from "./CreateChat"
+import React, { useState, useEffect, useRef, useContext} from "react";
+import{ CreateChat} from "./CreateChat";
+import Dropdown from 'react-bootstrap/Dropdown';
 export const Sidebar = () => {
+    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+        <a
+            href=""
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}>
+          {children}
+          <img src={account} alt="sidebar" style={{width: "40px"}}></img>
+        </a>
+      ));
     const[isOpen, setIsOpen] = useState(true)
     const[isDisplay, setIsDisplay] = useState(false)
     const botonRef = useRef(null);
@@ -33,27 +46,19 @@ export const Sidebar = () => {
         {isOpen ?
             <div className="ColumnContainer" style={{justifyContent: "flex-start", height: "100vh"}}>
                 <div className="rowContainer" style={{ width: "100%", paddingTop: "10px",alignItems: "center", justifyContent: "space-evenly"}}>
-                    <button className= "imgClear" onClick={toggleDropdown} ref={botonRef}> <img src={account} alt="sidebar" style={{width: "30px"}}></img>
-                    </button>
-                    {isDisplay && (
-                        <div className="dropdown-menu show" style = {{
-                            position: "absolute",
-                            top: "7.5%",
-                            left: "2%",
-                            zIndex: 1000,
-                        }}>
-                            <button className="dropdown-item" onClick={handleLogout} >
-                                <img src={more} style={{color: "black", paddingRight: "10px"}}></img>
-                                Logout
-                            </button>
-                        </div>
-                    )}
+                    <Dropdown className= "imgClear">
+                    <Dropdown.Toggle as={CustomToggle} variant="success" id="dropdown-basic">
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1"><img src={more} style={{color: "black", paddingRight: "20px"}}></img>Cerrar sesión</Dropdown.Item>
+                    </Dropdown.Menu>
+                    </Dropdown>
                     <h2 className="TitleText" style={{ textAlign: "center"}}>John Smith</h2>
                     <img src= {sidebar} alt="sidebar" style={{width: "30px"}}  onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
                 <div className="sidebarContainer">
 
-                
 
                 <ChatHistoryPrefab></ChatHistoryPrefab>
                 <ChatHistoryPlaceholder></ChatHistoryPlaceholder>
