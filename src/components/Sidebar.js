@@ -38,8 +38,8 @@ export const Sidebar = () => {
                     {isDisplay && (
                         <div className="dropdown-menu show" style = {{
                             position: "absolute",
-                            top: "65px",
-                            left: "20px",
+                            top: "7.5%",
+                            left: "2%",
                             zIndex: 1000,
                         }}>
                             <button className="dropdown-item" onClick={handleLogout} >

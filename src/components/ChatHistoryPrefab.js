@@ -1,8 +1,21 @@
 import more from "../img/more.svg";
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ElementContextPopUp } from "../context/PopUpContext";
+import Dropdown from 'react-bootstrap/Dropdown';
 export const ChatHistoryPrefab = () => {
 
+    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+        <a
+            href=""
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}>
+          {children}
+          <img src={more} alt="more"/>
+        </a>
+      ));
     const { changeValuePopUP } = useContext(ElementContextPopUp);
     const [isClicked, setIsClicked] = useState(false);
     const botonRef = useRef(null);
@@ -40,34 +53,19 @@ export const ChatHistoryPrefab = () => {
                         <p className="ChatHistoryTime" style={{paddingBottom: "5px"}}>1 Month Ago</p>
                         <p className="ChatHistoryText">Tiktok Trends 2024</p>
                     </div>
+                    <Dropdown className= "imgClear" style={{
+                        paddingRight: "15px", 
+                        paddingTop: "25px", 
+                        width: "40px"
+                    }}>
+                    <Dropdown.Toggle as={CustomToggle} variant="success" id="dropdown-basic">
+                    </Dropdown.Toggle>
 
-                    <button className= "imgClear" onClick={handleClick} ref={botonRef}>
-                    
-                        <img src={more} alt="more"  style={{paddingRight: "10px", paddingTop: "25px", width: "40px"}}/>
-                    </button>
-                    {isClicked && (
-                        <div className="dropdown-menu show" style={{
-                            position: "absolute",
-                            top: "60px",
-                            left: "85px",
-                            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-                            width: "10px",
-                            maxWidth: "10px",
-                            padding: "5px",
-                            maxHeight: "100px",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}>
-                            <button className="dropdown-item" onClick={handleClickEdit} >
-                                Editar
-                            </button>
-                            <button className="dropdown-item" onClick={handleClickDelete}>
-                                Eliminar
-                            </button>
-                        </div>
-                    )}
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Editar</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Eliminar</Dropdown.Item>
+                    </Dropdown.Menu>
+                    </Dropdown>
                 </div>
             </div>
         </div>
