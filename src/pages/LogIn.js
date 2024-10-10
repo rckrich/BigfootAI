@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import Button from 'react-bootstrap/Button';
 
 export const LogIn = () => {
 
@@ -7,11 +8,11 @@ export const LogIn = () => {
     const [error, setError] = useState(false);
     const inputRefEmail = useRef(null);
     const inputRefPassword = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
     const gotToNewPage= async ()=>{
         console.log("1");
         console.log(inputRefEmail.current.value);
             if(inputRefEmail.current.value.trim() !== "" && inputRefPassword.current.value.trim() !== ""){
-                    
                     const response = fetch("http://165.22.178.7/api/v1/login",{
                         method: "POST",
                         headers: {
@@ -23,11 +24,18 @@ export const LogIn = () => {
                         })
                     })
                     .then(response => response.json())
-                    .then(data => console.log(data))
+                    //.then(data => console.log(data))
+                    .then(response => {
+                        console.log("Código de estado:", response.status);
+                        if(!response.ok){
+                            setIsVisible(true);
+                            throw Error("Error en la respuesta del servidor");
+                        }
+                    })
                     .then(data => navigate("/home"))
-                    .catch(error => console.error('Error:', error));
-
-                    
+                    .catch(error => console.error('Error:', error), setIsVisible(true));
+            }else{
+                setIsVisible(true);
             }
     }
 
@@ -35,7 +43,7 @@ export const LogIn = () => {
     const [errorMessage, setErrorMessage] = useState(true)
 
     return (
-        <div style={{display:"flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center"}}>
+        <div style={{display:"flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center", backgroundColor: "#EEEEF8"}}>
                 <div class="form">
                 <p class="form-title">Bienvenido</p>
                     <p class="form-text">Inicia sesión en tu cuenta</p>
@@ -57,8 +65,8 @@ export const LogIn = () => {
                         </svg>
                     </span>
                     </div>
-                    {errorMessage ? <div><p className="errorMessage">Check your password or account</p></div> : null}
-                    <button className="styleButtonPopUpLogin" onClick={() => gotToNewPage()}></button>
+                    {errorMessage ? <div className={isVisible ? "" : "d-none"}><p className="errorMessage">Check your password or account</p></div> : null}
+                    <Button className="" variant="secondary" style={{width: "100%", height:"46px", backgroundColor: "#030617"}} onClick={() => gotToNewPage()}>Iniciar sesión</Button>
 
 
                 </div>
