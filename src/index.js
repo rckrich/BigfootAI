@@ -7,9 +7,11 @@ import reportWebVitals from "./reportWebVitals";
 import { ElementProviderPopUp } from "./context/PopUpContext";
 import { ElementProviderThread } from "./context/ThreadContext";
 import { ElementProviderAccess } from "./context/AccessContext";
+import { AuthProvider } from "./pages/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <AuthProvider>
   <ElementProviderPopUp>
     <ElementProviderThread>
         <ElementProviderAccess>
@@ -17,6 +19,7 @@ root.render(
         </ElementProviderAccess>
     </ElementProviderThread>
   </ElementProviderPopUp>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

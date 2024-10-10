@@ -9,8 +9,9 @@ const ElementProviderThread= ({ children }) => {
     setValue(newValue);
   };
 
-  const changeActive = (newValue) => {
+  const changeActive = (newValue, callback) => {
     console.log(newValue);
+    callback(newValue);
     setActive(newValue);
   };
 

@@ -13,12 +13,10 @@ export const Sidebar = () => {
     const response = fetch("http://165.22.178.7/api/v1/logout",{
       method: "POST",
       headers: {
-          "access_token": userData.access_token,
+          'Authorization': `Bearer ${userData.access_token}`,
       },
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .then(data => navigate("/login"))
+      .then(navigate("/"))
       .catch(error => console.error('Error:', error))
       
   }

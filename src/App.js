@@ -8,7 +8,7 @@ import React, { useContext } from "react";
 import { ElementContextPopUp } from "./context/PopUpContext";
 import { PopUpPrefab } from "./components/PopUpPrefab";
 import { Test } from "./pages/Test";
-import { AuthProvider } from './pages/AuthContext';
+
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <>
     <div className="Appcontainer">
-      <AuthProvider>
+      
         <Router>
           <Routes>
               <Route path= "" element={<LogIn></LogIn>}/>
@@ -25,7 +25,7 @@ function App() {
           </Routes>
 
         </Router>
-      </AuthProvider>
+
     </div>
     {value === "" ? null : <PopUpPrefab identifier={value}></PopUpPrefab>}
     </>

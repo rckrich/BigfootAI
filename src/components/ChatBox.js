@@ -4,12 +4,13 @@ import { MessagePlaceHolder } from "./MessagePlaceHolder";
 import { ElementContextThread } from "../context/ThreadContext";
 import React, { useState, useEffect, useContext } from 'react';
 import { TypingAni } from "./TypingAni";
-import { Await } from "react-router-dom";
+import { AuthContext } from "../pages/AuthContext";
 
 
 export const ChatBox = () => {
 
     const { Active } = useContext(ElementContextThread);
+    const { userData } = useContext(AuthContext);
     const [UserMessage, setUserMessage] = useState("");
     const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -40,7 +41,7 @@ export const ChatBox = () => {
             fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
                 method: 'POST',
                 headers: {
-                  'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+                  'Authorization': `Bearer ${userData.open_ia_key}`,
                   'Content-Type': 'application/json',
                   'OpenAI-Beta' : 'assistants=v2',
                 },
@@ -60,7 +61,7 @@ export const ChatBox = () => {
         fetch(`https://api.openai.com/v1/threads/${Active}/runs`, {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+              'Authorization': `Bearer ${userData.open_ia_key}`,
               'Content-Type': 'application/json',
               'OpenAI-Beta' : 'assistants=v2',
             },
@@ -83,7 +84,7 @@ export const ChatBox = () => {
             fetch(`https://api.openai.com/v1/threads/${Active}/runs/${runId}`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+                    'Authorization': `Bearer ${userData.open_ia_key}`,
                     'Content-Type': 'application/json',
                     'OpenAI-Beta': 'assistants=v2',
                 }
@@ -115,7 +116,7 @@ export const ChatBox = () => {
         fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+                'Authorization': `Bearer ${userData.open_ia_key}`,
                 'Content-Type': 'application/json',
                 'OpenAI-Beta': 'assistants=v2',
             }

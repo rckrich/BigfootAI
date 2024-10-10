@@ -2,42 +2,97 @@ import { ElementContextPopUp } from "../context/PopUpContext";
 import React, { useContext } from "react";
 import { ElementContextThread } from "../context/ThreadContext";
 
+import { useRef } from "react";
+import { AuthContext } from "../pages/AuthContext";
 
 export const PopUpPrefab = ({identifier}) => {
 
+  const today = new Date();
+  const month = today.getMonth()+1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  const currentDate = date + "/" + month + "/" + year;
+
+  const inputEdit = useRef("");
+  const inputNew = useRef("");
   const { changeValuePopUP } = useContext(ElementContextPopUp);
-  const { changeActive, value } = useContext(ElementContextThread);
-  const handleInputChange = () => {
+  const { changeActive, Active, value } = useContext(ElementContextThread);
+  const { userData } = useContext(AuthContext);
+  const handleCancelButton = () => {
     changeValuePopUP("");
   };
   console.log(identifier);
 
+  const handleEditThread =( ) => {
+
+      fetch('http://165.22.178.7/api/v1/threads/update', {
+        method: 'UPDATE ',
+        headers: {
+          'Authorization': `Bearer ${userData.access_token}`
+        },
+        body: JSON.stringify({
+          'thread_bundle_id': value,
+          'title': inputEdit.current.value,
+          'last_message': currentDate,
+        })
+      })
+        .then(response => response.json())
+
+        .catch(error => console.error('Error:', error));
+      changeValuePopUP("");
+
+}
 
   const handleNewThread =( ) => {
-      fetch('https://api.openai.com/v1/threads', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,  
-            'Content-Type': 'application/json',
-            'OpenAI-Beta' : 'assistants=v2'    
-          },
-          body: JSON.stringify({
-            
-          })
-        })
-          .then(response => response.json())
-          .then(data => changeActive(data.id))
-          .then(data => console.log(data))
-  
-          .catch(error => console.error('Error:', error));
-        changeValuePopUP("");
+
+    console.log(userData.access_token)
+    console.log(Active)
+        console.log(inputNew.current.value)
+        console.log(currentDate)
+
+    fetch('http://165.22.178.7/api/v1/threads', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${userData.access_token}`,
+      },
+      body: JSON.stringify({
+        thread_id: "Active",
+        title: "inputNew.current.value",
+        last_message: "currentDate"
+      })
+    })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error));
+    changeValuePopUP("");
+
+  }
+
+  const handleNewThread2 =({newval}) => {
+    fetch('https://api.openai.com/v1/threads', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${userData.open_ia_key}`,  
+        'Content-Type': 'application/json',
+        'OpenAI-Beta' : 'assistants=v2'    
+      },
+      body: JSON.stringify({
+
+      })
+    })
+      .then(response => response.json())
+
+      .then(data => {
+        changeActive(data.id, handleNewThread2)
+        
+      })
+      .catch(error => console.error('Error:', error));
   }
 
   const handleEliminateThread =( ) => {
     fetch(`https://api.openai.com/v1/threads/${value}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,  
+        'Authorization': `Bearer ${userData.open_ia_key}`,  
         'Content-Type': 'application/json',
         'OpenAI-Beta' : 'assistants=v2'    
       },
@@ -49,7 +104,22 @@ export const PopUpPrefab = ({identifier}) => {
       .then(data => console.log(data))
 
       .catch(error => console.error('Error:', error));
+
+
+    fetch('http://165.22.178.7/api/v1/threads', {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${userData.access_token}`
+      },
+      body: JSON.stringify({
+        'thread_bundle_id': value
+      })
+    })
+      .then(response => response.json())
+
+      .catch(error => console.error('Error:', error));
     changeValuePopUP("");
+
   }
 
   if(identifier === "new") {
@@ -59,7 +129,7 @@ export const PopUpPrefab = ({identifier}) => {
           <h3 style={{ paddingTop: "3%", paddingBottom: "1%" }}>Ingrese título de la conversación</h3>
 
           <div style={{paddingTop: "0px", paddingBottom: "15px", width: "100%", display: "flex", justifyContent: "center"}}><input
-            
+            ref={inputNew}
             type="text"
             name="text"
             className="input"
@@ -69,7 +139,7 @@ export const PopUpPrefab = ({identifier}) => {
           <button
             className="styleCancelButtonPopUpDesktop"
             onClick={() => {
-              handleInputChange();
+              handleCancelButton();
             }}
           >
             <h3 style={{ color: "white" }}>Cancelar</h3>
@@ -99,7 +169,7 @@ export const PopUpPrefab = ({identifier}) => {
           <button
             className="styleButtonPopUpDesktop"
             onClick={() => {
-              handleInputChange();
+              handleCancelButton();
             }}
           >
             <h3 style={{ color: "white" }}>Cancelar</h3>
@@ -125,7 +195,7 @@ export const PopUpPrefab = ({identifier}) => {
           <h3 style={{ paddingTop: "3%", paddingBottom: "1%" }}>Ingrese nuevo título de la conversación</h3>
 
           <div style={{paddingTop: "0px", paddingBottom: "15px", width: "100%", display: "flex", justifyContent: "center"}}><input
-            
+            ref={inputEdit}
             type="text"
             name="text"
             className="input"
@@ -135,7 +205,7 @@ export const PopUpPrefab = ({identifier}) => {
           <button
             className="styleCancelButtonPopUpDesktop"
             onClick={() => {
-              handleInputChange();
+              handleCancelButton();
             }}
           >
             <h3 style={{ color: "white" }}>Cancelar</h3>
@@ -143,7 +213,7 @@ export const PopUpPrefab = ({identifier}) => {
           <button
             className="styleButtonPopUpDesktop"
             onClick={() => {
-              handleInputChange();
+              handleEditThread();
             }}
           >
             <h3 style={{ color: "white" }}>Aceptar</h3>
