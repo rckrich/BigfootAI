@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Button from 'react-bootstrap/Button';
+import { AuthContext } from './AuthContext';
 
 export const LogIn = () => {
 
@@ -9,6 +10,7 @@ export const LogIn = () => {
     const inputRefEmail = useRef(null);
     const inputRefPassword = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
+    const {setUserData} = useContext(AuthContext);
     const gotToNewPage= async ()=>{
         console.log("1");
         console.log(inputRefEmail.current.value);
@@ -23,10 +25,16 @@ export const LogIn = () => {
                             password: inputRefPassword.current.value,
                         })
                     })
-                    .then(response =>
-                        response.json()
-                    )
-                    .then(data => console.log(data))
+                    .then(response => {
+                        if (!response.ok) {
+                          throw new Error(`Error del servidor`);
+                        }
+                        return response.json();
+                      })
+                    .then(data => {
+                        console.log(data);
+                        setUserData(data);
+                    })
                     .then(data => navigate("/home"))
                     .catch(error => console.error('Error:', error), setIsVisible(true));
             }else{

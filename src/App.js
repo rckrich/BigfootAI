@@ -8,6 +8,8 @@ import React, { useContext } from "react";
 import { ElementContextPopUp } from "./context/PopUpContext";
 import { PopUpPrefab } from "./components/PopUpPrefab";
 import { Test } from "./pages/Test";
+import { AuthProvider } from './pages/AuthContext';
+
 function App() {
 
   const { value } = useContext(ElementContextPopUp);
@@ -15,19 +17,18 @@ function App() {
   return (
     <>
     <div className="Appcontainer">
-      <Router>
-        <Routes>
-          <Route path= "" element={<LogIn></LogIn>}/>
-          <Route path= "home" element={<Home></Home>}/>
-        </Routes>
-        
-      </Router>
-      
-    
+      <AuthProvider>
+        <Router>
+          <Routes>
+              <Route path= "" element={<LogIn></LogIn>}/>
+              <Route path= "home" element={<Home></Home>}/>
+          </Routes>
+
+        </Router>
+      </AuthProvider>
     </div>
     {value === "" ? null : <PopUpPrefab identifier={value}></PopUpPrefab>}
     </>
-    
   );
 }
 
