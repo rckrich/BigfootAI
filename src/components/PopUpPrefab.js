@@ -53,15 +53,15 @@ export const PopUpPrefab = ({identifier}) => {
     fetch('http://165.22.178.7/api/v1/threads', {
       method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${userData.access_token}`,
       },
       body: JSON.stringify({
-        "thread_id": "Active",
-        "title": "inputNew.current.value",
-        "last_message": "currentDate"
+        "thread_id": Active,
+        "title": inputNew.current.value,
+        "last_message": currentDate
       })
     })
-      .then(response => response.json())
       .catch(error => console.error('Error:', error));
     changeValuePopUP("");
     
