@@ -27,6 +27,7 @@ export const LogIn = () => {
                     })
                     .then(response => {
                         if (!response.ok) {
+                            setIsVisible(true);
                           throw new Error(`Error del servidor`);
                         }
                         return response.json();
@@ -36,7 +37,7 @@ export const LogIn = () => {
                         setUserData(data);
                     })
                     .then(data => navigate("/home"))
-                    .catch(error => console.error('Error:', error), setIsVisible(true));
+                    .catch(error => console.error('Error:', error));
             }else{
                 setIsVisible(true);
             }

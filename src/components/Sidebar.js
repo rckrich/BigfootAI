@@ -7,7 +7,21 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef, useContext} from "react";
 import{ CreateChat} from "./CreateChat";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { AuthContext } from "../pages/AuthContext";
 export const Sidebar = () => {
+  const gotToNewPage= async ()=>{
+    const response = fetch("http://165.22.178.7/api/v1/logout",{
+      method: "POST",
+      headers: {
+          "access_token": userData.access_token,
+      },
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .then(data => navigate("/login"))
+      .catch(error => console.error('Error:', error))
+      
+  }
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <a
             href=""
@@ -24,6 +38,7 @@ export const Sidebar = () => {
     const[isDisplay, setIsDisplay] = useState(false)
     const botonRef = useRef(null);
     const navigate = useNavigate()
+    const { userData } = useContext(AuthContext);
     const toggleDropdown = () => {
         setIsDisplay(!isDisplay);
     };
@@ -51,10 +66,10 @@ export const Sidebar = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1"><img src={logout} style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
+                        <Dropdown.Item onClick={() => gotToNewPage()}><img src={logout} style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
-                    <h2 className="TitleText" style={{ textAlign: "center"}}>John Smith</h2>
+                    <h2 className="TitleText" style={{ textAlign: "center", fontSize: "22px", paddingTop: "2.2%"}}>{userData.user.name}</h2>
                     <img src= {sidebar} alt="sidebar" style={{width: "30px"}}  onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
                 <div className="sidebarContainer">
