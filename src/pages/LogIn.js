@@ -23,15 +23,9 @@ export const LogIn = () => {
                             password: inputRefPassword.current.value,
                         })
                     })
-                    
-                    .then(response => {
-                        if(!response.ok){
-                            throw new Error("Error en el servidor");
-                        }else{
-                            console.log(response);
-                            response.json();
-                        }
-                        })
+                    .then(response =>
+                        response.json()
+                    )
                     .then(data => console.log(data))
                     .then(data => navigate("/home"))
                     .catch(error => console.error('Error:', error), setIsVisible(true));

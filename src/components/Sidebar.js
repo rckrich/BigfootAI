@@ -1,6 +1,6 @@
 import { ChatHistoryPrefab } from "./ChatHistoryPrefab"
 import { ChatHistoryPlaceholder } from "./ChatHistoryPlaceHolder"
-import more from "../img/more.svg";
+import logout from "../img/salir.png";
 import account from "../img/account.svg";
 import sidebar from "../img/sidebar.svg";
 import { useNavigate } from "react-router-dom";
@@ -51,7 +51,7 @@ export const Sidebar = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1"><img src={more} style={{color: "black", paddingRight: "20px"}}></img>Cerrar sesión</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1"><img src={logout} style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
                     <h2 className="TitleText" style={{ textAlign: "center"}}>John Smith</h2>

@@ -2,6 +2,8 @@ import more from "../img/more.svg";
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ElementContextPopUp } from "../context/PopUpContext";
 import Dropdown from 'react-bootstrap/Dropdown';
+import edit from "../img/editar.png";
+import delate from "../img/eliminar.png";
 export const ChatHistoryPrefab = () => {
 
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
@@ -62,8 +64,8 @@ export const ChatHistoryPrefab = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1"><img src={more} style={{color: "black", paddingRight: "20px"}}></img>Editar</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" style={{color: "red"}}><img src={more} style={{color: "black", paddingRight: "20px"}}></img>Eliminar</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1"><img src={edit} style={{color: "black", paddingRight: "20px", width: "40px"}}></img>Editar</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" style={{color: "red"}}><img src={delate} style={{color: "black", paddingRight: "20px", width: "40px"}}></img>Eliminar</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
                 </div>
