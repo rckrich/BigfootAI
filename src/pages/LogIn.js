@@ -23,15 +23,16 @@ export const LogIn = () => {
                             password: inputRefPassword.current.value,
                         })
                     })
-                    .then(response => response.json())
-                    //.then(data => console.log(data))
+                    
                     .then(response => {
-                        console.log("Código de estado:", response.status);
                         if(!response.ok){
-                            setIsVisible(true);
-                            throw Error("Error en la respuesta del servidor");
+                            throw new Error("Error en el servidor");
+                        }else{
+                            console.log(response);
+                            response.json();
                         }
-                    })
+                        })
+                    .then(data => console.log(data))
                     .then(data => navigate("/home"))
                     .catch(error => console.error('Error:', error), setIsVisible(true));
             }else{
