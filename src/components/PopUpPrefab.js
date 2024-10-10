@@ -47,8 +47,8 @@ export const PopUpPrefab = ({identifier}) => {
 
     console.log(userData.access_token)
     console.log(Active)
-        console.log(inputNew.current.value)
-        console.log(currentDate)
+      console.log(inputNew.current.value)
+      console.log(currentDate)
 
     fetch('http://165.22.178.7/api/v1/threads', {
       method: 'POST',
@@ -56,15 +56,15 @@ export const PopUpPrefab = ({identifier}) => {
         'Authorization': `Bearer ${userData.access_token}`,
       },
       body: JSON.stringify({
-        thread_id: "Active",
-        title: "inputNew.current.value",
-        last_message: "currentDate"
+        "thread_id": "Active",
+        "title": "inputNew.current.value",
+        "last_message": "currentDate"
       })
     })
       .then(response => response.json())
       .catch(error => console.error('Error:', error));
     changeValuePopUP("");
-
+    
   }
 
   const handleNewThread2 =({newval}) => {
