@@ -28,6 +28,7 @@ export const PopUpPrefab = ({identifier}) => {
       fetch('http://165.22.178.7/api/v1/threads/update', {
         method: 'UPDATE ',
         headers: {
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${userData.access_token}`
         },
         body: JSON.stringify({
@@ -36,38 +37,12 @@ export const PopUpPrefab = ({identifier}) => {
           'last_message': currentDate,
         })
       })
-        .then(response => response.json())
 
         .catch(error => console.error('Error:', error));
       changeValuePopUP("");
 
 }
-
-  const handleNewThread =( ) => {
-
-    console.log(userData.access_token)
-    console.log(Active)
-      console.log(inputNew.current.value)
-      console.log(currentDate)
-
-    fetch('http://165.22.178.7/api/v1/threads', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${userData.access_token}`,
-      },
-      body: JSON.stringify({
-        "thread_id": Active,
-        "title": inputNew.current.value,
-        "last_message": currentDate
-      })
-    })
-      .catch(error => console.error('Error:', error));
-    changeValuePopUP("");
-    
-  }
-
-  const handleNewThread2 =({newval}) => {
+  const  handleNewThread = async () =>{
     fetch('https://api.openai.com/v1/threads', {
       method: 'POST',
       headers: {
@@ -79,11 +54,11 @@ export const PopUpPrefab = ({identifier}) => {
 
       })
     })
-      .then(response => response.json())
-
+    .then(response => response.json())
       .then(data => {
-        changeActive(data.id, handleNewThread2)
-        
+        console.log( data);
+        changeActive(data.id, inputNew.current.value, inputNew.current.value, userData.access_token)
+        return data.id;
       })
       .catch(error => console.error('Error:', error));
   }
@@ -109,14 +84,13 @@ export const PopUpPrefab = ({identifier}) => {
     fetch('http://165.22.178.7/api/v1/threads', {
       method: 'DELETE',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${userData.access_token}`
       },
       body: JSON.stringify({
         'thread_bundle_id': value
       })
     })
-      .then(response => response.json())
-
       .catch(error => console.error('Error:', error));
     changeValuePopUP("");
 
