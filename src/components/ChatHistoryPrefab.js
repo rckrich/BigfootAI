@@ -64,8 +64,8 @@ export const ChatHistoryPrefab = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1"><img src={edit} style={{color: "black", paddingRight: "20px", width: "40px"}}></img>Editar</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" style={{color: "red"}}><img src={delate} style={{color: "black", paddingRight: "20px", width: "40px"}}></img>Eliminar</Dropdown.Item>
+                        <Dropdown.Item onClick={handleClickEdit}><img src={edit} style={{color: "black", paddingRight: "20px", width: "40px"}}></img>Editar</Dropdown.Item>
+                        <Dropdown.Item onClick={handleClickDelete} style={{color: "red"}}><img src={delate} style={{color: "black", paddingRight: "20px", width: "40px"}}></img>Eliminar</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
                 </div>
