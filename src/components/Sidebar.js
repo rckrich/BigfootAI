@@ -91,11 +91,10 @@ export const Sidebar = () => {
         element = (data.thread_bundles.map(item => (
           <ChatHistoryPrefab date={item.updated_at} name={item.title} threadId={item.thread_id} internalId={item.id}></ChatHistoryPrefab>)))
       }else{
-        console.log(data);
         element = (<><ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder></>)
       }
 
-
+      
 
     return (
         <>
