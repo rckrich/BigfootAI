@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import edit from "../img/editar.png";
 import delate from "../img/eliminar.png";
 import { ElementContextThread } from "../context/ThreadContext";
-export const ChatHistoryPrefab = ({date, name, threadId, internalId}) => {
+export const ChatHistoryPrefab = ({date, name, threadId}) => {
 
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <a
@@ -30,12 +30,12 @@ export const ChatHistoryPrefab = ({date, name, threadId, internalId}) => {
       };
 
     const handleClickDelete = () => {
-        changeValueThread(internalId);
+        changeValueThread(threadId);
         changeValuePopUP("eliminate");
     } 
 
     const handleClickEdit = () => {
-        changeValueThread(internalId);
+        changeValueThread(threadId);
         changeValuePopUP("edit");
     } 
     let helper 

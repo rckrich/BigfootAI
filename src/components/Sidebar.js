@@ -8,9 +8,10 @@ import React, { useState, useEffect, useRef, useContext} from "react";
 import{ CreateChat} from "./CreateChat";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { AuthContext } from "../pages/AuthContext";
-import { ElementContextThread } from "../context/ThreadContext";
+
+import { ElementContextPopUp } from "../context/PopUpContext";
 export const Sidebar = () => {
-  const {Active, value} = useContext(ElementContextThread);
+  const {value} = useContext(ElementContextPopUp);
   const [prevData, setData] = useState("");
   const [offset, setOffset] = useState(0);
   const limit = 10;
@@ -61,11 +62,7 @@ export const Sidebar = () => {
     })
     .then(data => {
       console.log(prevData);
-        if(prevData !== undefined && prevData !== null && prevData !== ""){
-          setNewData(data);
-        }else{
-          setData(data);
-        }
+        setData(data);
         
     })
     .then()
@@ -105,10 +102,14 @@ export const Sidebar = () => {
           document.removeEventListener('click', handleClickOutside);
         };
       }, []);
-      useEffect(() => {
-        handlethreadsUserByUser();
 
-      }, [Active, value])
+      useEffect(() => {
+        console.log(value);
+        if(value === ""){
+          console.log("111");
+          handlethreadsUserByUser();
+        }
+      }, [value])
 
       let element;
       console.log(prevData);
@@ -121,7 +122,7 @@ export const Sidebar = () => {
       }
 
     return (
-        <>
+        <div key={value}>
         {isOpen ?
             <div className="ColumnContainer" style={{justifyContent: "flex-start", height: "100vh"}}>
                 <div className="rowContainer" style={{ width: "100%", paddingTop: "10px",alignItems: "center", justifyContent: "space-evenly"}}>
@@ -151,6 +152,6 @@ export const Sidebar = () => {
 
          </div>
         }
-        </>
+        </div>
     )
 }

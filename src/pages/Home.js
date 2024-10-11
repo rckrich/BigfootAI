@@ -10,9 +10,6 @@ export const Home = () => {
     const { userData } = useContext(AuthContext);
 
     const navigate = useNavigate();
-    console.log(userData);
-    
-    
 
     if(userData=== null || userData===undefined) {
         return <div className="popUpContainer">

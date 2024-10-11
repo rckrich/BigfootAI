@@ -32,7 +32,7 @@ export const PopUpPrefab = ({identifier}) => {
           'Authorization': `Bearer ${userData.access_token}`
         },
         body: JSON.stringify({
-          'thread_bundle_id': value,
+          'thread_id': value,
           'title': inputEdit.current.value,
           'last_message': currentDate,
         })
@@ -80,7 +80,7 @@ export const PopUpPrefab = ({identifier}) => {
 
       .catch(error => console.error('Error:', error));
 
-
+    console.log(value);
     fetch('http://165.22.178.7/api/v1/threads', {
       method: 'DELETE',
       headers: {
@@ -88,7 +88,7 @@ export const PopUpPrefab = ({identifier}) => {
         'Authorization': `Bearer ${userData.access_token}`
       },
       body: JSON.stringify({
-        'thread_bundle_id': value
+        'thread_id': value
       })
     })
       .catch(error => console.error('Error:', error));
