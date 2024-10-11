@@ -18,9 +18,15 @@ export const ChatBox = () => {
     const [newMessageToType, setnewMessageToType] = useState();
     let messageList = [];
 
+
+    
+
     useEffect(() => {
+        
         if(Active !== undefined && Active !== null && Active !== "") {
+            setMessages([]);
             fetchMessages();
+            
         }
         
 
