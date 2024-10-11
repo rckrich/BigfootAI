@@ -8,7 +8,12 @@ import React, { useState, useEffect, useRef, useContext} from "react";
 import{ CreateChat} from "./CreateChat";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { AuthContext } from "../pages/AuthContext";
+import { ElementContextThread } from "../context/ThreadContext";
 export const Sidebar = () => {
+  const {Active, value} = useContext(ElementContextThread);
+  const [data, setData] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const limit = 10;
   const gotToNewPage= async ()=>{
     const response = fetch("http://165.22.178.7/api/v1/logout",{
       method: "POST",
@@ -18,7 +23,27 @@ export const Sidebar = () => {
     })
       .then(navigate("/"))
       .catch(error => console.error('Error:', error))
-      
+  }
+  const handlethreadsUserByUser= async () => {
+    fetch(`http://165.22.178.7/api/v1/threads/${limit}/${offset}`,{
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${userData.access_token}`
+      },
+    })
+    .then(response => {
+      if (!response.ok) {
+      throw new Error(`Error del servidor`);
+    }
+    return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        setData(data);
+    })
+    .then()
+    .catch(error => console.error('Error:', error));
   }
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <a
@@ -54,6 +79,10 @@ export const Sidebar = () => {
           document.removeEventListener('click', handleClickOutside);
         };
       }, []);
+      useEffect(() => {
+        handlethreadsUserByUser();
+        console.log(data);
+      }, [Active, value])
     return (
         <>
         {isOpen ?
@@ -73,19 +102,12 @@ export const Sidebar = () => {
                 <div className="sidebarContainer">
 
 
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPlaceholder></ChatHistoryPlaceholder>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPlaceholder></ChatHistoryPlaceholder>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
-                <ChatHistoryPrefab></ChatHistoryPrefab>
+                  {
+                    data.thread_bundles !== undefined && data.thread_bundles !== null && data.thread_bundles !== 0 ? <ChatHistoryPlaceholder></ChatHistoryPlaceholder> : data.thread_bundles.map(item => (
+                      <ChatHistoryPrefab></ChatHistoryPrefab>
+                    ))
+                  }
+
                 </div>
                 <CreateChat></CreateChat>
             </div>
