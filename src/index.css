@@ -256,9 +256,9 @@ code {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.178);
   border-color: rgba(255, 255, 255, 0);
   border-radius: 10px;
-  width: 200px;
-  height: 70px;
-  max-width: 300px;
+  width: 15vw;
+  height: 8vh;
+  font-size: 1.5vw;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
@@ -284,9 +284,9 @@ code {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.178);
   border-color: rgba(255, 255, 255, 0);
   border-radius: 10px;
-  width: 200px;
-  height: 70px;
-  max-width: 300px;
+  width: 15vw;
+  height: 8vh;
+  font-size: 1.5vw;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;

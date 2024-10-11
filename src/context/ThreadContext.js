@@ -29,12 +29,16 @@ const ElementProviderThread= ({ children }) => {
       .catch(error => console.error('Error:', error));
     changeValuePopUP("");
 
+  };
 
+  const updateActive= (newValue) => {
+    console.log(newValue);
+    setActive(newValue);
 
   };
 
   return (
-    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive }}>
+    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive }}>
       {children}
     </ElementContextThread.Provider>
   );

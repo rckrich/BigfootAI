@@ -4,7 +4,8 @@ import { ElementContextPopUp } from "../context/PopUpContext";
 import Dropdown from 'react-bootstrap/Dropdown';
 import edit from "../img/editar.png";
 import delate from "../img/eliminar.png";
-export const ChatHistoryPrefab = () => {
+import { ElementContextThread } from "../context/ThreadContext";
+export const ChatHistoryPrefab = ({date, name, threadId, internalId}) => {
 
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <a
@@ -21,26 +22,32 @@ export const ChatHistoryPrefab = () => {
     const { changeValuePopUP } = useContext(ElementContextPopUp);
     const [isClicked, setIsClicked] = useState(false);
     const botonRef = useRef(null);
+    const {updateActive, changeValueThread } = useContext(ElementContextThread);
     const handleClickOutside = (event) => {
         if (botonRef.current && !botonRef.current.contains(event.target)) {
           setIsClicked(false);
         }
       };
-    const handleClick = () => {
-        if (isClicked) {
-
-        }
-        setIsClicked(!isClicked);
-    };
 
     const handleClickDelete = () => {
+        changeValueThread(internalId);
         changeValuePopUP("eliminate");
     } 
 
     const handleClickEdit = () => {
+        changeValueThread(internalId);
         changeValuePopUP("edit");
     } 
+    let helper 
+    if(date !== undefined && date !== null && date !== ""){
+        helper = date.split("T")[0];
+    }else{
+        helper = "";
+    }
 
+    const handleClick = () => {
+        updateActive(threadId);
+        };
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
         return () => {
@@ -49,11 +56,11 @@ export const ChatHistoryPrefab = () => {
       }, []);
     return (
         <div style={{paddingTop: "10px", width: "100%", paddingRight: "5px"}}>
-            <div className="ChatHistoryPrefabContainer" style={{position: "relative"}}>
+            <div onClick={handleClick} className="ChatHistoryPrefabContainer" style={{position: "relative"}}>
                 <div className="rowContainer" style={{justifyContent: "space-between", width: "100%", height:"100%", }}>
                     <div className="ColumnContainer" style={{paddingLeft: "10px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
-                        <p className="ChatHistoryTime" style={{paddingBottom: "5px"}}>1 Month Ago</p>
-                        <p className="ChatHistoryText">Tiktok Trends 2024</p>
+                        <p className="ChatHistoryTime" style={{paddingBottom: "5px"}}>{name}</p>
+                        <p className="ChatHistoryText">{helper}</p>
                     </div>
                     <Dropdown className= "imgClear" style={{
                         paddingRight: "15px",

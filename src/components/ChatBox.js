@@ -19,9 +19,12 @@ export const ChatBox = () => {
     let messageList = [];
 
     useEffect(() => {
-        fetchMessages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+        if(Active !== undefined && Active !== null && Active !== "") {
+            fetchMessages();
+        }
+        
+
+    },[Active])
 
     const handleMessageToThread =( ) => {
         if(UserMessage === ""){

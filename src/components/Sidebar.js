@@ -11,9 +11,11 @@ import { AuthContext } from "../pages/AuthContext";
 import { ElementContextThread } from "../context/ThreadContext";
 export const Sidebar = () => {
   const {Active, value} = useContext(ElementContextThread);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState("");
   const [offset, setOffset] = useState(0);
   const limit = 10;
+
+  
   const gotToNewPage= async ()=>{
     const response = fetch("http://165.22.178.7/api/v1/logout",{
       method: "POST",
@@ -39,7 +41,6 @@ export const Sidebar = () => {
     return response.json();
     })
     .then(data => {
-        console.log(data);
         setData(data);
     })
     .then()
@@ -81,8 +82,21 @@ export const Sidebar = () => {
       }, []);
       useEffect(() => {
         handlethreadsUserByUser();
-        console.log(data);
+
       }, [Active, value])
+
+
+      let element;
+      if(data !== undefined && data !== null && data !== ""){
+        element = (data.thread_bundles.map(item => (
+          <ChatHistoryPrefab date={item.updated_at} name={item.title} threadId={item.thread_id} internalId={item.id}></ChatHistoryPrefab>)))
+      }else{
+        console.log(data);
+        element = (<><ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder></>)
+      }
+
+
+
     return (
         <>
         {isOpen ?
@@ -100,14 +114,7 @@ export const Sidebar = () => {
                     <img src= {sidebar} alt="sidebar" style={{width: "30px"}}  onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
                 <div className="sidebarContainer">
-
-
-                  {
-                    data.thread_bundles !== undefined && data.thread_bundles !== null && data.thread_bundles !== 0 ? <ChatHistoryPlaceholder></ChatHistoryPlaceholder> : data.thread_bundles.map(item => (
-                      <ChatHistoryPrefab></ChatHistoryPrefab>
-                    ))
-                  }
-
+                  <>{element}</>
                 </div>
                 <CreateChat></CreateChat>
             </div>
