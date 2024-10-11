@@ -11,11 +11,30 @@ import { AuthContext } from "../pages/AuthContext";
 import { ElementContextThread } from "../context/ThreadContext";
 export const Sidebar = () => {
   const {Active, value} = useContext(ElementContextThread);
-  const [data, setData] = useState("");
+  const [prevData, setData] = useState("");
   const [offset, setOffset] = useState(0);
   const limit = 10;
-
+  const [newData, setNewData] = useState("");
   
+  const handleDataForScroll = () => {
+    let helper = "";
+    if(newData !== null && newData !== undefined && newData !== ""){
+      helper = prevData;
+      helper.thread_bundles = [];
+      helper.thread_bundles  = prevData.thread_bundles.concat(newData.thread_bundles);
+      setData(helper);
+      setNewData("");
+    }
+  }
+  const handleScroll = (e) => {
+    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    if (bottom) { 
+      console.log(offset);
+      setOffset(offset+10)
+      handlethreadsUserByUser();
+      
+    }
+  }
   const gotToNewPage= async ()=>{
     const response = fetch("http://165.22.178.7/api/v1/logout",{
       method: "POST",
@@ -41,7 +60,13 @@ export const Sidebar = () => {
     return response.json();
     })
     .then(data => {
-        setData(data);
+      console.log(prevData);
+        if(prevData !== undefined && prevData !== null && prevData !== ""){
+          setNewData(data);
+        }else{
+          setData(data);
+        }
+        
     })
     .then()
     .catch(error => console.error('Error:', error));
@@ -85,17 +110,15 @@ export const Sidebar = () => {
 
       }, [Active, value])
 
-
       let element;
-      if(data !== undefined && data !== null && data !== ""){
-        element = (data.thread_bundles.map(item => (
+      console.log(prevData);
+      if(prevData !== undefined && prevData !== null && prevData !== ""){
+        element = (prevData.thread_bundles.map(item => (
           <ChatHistoryPrefab date={item.updated_at} name={item.title} threadId={item.thread_id} internalId={item.id}></ChatHistoryPrefab>)))
       }else{
-        console.log(data);
+        console.log(prevData);
         element = (<><ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder></>)
       }
-
-
 
     return (
         <>
@@ -113,7 +136,7 @@ export const Sidebar = () => {
                     <h2 className="TitleText" style={{ textAlign: "center", fontSize: "22px", paddingTop: "2.2%"}}>{userData.user.name}</h2>
                     <img src= {sidebar} alt="sidebar" style={{width: "30px"}}  onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
-                <div className="sidebarContainer">
+                <div className="sidebarContainer" onScroll={handleScroll}>
                   <>{element}</>
                 </div>
                 <CreateChat></CreateChat>
