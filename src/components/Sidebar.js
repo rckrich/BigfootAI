@@ -22,17 +22,18 @@ export const Sidebar = () => {
     if(newData !== null && newData !== undefined && newData !== ""){
       helper = prevData;
       helper.thread_bundles = [];
-      helper.thread_bundles  = prevData.thread_bundles.concat(newData.thread_bundles);
+      helper.thread_bundles  = [...prevData.thread_bundles,...newData.thread_bundles];
       setData(helper);
       setNewData("");
     }
   }
   const handleScroll = (e) => {
-    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-    if (bottom) { 
-      console.log(offset);
-      setOffset(offset+10)
-      handlethreadsUserByUser();
+    let tolerance = 1;
+    const bottom = e.target.scrollHeight - e.target.scrollTop - tolerance <= e.target.clientHeight;
+    
+    if (bottom) {
+      console.log("wwww");
+      handleNextThread();
       
     }
   }
@@ -68,6 +69,28 @@ export const Sidebar = () => {
     .then()
     .catch(error => console.error('Error:', error));
   }
+    const handleNextThread = async () => {
+      fetch(`http://165.22.178.7/api${prevData.next}`,{
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userData.access_token}`
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+        throw new Error(`Error del servidor`);
+      }
+      return response.json();
+      })
+      .then(data => {
+        console.log(newData);
+          setNewData(data);
+          
+      })
+      //.then(handleDataForScroll())
+      .catch(error => console.error('Error:', error));
+    }
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <a
             href=""
@@ -104,15 +127,12 @@ export const Sidebar = () => {
       }, []);
 
       useEffect(() => {
-        console.log(value);
         if(value === ""){
-          console.log("111");
           handlethreadsUserByUser();
         }
       }, [value])
 
       let element;
-      console.log(prevData);
       if(prevData !== undefined && prevData !== null && prevData !== ""){
         element = (prevData.thread_bundles.map(item => (
           <ChatHistoryPrefab date={item.updated_at} name={item.title} threadId={item.thread_id} internalId={item.id}></ChatHistoryPrefab>)))
