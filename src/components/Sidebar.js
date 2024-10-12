@@ -21,8 +21,10 @@ export const Sidebar = () => {
     let helper = "";
     if(newData !== null && newData !== undefined && newData !== ""){
       helper = prevData;
-      helper.thread_bundles = [];
-      helper.thread_bundles  = [...prevData.thread_bundles,...newData.thread_bundles];
+      //helper.thread_bundles = [];
+      helper.thread_bundles  = [...prevData.thread_bundles, ...newData.thread_bundles];
+      helper.next = newData.next;
+      console.log(helper.thread_bundles);
       setData(helper);
       setNewData("");
     }
@@ -32,8 +34,9 @@ export const Sidebar = () => {
     const bottom = e.target.scrollHeight - e.target.scrollTop - tolerance <= e.target.clientHeight;
     
     if (bottom) {
-      console.log("wwww");
-      handleNextThread();
+      if(prevData.next != null && prevData.next !== ""){
+        handleNextThread();
+      }
       
     }
   }
@@ -62,9 +65,8 @@ export const Sidebar = () => {
     return response.json();
     })
     .then(data => {
-      console.log(prevData);
         setData(data);
-        
+        console.log(prevData);
     })
     .then()
     .catch(error => console.error('Error:', error));
@@ -88,7 +90,7 @@ export const Sidebar = () => {
           setNewData(data);
           
       })
-      //.then(handleDataForScroll())
+      .then(handleDataForScroll())
       .catch(error => console.error('Error:', error));
     }
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
@@ -137,7 +139,6 @@ export const Sidebar = () => {
         element = (prevData.thread_bundles.map(item => (
           <ChatHistoryPrefab date={item.updated_at} name={item.title} threadId={item.thread_id} internalId={item.id}></ChatHistoryPrefab>)))
       }else{
-        console.log(prevData);
         element = (<><ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder></>)
       }
 
