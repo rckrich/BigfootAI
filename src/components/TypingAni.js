@@ -3,7 +3,7 @@ import { Message, } from "@chatscope/chat-ui-kit-react";
 
 
 
-export const TypingAni = ({WordToType}) => {
+export const TypingAni = ({WordToType, scroll}) => {
     const [value, setValue] = useState("");
     const [count, setCount] = useState(0);
     
@@ -18,6 +18,9 @@ export const TypingAni = ({WordToType}) => {
             if(str !== value) {
                 for (let index = 0; index < count; index++) {
                     setValue(value + str[index])
+                    if(scroll !== undefined){
+                        scroll();
+                    }
                 }
             }
         }, 20)

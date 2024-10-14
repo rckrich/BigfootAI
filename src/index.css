@@ -172,7 +172,8 @@ code {
 .overrideStyleMessageList{
 
   border-color: rgba(0, 0, 0, 0)!important; 
-  
+  overflow-anchor: auto;
+  height: 1px;
 }
 
 .imgClear{

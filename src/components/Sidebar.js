@@ -14,9 +14,10 @@ export const Sidebar = () => {
   const {value} = useContext(ElementContextPopUp);
   const [prevData, setData] = useState("");
   const [offset, setOffset] = useState(0);
+  const [flag, setFlag] = useState(true);
   const limit = 10;
   const [newData, setNewData] = useState("");
-  
+
   const handleDataForScroll = () => {
     let helper = "";
     if(newData !== null && newData !== undefined && newData !== ""){
@@ -24,17 +25,24 @@ export const Sidebar = () => {
       //helper.thread_bundles = [];
       helper.thread_bundles  = [...prevData.thread_bundles, ...newData.thread_bundles];
       helper.next = newData.next;
-      console.log(helper.thread_bundles);
       setData(helper);
       setNewData("");
+      setFlag(true);
     }
   }
+
+  const test = ({value}) => {
+    console.log(value)
+  }
+
   const handleScroll = (e) => {
     let tolerance = 1;
     const bottom = e.target.scrollHeight - e.target.scrollTop - tolerance <= e.target.clientHeight;
     
-    if (bottom) {
+    if (bottom && flag) {
       if(prevData.next != null && prevData.next !== ""){
+        setFlag(false);
+        console.log("next")
         handleNextThread();
       }
       
@@ -66,7 +74,6 @@ export const Sidebar = () => {
     })
     .then(data => {
         setData(data);
-        console.log(prevData);
     })
     .then()
     .catch(error => console.error('Error:', error));
@@ -86,11 +93,9 @@ export const Sidebar = () => {
       return response.json();
       })
       .then(data => {
-        console.log(newData);
-          setNewData(data);
+        setNewData(data);
           
       })
-      .then(handleDataForScroll())
       .catch(error => console.error('Error:', error));
     }
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
@@ -134,6 +139,19 @@ export const Sidebar = () => {
         }
       }, [value])
 
+      
+
+      useEffect(() => {
+        if(newData !== ""){
+
+            console.log("!!")
+            handleDataForScroll();
+
+          
+        }
+      },[newData])
+
+
       let element;
       if(prevData !== undefined && prevData !== null && prevData !== ""){
         element = (prevData.thread_bundles.map(item => (
@@ -143,7 +161,7 @@ export const Sidebar = () => {
       }
 
     return (
-        <div key={value}>
+        <div key={prevData}>
         {isOpen ?
             <div className="ColumnContainer" style={{justifyContent: "flex-start", height: "100vh"}}>
                 <div className="rowContainer" style={{ width: "100%", paddingTop: "10px", paddingRight: "15px", alignItems: "center", justifyContent: "space-around"}}>

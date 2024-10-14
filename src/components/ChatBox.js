@@ -2,7 +2,7 @@ import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, InputToolbox, SendButton } from "@chatscope/chat-ui-kit-react";
 import { MessagePlaceHolder } from "./MessagePlaceHolder";
 import { ElementContextThread } from "../context/ThreadContext";
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { TypingAni } from "./TypingAni";
 import { AuthContext } from "../pages/AuthContext";
 
@@ -14,23 +14,23 @@ export const ChatBox = () => {
     const [UserMessage, setUserMessage] = useState("");
     const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
+    const containerRef = useRef(null);
     const assistant_id = "asst_My2L0JuJiUoSQPQItZS9llpc";
     const [newMessageToType, setnewMessageToType] = useState();
     let messageList = [];
 
 
-    
-
     useEffect(() => {
-        
         if(Active !== undefined && Active !== null && Active !== "") {
             setMessages([]);
             fetchMessages();
-            
         }
-        
-
     },[Active])
+
+
+    const scrolltoBottom = () => {
+        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
 
     const handleMessageToThread =( ) => {
         if(UserMessage === ""){
@@ -137,13 +137,35 @@ export const ChatBox = () => {
                     formatArrayText(data.data.reverse());
 
                 }
-                
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
+    const extractLink = (text) => {
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        let link = text.match(urlRegex);
+        const textWithoutLink = text.replace(urlRegex, '').trim();
+        if(link !== null){
+            if(!isImageUrl(link)){
+                link = null;
+            }
+        }
+        return {
+            textWithoutLink: textWithoutLink,
+            link: link ? link[0] : null,
+          };
+      }
+
+      const isImageUrl = (url) => {
+        const cleanUrl = url[0].split('?')[0];
+        const clean2 = cleanUrl.split('#')[0]
+        return (/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i).test(clean2);
+    }
+
     const formatArrayText = (text) => {
+        setMessages([]);
         for (let index = 0; index < text.length; index++) {
             setMessages(prevMessages => [...prevMessages, formatText(text[index])]);
+
         }
       };
 
@@ -155,40 +177,62 @@ export const ChatBox = () => {
 
     if(true){
         messageList.push(<></>)
-        for (let index = 0; index < messages.length; index++) {
-
-        }
         if(messages !== undefined){
             for (let index = 0; index < messages.length; index++) {
+                let result = extractLink(messages[index].content[0].text.value);
 
-                if(index === messages.length - 1 && newMessageToType) {
-                    if(messages[index].role === "user"){
-                        messageList.push(<Message key={messages[index].id} model={{
-                            message: messages[index].content[0].text.value,
-                            sender: messages[index].role,
-                            direction: "outgoing"
-                        }}></Message>)
+                if(result.link !== null){
+                    console.log(result.link);
+                    if(index === messages.length - 1 && newMessageToType) {
+                        let helper = result.textWithoutLink;
+                        messageList.push(<TypingAni WordToType={{helper}} scroll={scrolltoBottom}></TypingAni>)
                     }else{
-                        let helper = messages[index].content[0].text.value;
-                        messageList.push(<TypingAni WordToType={{helper}}></TypingAni>)
+                        if(messages[index].role === "assistant"){
+                            messageList.push(<Message key={messages[index].id} model={{
+                                message: result.textWithoutLink,
+                                sender: messages[index].role,
+                                direction: "incoming"
+                            }}></Message>)
+                        }
                     }
+
                     
+                    
+                    messageList.push(<img src={result.link} style={{width: "auto", height: "auto", paddingTop: "15px", paddingBottom: "15px"}}></img>)
+
+
                 }else{
-                    if(messages[index].role === "user"){
-                        messageList.push(<Message key={messages[index].id} model={{
-                            message: messages[index].content[0].text.value,
-                            sender: messages[index].role,
-                            direction: "outgoing"
-                        }}></Message>)
-                    }
-                    if(messages[index].role === "assistant"){
-                        messageList.push(<Message key={messages[index].id} model={{
-                            message: messages[index].content[0].text.value,
-                            sender: messages[index].role,
-                            direction: "incoming"
-                        }}></Message>)
+                    if(index === messages.length - 1 && newMessageToType) {
+                        if(messages[index].role === "user"){
+                            messageList.push(<Message key={messages[index].id} model={{
+                                message: messages[index].content[0].text.value,
+                                sender: messages[index].role,
+                                direction: "outgoing"
+                            }}></Message>)
+                        }else{
+                            let helper = messages[index].content[0].text.value;
+                            messageList.push(<TypingAni WordToType={{helper}} scroll={scrolltoBottom}></TypingAni>)
+                        }
+                        
+                    }else{
+                        if(messages[index].role === "user"){
+                            messageList.push(<Message key={messages[index].id} model={{
+                                message: messages[index].content[0].text.value,
+                                sender: messages[index].role,
+                                direction: "outgoing"
+                            }}></Message>)
+                        }
+                        if(messages[index].role === "assistant"){
+                            messageList.push(<Message key={messages[index].id} model={{
+                                message: messages[index].content[0].text.value,
+                                sender: messages[index].role,
+                                direction: "incoming"
+                            }}></Message>)
+                        }
                     }
                 }
+
+                
             }
         }
 
@@ -200,7 +244,7 @@ export const ChatBox = () => {
             <div style={{  height: "90vh", width: "100%" }}>
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyleChatContainer" >
-                <MessageList className="overrideStyleMessageList"  style={{paddingLeft: "40px", paddingRight: "40px"}}>
+                <MessageList scrollBehavior={"auto"} className="overrideStyleMessageList" ref={containerRef} style={{paddingLeft: "40px", paddingRight: "40px"}} >
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Assistant is thinking" /> : <></>}
                 </MessageList>
