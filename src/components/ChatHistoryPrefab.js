@@ -58,7 +58,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
         <div style={{paddingTop: "10px", width: "100%", paddingRight: "5px"}}>
             <div onClick={handleClick} className="ChatHistoryPrefabContainer" style={{position: "relative"}}>
                 <div className="rowContainer" style={{justifyContent: "space-between", width: "100%", height:"100%", }}>
-                    <div className="ColumnContainer" style={{paddingLeft: "10px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
+                    <div className="ColumnContainer" style={{paddingLeft: "20px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
                         <p className="ChatHistoryTime" style={{paddingBottom: "5px"}}>{name}</p>
                         <p className="ChatHistoryText">{helper}</p>
                     </div>
