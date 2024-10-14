@@ -146,7 +146,7 @@ export const Sidebar = () => {
         <div key={value}>
         {isOpen ?
             <div className="ColumnContainer" style={{justifyContent: "flex-start", height: "100vh"}}>
-                <div className="rowContainer" style={{ width: "100%", paddingTop: "10px",alignItems: "center", justifyContent: "space-evenly"}}>
+                <div className="rowContainer" style={{ width: "100%", paddingTop: "10px", paddingRight: "15px", alignItems: "center", justifyContent: "space-around"}}>
                     <Dropdown className= "imgClear">
                     <Dropdown.Toggle as={CustomToggle} variant="success" id="dropdown-basic">
                     </Dropdown.Toggle>

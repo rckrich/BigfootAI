@@ -100,10 +100,10 @@ export const PopUpPrefab = ({identifier}) => {
     return (
       <div className="popUpContainer">
           <div className="popUpMessage">
-          <h3 style={{ paddingTop: "8%", paddingBottom: "1%", fontWeight: "bold", fontSize: "1.5vw"}}>Ingrese título de la conversación</h3>
+          <h3 style={{ paddingTop: "3%", paddingBottom: "1%", fontWeight: "bold", fontSize: "1.5vw"}}>Ingrese título de la conversación</h3>
 
 
-          <div style={{paddingTop: "0px", paddingBottom: "5%", width: "100%", display: "flex", justifyContent: "center"}}><input
+          <div style={{paddingTop: "0px", paddingBottom: "3%", width: "100%", display: "flex", justifyContent: "center"}}><input
             ref={inputNew}
             type="text"
             name="text"
@@ -167,9 +167,9 @@ export const PopUpPrefab = ({identifier}) => {
     return (
       <div className="popUpContainer">
           <div className="popUpMessage">
-          <h3 style={{ paddingTop: "5%", paddingBottom: "3%", fontSize: "1.5vw"}}>Ingrese nuevo título de la conversación</h3>
+          <h3 style={{ paddingTop: "4%", paddingBottom: "1%", fontSize: "1.5vw"}}>Ingrese nuevo título de la conversación</h3>
 
-          <div style={{paddingTop: "0px", paddingBottom: "5%", width: "100%", display: "flex", justifyContent: "center"}}><input
+          <div style={{paddingTop: "0px", paddingBottom: "2%", width: "100%", display: "flex", justifyContent: "center"}}><input
             ref={inputEdit}
             type="text"
             name="text"

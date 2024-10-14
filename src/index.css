@@ -241,7 +241,7 @@ code {
 
 .popUpMessage{
   width: 40vw;
-  height: 40vh;
+  height: 30vh;
 
   background-color: rgb(230, 230, 230);
   display: flex;
