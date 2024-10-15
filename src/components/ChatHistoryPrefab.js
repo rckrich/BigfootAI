@@ -46,8 +46,9 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
     }
 
     const handleClick = () => {
-        updateActive(threadId);
-        };
+        updateActive(threadId, name);
+    };
+    
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
         return () => {

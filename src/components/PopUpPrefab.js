@@ -16,7 +16,7 @@ export const PopUpPrefab = ({identifier}) => {
   const inputEdit = useRef("");
   const inputNew = useRef("");
   const { changeValuePopUP } = useContext(ElementContextPopUp);
-  const { changeActive, Active, value } = useContext(ElementContextThread);
+  const { changeActive, value } = useContext(ElementContextThread);
   const { userData } = useContext(AuthContext);
   const handleCancelButton = () => {
     changeValuePopUP("");

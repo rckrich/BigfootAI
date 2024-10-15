@@ -7,13 +7,15 @@ const ElementProviderThread= ({ children }) => {
   const [value, setValue] = useState("");
 
   const [Active, setActive] = useState("");
+  const [Title, setTitle] = useState("");
+
   const changeValueThread = (newValue) => {
     setValue(newValue);
   };
 
   const changeActive = (newValue, newTitle, newLastMessage,token ) => {
     setActive(newValue);
-
+    setTitle(newTitle);
     fetch('http://165.22.178.7/api/v1/threads', {
       method: 'POST',
       headers: {
@@ -31,14 +33,14 @@ const ElementProviderThread= ({ children }) => {
 
   };
 
-  const updateActive= (newValue) => {
+  const updateActive= (newValue, newTitle) => {
     console.log(newValue);
     setActive(newValue);
-
+    setTitle(newTitle);
   };
 
   return (
-    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive }}>
+    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive, Title }}>
       {children}
     </ElementContextThread.Provider>
   );

@@ -9,7 +9,7 @@ import { AuthContext } from "../pages/AuthContext";
 
 export const ChatBox = () => {
 
-    const { Active } = useContext(ElementContextThread);
+    const { Active, Title } = useContext(ElementContextThread);
     const { userData } = useContext(AuthContext);
     const [UserMessage, setUserMessage] = useState("");
     const [waiting, setWaiting] = useState(false);
@@ -18,7 +18,6 @@ export const ChatBox = () => {
     const assistant_id = "asst_My2L0JuJiUoSQPQItZS9llpc";
     const [newMessageToType, setnewMessageToType] = useState();
     let messageList = [];
-
 
     useEffect(() => {
         if(Active !== undefined && Active !== null && Active !== "") {
@@ -198,7 +197,7 @@ export const ChatBox = () => {
 
                     
                     
-                    messageList.push(<img src={result.link} style={{width: "auto", height: "auto", paddingTop: "15px", paddingBottom: "15px"}}></img>)
+                    messageList.push(<img src={result.link} alt="ImgFromAssistant" style={{width: "auto", height: "auto", paddingTop: "15px", paddingBottom: "15px"}}></img>)
 
 
                 }else{
@@ -240,8 +239,8 @@ export const ChatBox = () => {
 
     return (
         <div className="ChatboxContainer">
-            <h3 style={{height: "10vh", textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">Tiktok Trends 2024</h3>
-            <div style={{  height: "90vh", width: "100%" }}>
+            <h3 style={{height: "10vh", textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">{Title}</h3>
+            <div style={{  height: "89vh", width: "100%" }}>
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyleChatContainer" >
                 <MessageList scrollBehavior={"auto"} className="overrideStyleMessageList" ref={containerRef} style={{paddingLeft: "40px", paddingRight: "40px"}} >

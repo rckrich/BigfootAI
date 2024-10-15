@@ -31,10 +31,6 @@ export const Sidebar = () => {
     }
   }
 
-  const test = ({value}) => {
-    console.log(value)
-  }
-
   const handleScroll = (e) => {
     let tolerance = 1;
     const bottom = e.target.scrollHeight - e.target.scrollTop - tolerance <= e.target.clientHeight;
@@ -143,11 +139,7 @@ export const Sidebar = () => {
 
       useEffect(() => {
         if(newData !== ""){
-
-            console.log("!!")
             handleDataForScroll();
-
-          
         }
       },[newData])
 
@@ -170,7 +162,7 @@ export const Sidebar = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => gotToNewPage()}><img src={logout} style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
+                        <Dropdown.Item onClick={() => gotToNewPage()}><img src={logout} alt="close" style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
                     <h2 className="TitleText" style={{ textAlign: "center", fontSize: "22px", paddingTop: "2.2%"}}>{userData.user.name}</h2>
