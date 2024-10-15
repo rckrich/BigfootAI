@@ -368,7 +368,6 @@ code {
   -moz-border-radius: .7em .7em .7em .7em !important;
   -ms-border-radius: .7em .7em .7em .7em !important;
   -o-border-radius: .7em .7em .7em .7em !important;
-  
 }
 
 .cs-message--outgoing .cs-message__html-content{
@@ -387,4 +386,11 @@ code {
   position: relative;
   right: 60px;
   
+}
+.section.cs-message.cs-message--outgoing{
+  padding-bottom: 5px;
+}
+
+section.cs-message.cs-message--incoming{
+  padding-bottom: 5px;
 }
