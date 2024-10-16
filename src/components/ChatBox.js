@@ -245,7 +245,7 @@ export const ChatBox = () => {
                 <ChatContainer className="overrideStyleChatContainer" >
                 <MessageList scrollBehavior={"auto"} className="overrideStyleMessageList" ref={containerRef} style={{paddingLeft: "40px", paddingRight: "40px"}} >
                     <>{messageList}</>
-                    {waiting === true ? <TypingIndicator className="typingOverride" content="El asistente esta pensando" /> : <></>}
+                    {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
                 
                 
