@@ -371,7 +371,7 @@ code {
 }
 
 .cs-message--outgoing .cs-message__html-content{
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255) !important;
   
 }
 

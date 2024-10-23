@@ -15,7 +15,7 @@ export const ChatBox = () => {
     const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
     const containerRef = useRef(null);
-    const assistant_id = "asst_My2L0JuJiUoSQPQItZS9llpc";
+    const assistant_id = "asst_lRAD0l8rOXfLbQdUNfHtaEVf";
     const [newMessageToType, setnewMessageToType] = useState();
     let messageList = [];
 
