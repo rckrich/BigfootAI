@@ -1,6 +1,5 @@
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, InputToolbox, SendButton } from "@chatscope/chat-ui-kit-react";
-import { MessagePlaceHolder } from "./MessagePlaceHolder";
 import { ElementContextThread } from "../context/ThreadContext";
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { TypingAni } from "./TypingAni";
@@ -197,7 +196,7 @@ export const ChatBox = () => {
 
                     
                     
-                    messageList.push(<img src={result.link} alt="ImgFromAssistant" style={{width: "auto", height: "auto", paddingTop: "15px", paddingBottom: "15px"}}></img>)
+                    messageList.push(<img src={result.link} alt="ImgFromAssistant" style={{ paddingTop: "15px", paddingBottom: "15px", maxWidth: "50vw", maxHeight: "50vh"}}></img>)
 
 
                 }else{

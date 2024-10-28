@@ -2,7 +2,7 @@
 import { Sidebar } from "../components/Sidebar.js"
 import {ChatBox} from "../components/ChatBox.js"
 import { AuthContext } from "../pages/AuthContext";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { useNavigate } from "react-router-dom";
 export const Home = () => {

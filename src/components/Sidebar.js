@@ -13,7 +13,7 @@ import { ElementContextPopUp } from "../context/PopUpContext";
 export const Sidebar = () => {
   const {value} = useContext(ElementContextPopUp);
   const [prevData, setData] = useState("");
-  const [offset, setOffset] = useState(0);
+  const [offset] = useState(0);
   const [flag, setFlag] = useState(true);
   const limit = 10;
   const [newData, setNewData] = useState("");
