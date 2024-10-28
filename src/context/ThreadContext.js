@@ -13,6 +13,11 @@ const ElementProviderThread= ({ children }) => {
     setValue(newValue);
   };
 
+  const changeTitle = (newValue) => {
+    setTitle(newValue);
+  }
+  
+
   const changeActive = (newValue, newTitle, newLastMessage,token ) => {
     setActive(newValue);
     setTitle(newTitle);
@@ -40,7 +45,7 @@ const ElementProviderThread= ({ children }) => {
   };
 
   return (
-    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive, Title }}>
+    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive, Title, changeTitle }}>
       {children}
     </ElementContextThread.Provider>
   );

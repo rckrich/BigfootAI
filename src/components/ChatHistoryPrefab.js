@@ -22,7 +22,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
     const { changeValuePopUP } = useContext(ElementContextPopUp);
     const [isClicked, setIsClicked] = useState(false);
     const botonRef = useRef(null);
-    const {updateActive, changeValueThread } = useContext(ElementContextThread);
+    const {updateActive, changeValueThread, changeTitle } = useContext(ElementContextThread);
     const handleClickOutside = (event) => {
         if (botonRef.current && !botonRef.current.contains(event.target)) {
           setIsClicked(false);
@@ -36,6 +36,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
 
     const handleClickEdit = () => {
         changeValueThread(threadId);
+        changeTitle(name);
         changeValuePopUP("edit");
     } 
     let helper 

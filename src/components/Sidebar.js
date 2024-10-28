@@ -103,7 +103,7 @@ export const Sidebar = () => {
                 onClick(e);
             }}>
           {children}
-          <img src={account} alt="sidebar" style={{width: "40px"}}></img>
+          <img src={account} alt="sidebar" className="iconSideBar"></img>
         </a>
       ));
     const[isOpen, setIsOpen] = useState(true)
@@ -155,18 +155,18 @@ export const Sidebar = () => {
     return (
         <div key={prevData}>
         {isOpen ?
-            <div className="ColumnContainer" style={{justifyContent: "flex-start", height: "100vh"}}>
-                <div className="rowContainer" style={{ width: "100%", paddingTop: "10px", paddingRight: "15px", alignItems: "center", justifyContent: "space-around"}}>
-                    <Dropdown className= "imgClear">
-                    <Dropdown.Toggle as={CustomToggle} variant="success" id="dropdown-basic">
+            <div className="sidebarParentContainer">
+                <div className="rowContainer" style={{ width: "100%", paddingTop: "10px", paddingRight: "15px", alignItems: "center", justifyContent: "space-between"}}>
+                    <Dropdown className= "iconClearSideBar"  style={{paddingLeft: "20px"}}>
+                    <Dropdown.Toggle  as={CustomToggle} variant="success" id="dropdown-basic">
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
+                    <Dropdown.Menu >
                         <Dropdown.Item onClick={() => gotToNewPage()}><img src={logout} alt="close" style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
-                    <h2 className="TitleText" style={{ textAlign: "center", fontSize: "22px", paddingTop: "2.2%"}}>{userData.user.name}</h2>
-                    <img src= {sidebar} alt="sidebar" style={{width: "30px"}}  onClick={()=> setIsOpen(!isOpen)}></img>
+                    <h2 className="TitleText" style={{ textAlign: "center", fontSize: "20px", paddingTop: "2.2%"}}>{userData.user.name}</h2>
+                    <img src= {sidebar} alt="sidebar" className="iconSideBar"   onClick={()=> setIsOpen(!isOpen)}></img>
                 </div>
                 <div className="sidebarContainer" onScroll={handleScroll}>
                   <>{element}</>
@@ -178,7 +178,7 @@ export const Sidebar = () => {
 
             <div className="rowContainer" style={{ paddingTop: "30px"}}>
 
-             <img src= {sidebar} alt="sidebar"style={{ width: "30px"}} onClick={()=> setIsOpen(!isOpen)}></img>
+             <img src= {sidebar} alt="sidebar" className="iconSideBar" onClick={()=> setIsOpen(!isOpen)}></img>
             </div>
 
          </div>

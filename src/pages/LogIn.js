@@ -48,10 +48,10 @@ export const LogIn = () => {
 
     return (
         <div style={{display:"flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center", backgroundColor: "#EEEEF8"}}>
-                <div class="form">
-                <p class="form-title">Bienvenido</p>
-                    <p class="form-text">Inicia sesión en tu cuenta</p>
-                    <div class="input-container">
+                <div className="LoginContainer">
+                <h1 >Bienvenido</h1>
+                    <h4 className="subText">Inicia sesión en tu cuenta</h4>
+                    <div className="input-container">
                         <input placeholder="Introducir correo electrónico" type="email" ref={inputRefEmail}/>
                         <span>
                             <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,8 +60,9 @@ export const LogIn = () => {
                         </span>
                     </div>
                 <div class="input-container">
-                    <input placeholder="Introducir contraseña" type="password" ref={inputRefPassword}/>
-
+                    <div style={{paddingBottom: "10px"}}>
+                    <input  placeholder="Introducir contraseña" type="password" ref={inputRefPassword}/>
+                    </div>
                     <span>
                         <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
@@ -69,8 +70,8 @@ export const LogIn = () => {
                         </svg>
                     </span>
                     </div>
-                    {errorMessage ? <div className={isVisible ? "" : "d-none"}><p className="errorMessage">Check your password or account</p></div> : null}
-                    <Button className="" variant="secondary" style={{width: "100%", height:"46px", backgroundColor: "#030617"}} onClick={() => gotToNewPage()}>Iniciar sesión</Button>
+                    {errorMessage ? <div className={isVisible ? "" : "d-none"}><p className="errorMessage">Usuario o contraseña incorrecto</p></div> : null}
+                    <Button className="" variant="secondary" style={{width: "100%", height:"46px", backgroundColor: "#030617"}} onClick={() => gotToNewPage()}><p className="buttonText">Iniciar sesión</p></Button>
 
 
                 </div>
