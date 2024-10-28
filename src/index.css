@@ -490,3 +490,15 @@ section.cs-message.cs-message--incoming{
     font-size: 6vw; /* Ancho para dispositivos móviles */
   }
 }
+
+.sidebarMiniMenuButton{
+  background-color: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, 0);
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  padding: 5px;
+  
+}

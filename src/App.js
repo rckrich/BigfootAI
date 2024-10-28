@@ -27,7 +27,7 @@ function App() {
         </Router>
 
     </div>
-    {value === "" ? null : <PopUpPrefab identifier={value}></PopUpPrefab>}
+   {value === "" ? null : <PopUpPrefab identifier={value}></PopUpPrefab>} 
     </>
   );
 }
