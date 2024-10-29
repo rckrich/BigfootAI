@@ -449,7 +449,7 @@ section.cs-message.cs-message--incoming{
   background-color: white;
   padding: 50px;
   border-radius: 10px;
-  width: 50vw;
+  width: 30vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -482,14 +482,12 @@ section.cs-message.cs-message--incoming{
 }
 
 .buttonText{
-  font-size: 1.2vw;
+  margin: auto;
 }
 
-@media (max-width: 768px) {
-  .buttonText {
-    font-size: 6vw; /* Ancho para dispositivos móviles */
-  }
-}
+
+
+
 
 .sidebarMiniMenuButton{
   background-color: rgba(255, 255, 255, 0);
