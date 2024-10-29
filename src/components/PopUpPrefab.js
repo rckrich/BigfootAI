@@ -174,7 +174,7 @@ export const PopUpPrefab = ({identifier}) => {
     return (
       <div className="popUpContainer">
           <div className="popUpMessage">
-          <h3 style={{ paddingTop: "4%", paddingBottom: "1%", fontSize: "1.5vw"}}>Se ha eliminado con exito</h3>
+          <h3 style={{ paddingTop: "4%", paddingBottom: "1%", fontSize: "1.5vw"}}>Se ha eliminado con éxito</h3>
 
 
           <div className="rowContainer" style={{width: "100%" , height: "100%", justifyContent: "space-evenly"}}>

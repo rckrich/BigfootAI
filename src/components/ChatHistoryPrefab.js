@@ -1,5 +1,5 @@
 import more from "../img/more.svg";
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ElementContextPopUp } from "../context/PopUpContext";
 import edit from "../img/editar.png";
 import delate from "../img/eliminar.png";

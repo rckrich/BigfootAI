@@ -1,10 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
-import { ElementContext } from '../context/InventoryContext';
 
-const DB_NAME = 'RecetasDB';
+
+const DB_NAME = 'Kodex';
 const DB_VERSION = 1;
-const OBJECT_STORE_NAME = 'recetas';
-
+const OBJECT_STORE_NAME = 'info';
 const openDatabase = () => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -18,7 +17,6 @@ const openDatabase = () => {
 
     request.onsuccess = (event) => {
       resolve(event.target.result);
-      console.log("success");
     };
 
     request.onerror = (event) => {
@@ -44,8 +42,6 @@ const useIndexedDB = () => {
     const fetchItems = async () => {
       if (db) {
         const items = await getItems();
-        console.log(items);
-
       }
     };
     fetchItems();
@@ -56,6 +52,22 @@ const useIndexedDB = () => {
       const transaction = db.transaction([OBJECT_STORE_NAME], 'readwrite');
       const objectStore = transaction.objectStore(OBJECT_STORE_NAME);
       const request = objectStore.add(item);
+
+      request.onsuccess = () => {
+        resolve(request.result);
+      };
+
+      request.onerror = () => {
+        reject(request.error);
+      };
+    });
+  };
+
+  const updateItem = async (item) => {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([OBJECT_STORE_NAME], 'readwrite');
+      const objectStore = transaction.objectStore(OBJECT_STORE_NAME);
+      const request = objectStore.put(item);
 
       request.onsuccess = () => {
         resolve(request.result);
@@ -105,7 +117,7 @@ const useIndexedDB = () => {
     });
   };
 
-  return { saveItem, getItems, deleteItem };
+  return { saveItem, getItems, deleteItem, updateItem };
 };
 
 export default useIndexedDB;

@@ -120,6 +120,7 @@ export const ChatBox = () => {
     }
 
     const fetchMessages = () => {
+        console.log(userData);
         fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
             method: 'GET',
             headers: {

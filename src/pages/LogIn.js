@@ -10,37 +10,35 @@ export const LogIn = () => {
     const inputRefEmail = useRef(null);
     const inputRefPassword = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
-    const {setUserData} = useContext(AuthContext);
+    const {changeUserData} = useContext(AuthContext);
     const gotToNewPage= async ()=>{
-        console.log("1");
-        console.log(inputRefEmail.current.value);
-            if(inputRefEmail.current.value.trim() !== "" && inputRefPassword.current.value.trim() !== ""){
-                    const response = fetch("http://165.22.178.7/back/api/v1/login",{
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            email: inputRefEmail.current.value,
-                            password: inputRefPassword.current.value,
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            setIsVisible(true);
-                          throw new Error(`Error del servidor`);
-                        }
-                        return response.json();
-                      })
-                    .then(data => {
-                        console.log(data);
-                        setUserData(data);
-                    })
-                    .then(data => navigate("/home"))
-                    .catch(error => console.error('Error:', error));
-            }else{
-                setIsVisible(true);
-            }
+        if(inputRefEmail.current.value.trim() !== "" && inputRefPassword.current.value.trim() !== ""){
+            const response = fetch("http://165.22.178.7/back/api/v1/login",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: inputRefEmail.current.value,
+                    password: inputRefPassword.current.value,
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    setIsVisible(true);
+                    throw new Error(`Error del servidor`);
+                }
+                return response.json();
+                })
+            .then(data => {
+                console.log(data);
+                changeUserData(data);
+            })
+            .then(data => navigate("/home"))
+            .catch(error => console.error('Error:', error));
+        }else{
+            setIsVisible(true);
+        }
     }
 
 

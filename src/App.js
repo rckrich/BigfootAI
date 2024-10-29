@@ -18,13 +18,13 @@ function App() {
     <>
     <div className="Appcontainer">
       
-        <Router>
+        
           <Routes>
               <Route path= "" element={<LogIn></LogIn>}/>
               <Route path= "home" element={<Home></Home>}/>
           </Routes>
 
-        </Router>
+        
 
     </div>
    {value === "" ? null : <PopUpPrefab identifier={value}></PopUpPrefab>} 
