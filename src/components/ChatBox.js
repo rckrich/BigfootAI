@@ -9,7 +9,7 @@ import { AuthContext } from "../pages/AuthContext";
 export const ChatBox = () => {
 
     const { Active, Title } = useContext(ElementContextThread);
-    const { userData } = useContext(AuthContext);
+    const { userData, setUserData } = useContext(AuthContext);
     const [UserMessage, setUserMessage] = useState("");
     const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -73,7 +73,8 @@ export const ChatBox = () => {
               'OpenAI-Beta' : 'assistants=v2',
             },
             body: JSON.stringify({
-                "assistant_id" : `${assistant_id}`
+                "assistant_id" : `${assistant_id}`,
+                "model" : "gpt-4o-mini",
             })
           })
           .then(response => response.json())
@@ -120,7 +121,6 @@ export const ChatBox = () => {
     }
 
     const fetchMessages = () => {
-        console.log(userData);
         fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
             method: 'GET',
             headers: {

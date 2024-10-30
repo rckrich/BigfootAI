@@ -112,7 +112,7 @@ export const Sidebar = () => {
     const[isDisplay, setIsDisplay] = useState(false)
     const botonRef = useRef(null);
     const navigate = useNavigate()
-    const { userData } = useContext(AuthContext);
+    const { userData, setUserData  } = useContext(AuthContext);
     const toggleDropdown = () => {
         setIsDisplay(!isDisplay);
     };
@@ -123,6 +123,7 @@ export const Sidebar = () => {
             await deleteItem(savedItems[index].id);
           }
         }
+        setUserData(null);
         navigate("/");
     }
     const handleClickOutside = (event) => {
