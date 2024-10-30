@@ -22,6 +22,8 @@ export const ChatBox = () => {
         if(Active !== undefined && Active !== null && Active !== "") {
             setMessages([]);
             fetchMessages();
+        }else{
+            setMessages([]);
         }
     },[Active])
 

@@ -103,6 +103,8 @@ export const PopUpPrefab = ({identifier}) => {
     })
       .then(response => {
         if (response.ok) {
+          changeTitle("");
+          changeActive("");
           changeValuePopUP("deleteSuccess")
         }
       })
