@@ -123,7 +123,7 @@ export const ChatBox = () => {
     }
 
     const fetchMessages = () => {
-        fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
+        fetch(`https://api.openai.com/v1/threads/${Active}/messages?limit=100`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${userData.open_ia_key}`,
@@ -133,7 +133,7 @@ export const ChatBox = () => {
         })
         .then(response => response.json())
             .then(data => {
-
+                console.log(data);
                 if(data.length !== 0){
                     formatArrayText(data.data.reverse());
 
