@@ -101,7 +101,11 @@ export const PopUpPrefab = ({identifier}) => {
         'thread_id': value
       })
     })
-      .then(changeValuePopUP("deleteSuccess"))
+      .then(response => {
+        if (response.ok) {
+          changeValuePopUP("deleteSuccess")
+        }
+      })
       .catch(error => console.error('Error:', error));
       
 
