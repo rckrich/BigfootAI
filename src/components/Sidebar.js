@@ -8,10 +8,12 @@ import React, { useState, useEffect, useRef, useContext} from "react";
 import{ CreateChat} from "./CreateChat";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { AuthContext } from "../pages/AuthContext";
+import useIndexedDB from '../hooks/useIndexedDB';
 
 import { ElementContextPopUp } from "../context/PopUpContext";
 export const Sidebar = () => {
   const {value} = useContext(ElementContextPopUp);
+  const { getItems, deleteItem } = useIndexedDB();
   const [prevData, setData] = useState("");
   const [offset] = useState(0);
   const [flag, setFlag] = useState(true);
@@ -51,7 +53,7 @@ export const Sidebar = () => {
           'Authorization': `Bearer ${userData.access_token}`,
       },
     })
-      .then(navigate("/"))
+      .then(handleLogout())
       .catch(error => console.error('Error:', error))
   }
   const handlethreadsUserByUser= async () => {
@@ -114,7 +116,13 @@ export const Sidebar = () => {
     const toggleDropdown = () => {
         setIsDisplay(!isDisplay);
     };
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        const savedItems = await getItems();
+        if (savedItems !== undefined) {
+          for (let index = 0; index < savedItems.length; index++) {
+            await deleteItem(savedItems[index].id);
+          }
+        }
         navigate("/");
     }
     const handleClickOutside = (event) => {
