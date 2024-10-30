@@ -6,11 +6,22 @@ import delate from "../img/eliminar.png";
 import { ElementContextThread } from "../context/ThreadContext";
 import {FloatingOverlay} from '@floating-ui/react';
 export const ChatHistoryPrefab = ({date, name, threadId}) => {
-    
+    const componentRef = useRef(null);
     const { changeValuePopUP } = useContext(ElementContextPopUp);
     const [isClicked, setIsClicked] = useState(false);
     const {updateActive, changeValueThread, changeTitle } = useContext(ElementContextThread);
     const [ignoreNextClick, setIgnoreNextClick] = useState(false);
+    const [position, setPosition] = useState();
+
+    const updatePosition = () => {
+        if (componentRef.current) {
+          const rect = componentRef.current.getBoundingClientRect();
+          setPosition(
+            rect.y
+          );
+        }
+      };
+    
     const handleClickDelete = () => {
         changeValueThread(threadId);
         changeValuePopUP("eliminate");
@@ -23,6 +34,19 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
         changeValuePopUP("edit");
         setIsClicked(false);
     } 
+
+    useEffect(() => {
+        updatePosition(); // Llamada inicial para obtener la posición cuando el componente se monta
+    
+        // Agrega un listener para actualizar la posición al redimensionar la ventana o hacer scroll
+        window.addEventListener('resize', updatePosition);
+        window.addEventListener('scroll', updatePosition);
+    
+        return () => {
+          window.removeEventListener('resize', updatePosition);
+          window.removeEventListener('scroll', updatePosition);
+        };
+      }, []);
 
     function useOutsideAlerter(ref, setIsClicked, setIgnoreNextClick) {
         useEffect(() => {
@@ -51,6 +75,32 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
     }else{
         helper = "";
     }
+    let MiniMenu;
+    if(window.innerHeight/2 > position){
+        MiniMenu = (<FloatingOverlay style={{position: "static"}}>
+            <div className="sideBarMiniMenu">
+                <div className="rowContainer" style={{justifyContent: "flex-start", paddingLeft: "10px"}}>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Editar</p></button>
+                </div>
+                <div className="rowContainer" style={{paddingLeft: "10px"}}>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Eliminar</p></button>
+                </div>
+
+            </div> 
+            </FloatingOverlay>)
+    }else{
+        MiniMenu = (<FloatingOverlay style={{position: "static"}}>
+            <div className="sideBarMiniMenuTop" >
+                <div className="rowContainer" style={{justifyContent: "flex-start", paddingLeft: "10px"}}>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Editar</p></button>
+                </div>
+                <div className="rowContainer" style={{paddingLeft: "10px"}}>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Eliminar</p></button>
+                </div>
+
+            </div> 
+            </FloatingOverlay>)
+    }
 
     const handleClick = () => {
         updateActive(threadId, name);
@@ -69,12 +119,11 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
                 console.log("2");
         }*/
  
-        console.log(isClicked);
     }
     const sidebarRef = useRef(null);
     useOutsideAlerter(sidebarRef, setIsClicked, setIgnoreNextClick);
     return (
-        <div style={{paddingTop: "10px", width: "100%", paddingRight: "5px"}}>
+        <div  ref= {componentRef} style={{paddingTop: "10px", width: "100%", paddingRight: "5px"}}>
             <div onClick={handleClick} className="ChatHistoryPrefabContainer" style={{position: "relative"}}>
                 <div className="rowContainer" style={{justifyContent: "space-between", width: "100%", height:"100%", alignItems: "center"}}>
                     <div className="ColumnContainer" style={{paddingLeft: "20px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
@@ -83,18 +132,9 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
                     </div>
                     <div style={{paddingRight: "10px"}}>
                         <button className="imgClear" onClick={handleClickMiniMenu}><img src={more}></img></button>
-                        {!isClicked ? <></> :
-                        <FloatingOverlay style={{position: "static"}}>
-                        <div className="sideBarMiniMenu" ref={sidebarRef}>
-                            <div className="rowContainer" style={{justifyContent: "flex-start", paddingLeft: "10px"}}>
-                                <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Editar</p></button>
-                            </div>
-                            <div className="rowContainer" style={{paddingLeft: "10px"}}>
-                                <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Eliminar</p></button>
-                            </div>
-
-                        </div> 
-                        </FloatingOverlay>}
+                        {isClicked && 
+                        <div ref={sidebarRef}>{MiniMenu} </div>
+                        }
                     </div>
                     
                 </div>
