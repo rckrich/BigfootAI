@@ -141,14 +141,10 @@ export const ChatBox = () => {
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
-    const formatBracketContent = (text) => {
-        return text.replace(/【(\d+):\d+】/g, '[$1]');
-    }
     const extractLinkAndBracketContent = (text) => {
         const urlRegex = /(https?:\/\/[^\s]+)/g;
         let link = text.match(urlRegex);
         const textWithoutLink = text.replace(urlRegex, '').trim();
-        let formattedText = formatBracketContent(textWithoutLink);
 
         if(link !== null){
             if(!isImageUrl(link)){
@@ -157,7 +153,7 @@ export const ChatBox = () => {
         }
 
         return {
-            textWithoutLink: formattedText.trim(),
+            textWithoutLink: textWithoutLink,
             link: link ? link[0] : null,
           };
       }
@@ -180,6 +176,7 @@ export const ChatBox = () => {
         let helper = text;
         helper.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
         helper.content[0].text.value = text.content[0].text.value.replace(/- /g, '• ');
+        helper.content[0].text.value = text.content[0].text.value.replace(/【/g, ' [').replace(/】/g, ']').replace(/\[(\d+):\d+†[^\]]*\]/g, '[$1]');
         return helper;
     }
 
@@ -188,7 +185,6 @@ export const ChatBox = () => {
         if(messages !== undefined){
             for (let index = 0; index < messages.length; index++) {
                 let result = extractLinkAndBracketContent(messages[index].content[0].text.value);
-                console.log('Texto sin link y brackets:', result.textWithoutLink);
                 if(result.link !== null){
                     console.log(result.link);
                     if(index === messages.length - 1 && newMessageToType) {
