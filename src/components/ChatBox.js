@@ -141,21 +141,27 @@ export const ChatBox = () => {
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
-    const extractLink = (text) => {
+    const formatBracketContent = (text) => {
+        return text.replace(/【(\d+):\d+】/g, '[$1]');
+    }
+    const extractLinkAndBracketContent = (text) => {
         const urlRegex = /(https?:\/\/[^\s]+)/g;
         let link = text.match(urlRegex);
         const textWithoutLink = text.replace(urlRegex, '').trim();
+        let formattedText = formatBracketContent(textWithoutLink);
+
         if(link !== null){
             if(!isImageUrl(link)){
                 link = null;
             }
         }
+
         return {
-            textWithoutLink: textWithoutLink,
+            textWithoutLink: formattedText.trim(),
             link: link ? link[0] : null,
           };
       }
-
+      
       const isImageUrl = (url) => {
         const cleanUrl = url[0].split('?')[0];
         const clean2 = cleanUrl.split('#')[0]
@@ -172,7 +178,8 @@ export const ChatBox = () => {
 
     function formatText(text) {
         let helper = text;
-        helper.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') 
+        helper.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        helper.content[0].text.value = text.content[0].text.value.replace(/- /g, '• ');
         return helper;
     }
 
@@ -180,8 +187,8 @@ export const ChatBox = () => {
         messageList.push(<></>)
         if(messages !== undefined){
             for (let index = 0; index < messages.length; index++) {
-                let result = extractLink(messages[index].content[0].text.value);
-
+                let result = extractLinkAndBracketContent(messages[index].content[0].text.value);
+                console.log('Texto sin link y brackets:', result.textWithoutLink);
                 if(result.link !== null){
                     console.log(result.link);
                     if(index === messages.length - 1 && newMessageToType) {
@@ -197,8 +204,7 @@ export const ChatBox = () => {
                         }
                     }
 
-                    
-                    
+
                     messageList.push(<img src={result.link} alt="ImgFromAssistant" style={{ paddingTop: "15px", paddingBottom: "15px", maxWidth: "50vw", maxHeight: "50vh"}}></img>)
 
 
