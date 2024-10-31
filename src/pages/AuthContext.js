@@ -97,6 +97,7 @@ export const AuthProvider = ({ children }) => {
       .then(data => {
         newValue.open_ia_key = data.open_ia_key;
         setUserData(newValue);
+        navigate("/home")
       })
       .catch(error => {console.error('Error:', error)
 

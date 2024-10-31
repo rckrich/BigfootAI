@@ -179,6 +179,12 @@ export const ChatBox = () => {
         helper.content[0].text.value = text.content[0].text.value.replace(/【/g, ' [').replace(/】/g, ']').replace(/\[(\d+):\d+†[^\]]*\]/g, '[$1]');
         return helper;
     }
+    let isDisabled
+    if(Active !== undefined && Active !== null && Active !== ""){
+        isDisabled = false;
+    }else{
+        isDisabled = true;
+    }
 
     if(true){
         messageList.push(<></>)
@@ -253,7 +259,7 @@ export const ChatBox = () => {
                 </MessageList>
                 
                 
-                <MessageInput  onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
+                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
                 </MessageInput>
 
                 
