@@ -52,9 +52,8 @@ code {
   justify-content: space-evenly;
   align-items: center;
   width: 400px;
-  position: absolute;
+  height: 100px;
   bottom: 0;
-  height: 10%;
 }
 
 @media (max-width: 768px) {
@@ -163,7 +162,7 @@ code {
   margin: 0;
   margin-bottom: 0;
   color: white;
-  font-size: 1.5vh;
+  font-size: .8vw;
 }
 
 .ChatHistoryTime{
@@ -172,7 +171,7 @@ code {
   margin: 0;
   margin-bottom: 0;
   color: white;
-  font-size: 1.5vh;
+  font-size: .8vw;
   font-weight: bold;
 }
 
@@ -321,6 +320,7 @@ code {
 
 .popUpMessage{
   width: 40vw;
+  min-width: 450px;
   padding-bottom: 20px;
   background-color: rgb(230, 230, 230);
   display: flex;
@@ -336,13 +336,14 @@ code {
   border-color: rgba(255, 255, 255, 0);
   border-radius: 10px;
   width: 15vw;
+  min-width: 180px;
   height: 10%;
   padding-top: 10px;
   font-size: 1.5vw;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  -webkit-border-radius:10;
+  -moz-border-radius:10;
+  -ms-border-radius:10;
+  -o-border-radius:10;
 }
 
 .styleButtonPopUpLogin {
@@ -354,6 +355,7 @@ code {
   height: 100%;
   padding-top: 10px;
   min-height: 50px;
+  min-width: 180px;
   -webkit-border-radius: 100px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -366,6 +368,7 @@ code {
   border-color: rgba(255, 255, 255, 0);
   border-radius: 10px;
   width: 15vw;
+  min-width: 180px;
   height: 10%;
   padding-top: 10px;
   font-size: 1.5vw;
@@ -379,6 +382,7 @@ code {
 .input {
   width: 85%;
   height: 45px;
+  min-width: 400px;
   padding: 12px;
   border-radius: 5px;
   border: 1.5px solid lightgrey;

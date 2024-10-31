@@ -69,6 +69,17 @@
   -o-border-radius: 10px;
 }
 
+.buttonFont{
+  font-size: 1.2vw;
+  color: white;
+}
+
+@media (max-width: 1200px) {
+  .buttonFont {
+    font-size: 2vw;
+  }
+}
+
 @media (min-width: 900px) and (max-width: 1200px) {
   .sideBarMiniMenu {
     left: 13vw;
@@ -88,6 +99,7 @@
     left: 8vw;
   }
 }
+
 
 
 
