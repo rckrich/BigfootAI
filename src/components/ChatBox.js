@@ -16,6 +16,7 @@ export const ChatBox = () => {
     const containerRef = useRef(null);
     const assistant_id = "asst_zrSOh8NUnr9XkoSAcZOkFP8d";
     const [newMessageToType, setnewMessageToType] = useState();
+    const [fileIds, setFileIds] = useState({});
     let messageList = [];
 
     useEffect(() => {
@@ -45,7 +46,6 @@ export const ChatBox = () => {
         }else{
 
             const newUserMessage = {
-                
                 id: Date.now(),
                 role: "user",
                 content: [{ text: { value: UserMessage } }]
@@ -66,7 +66,7 @@ export const ChatBox = () => {
                     "content": `${UserMessage}`
                 })
               })
-            .then(response => response.json()) 
+            .then(response => response.json())
             .then(data => handleRun())
             .catch(error => console.error('Error:', error));
         }
@@ -143,10 +143,23 @@ export const ChatBox = () => {
                 console.log(data);
                 if(data.length !== 0){
                     formatArrayText(data.data.reverse());
-
                 }
             })
             .catch(error => console.error('Error fetching messages:', error));
+    }
+    const fetchfiles = (filesid) => {
+        fetch(`https://api.openai.com/v1/files/${filesid}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${userData.open_ia_key}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {console.log(data);})
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
     const extractLinkAndBracketContent = (text) => {
         const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -163,33 +176,60 @@ export const ChatBox = () => {
             textWithoutLink: textWithoutLink,
             link: link ? link[0] : null,
           };
-      }
+    }
       
-      const isImageUrl = (url) => {
+    const isImageUrl = (url) => {
         const cleanUrl = url[0].split('?')[0];
         const clean2 = cleanUrl.split('#')[0]
         return (/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i).test(clean2);
     }
-
-    const formatArrayText = (text) => {
-        setMessages([]);
-        for (let index = 0; index < text.length; index++) {
-            setMessages(prevMessages => [...prevMessages, formatText(text[index])]);
-
+    const handleFileClick = (messageId) => {
+        const fileId = fileIds[messageId];
+        if (fileId) {
+            fetchfiles(fileId);
+        } else {
+            console.error('file_id no encontrado para el mensaje:', messageId);
         }
-      };
-
+    }
     function formatText(text) {
         let helper = text;
+        formatSource(text);
         helper.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
         helper.content[0].text.value = text.content[0].text.value.replace(
             /### (.*)/g,
             '<span style="font-weight:bold; font-size:1.2em;">$1</span>'
         );
         helper.content[0].text.value = text.content[0].text.value.replace(/- /g, '• ');
-        helper.content[0].text.value = text.content[0].text.value.replace(/【/g, ' [').replace(/】/g, ']').replace(/\[(\d+):\d+†[^\]]*\]/g, '[$1]');
+        helper.content[0].text.value = text.content[0].text.value.replace(/【/g, ' [')
+        .replace(/】/g, ']')
+        .replace(/\[(\d+):(\d+)†[^\]]*\]/g, (match, p1, p2) => {
+            return `<span onClick="handleFileClick('${helper.id}')" style="cursor:pointer;">[${p1}:${p2}]</span>`;
+        });
         return helper;
     }
+    
+    const formatArrayText = (text) => {
+        setMessages([]);
+        for (let index = 0; index < text.length; index++) {
+            setMessages(prevMessages => [...prevMessages, formatText(text[index])]);
+        }
+      };
+
+    function formatSource(text){
+        let helper = text;
+        if(helper.content[0].text.annotations.length > 0){
+            const annotation = helper.content[0].text.annotations[0];
+        if (annotation.file_citation && annotation.file_citation.file_id) {
+            setFileIds(prev => ({
+                ...prev,
+                [`${helper.id}`]: annotation.file_citation.file_id
+            }));
+        }
+    }
+    }
+    
+
+    
     let isDisabled
     if(Active !== undefined && Active !== null && Active !== ""){
         isDisabled = false;
@@ -233,7 +273,6 @@ export const ChatBox = () => {
                             let helper = messages[index].content[0].text.value;
                             messageList.push(<TypingAni WordToType={{helper}} scroll={scrolltoBottom}></TypingAni>)
                         }
-                        
                     }else{
                         if(messages[index].role === "user"){
                             messageList.push(<Message key={messages[index].id} model={{
@@ -285,7 +324,6 @@ export const ChatBox = () => {
                                 cursor: "pointer",
                                 zIndex: "100",
                                 width: "40px",
-                                
                             }}
                         >
                             ↓
