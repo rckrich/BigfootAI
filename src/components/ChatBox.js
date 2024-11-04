@@ -271,6 +271,25 @@ export const ChatBox = () => {
                 </MessageInput>
                 </ChatContainer>
             </MainContainer>
+            <button
+                            onClick={scrolltoBottom}
+                            style={{
+                                position: "fixed",
+                                bottom: "100px",
+                                right: "70px",
+                                padding: "10px",
+                                borderRadius: "50%",
+                                backgroundColor: "#007bff",
+                                color: "white",
+                                border: "none",
+                                cursor: "pointer",
+                                zIndex: "100",
+                                width: "40px",
+                                
+                            }}
+                        >
+                            ↓
+                        </button>
             </div>
         </div>
     )
