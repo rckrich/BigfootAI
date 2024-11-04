@@ -267,7 +267,7 @@ export const ChatBox = () => {
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
-                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
+                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Escriba su mensaje aquí" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
                 </MessageInput>
                 </ChatContainer>
             </MainContainer>
