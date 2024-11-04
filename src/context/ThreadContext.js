@@ -79,7 +79,7 @@ const ElementProviderThread= ({ children }) => {
   };
 
   return (
-    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive, Title, changeTitle }}>
+    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive, Title, changeTitle, setActive }}>
       {children}
     </ElementContextThread.Provider>
   );
