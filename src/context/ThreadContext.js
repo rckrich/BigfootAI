@@ -39,8 +39,8 @@ const ElementProviderThread= ({ children }) => {
 
   const changeActive = (newValue, newTitle, newLastMessage,token ) => {
 
-    
-    fetch('http://165.22.178.7/back/api/v1/threads', {
+
+    fetch('https://kodexai-bigfoot.coolnerdypipol.com/back/api/v1/threads', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -80,10 +80,10 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
         MiniMenu = (<FloatingOverlay style={{position: "static"}}>
             <div className="sideBarMiniMenu">
                 <div className="rowContainer" style={{justifyContent: "flex-start", paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Editar</p></button>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p className="MiniMenuText">Editar</p></button>
                 </div>
                 <div className="rowContainer" style={{paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Eliminar</p></button>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p className="MiniMenuText">Eliminar</p></button>
                 </div>
 
             </div> 
@@ -92,10 +92,10 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
         MiniMenu = (<FloatingOverlay style={{position: "static"}}>
             <div className="sideBarMiniMenuTop" >
                 <div className="rowContainer" style={{justifyContent: "flex-start", paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Editar</p></button>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p className="MiniMenuText">Editar</p></button>
                 </div>
                 <div className="rowContainer" style={{paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p style={{paddingTop: "10px", fontSize: "1.2vw", paddingLeft: "10px"}}>Eliminar</p></button>
+                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p className="MiniMenuText">Eliminar</p></button>
                 </div>
 
             </div> 

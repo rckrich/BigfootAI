@@ -37,12 +37,13 @@ code {
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  width: 400px;
+  min-width: 400px;
+  z-index: 2;
 }
 
 @media (max-width: 768px) {
   .sidebarParentContainer {
-    width: 50vw; /* Ancho para dispositivos móviles */
+    min-width: 50vw; /* Ancho para dispositivos móviles */
   }
 }
 .createChatContainer{
@@ -102,6 +103,7 @@ code {
   background-color: #FFFFFF;
   height: 100vh;
   width: 100vw;
+  z-index: 1;
 }
 
 .sidebarClosed{
@@ -171,6 +173,18 @@ code {
   font-size: .8vw;
 }
 
+@media (min-width: 740px) and (max-width: 1900px) {
+  .ChatHistoryText {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 510px) and (max-width: 739px) {
+  .ChatHistoryText {
+    font-size: 12px;
+  }
+}
+
 .ChatHistoryTime{
   padding: 0;
   border: 0;
@@ -181,9 +195,49 @@ code {
   font-weight: bold;
 }
 
+@media (min-width: 740px) and (max-width: 1900px) {
+  .ChatHistoryTime {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 510px) and (max-width: 739px) {
+  .ChatHistoryTime {
+    font-size: 12px;
+  }
+}
+
+.MiniMenuText{
+  
+  font-size: 1.2vw;
+  font-weight: bold;
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+@media (min-width: 740px) and (max-width: 1900px) {
+  .MiniMenuText {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 510px) and (max-width: 739px) {
+  .MiniMenuText {
+    font-size: 12px;
+  }
+}
+
 .TitleText{
   font-size: 2vw;
   color: white;
+}
+
+
+
+@media (min-width: 510px) and (max-width: 1100px) {
+  .TitleText {
+    font-size: 20px;
+  }
 }
 
 .overrideStyle{
