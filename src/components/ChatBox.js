@@ -183,14 +183,10 @@ export const ChatBox = () => {
         const clean2 = cleanUrl.split('#')[0]
         return (/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i).test(clean2);
     }
-    const handleFileClick = (messageId) => {
-        const fileId = fileIds[messageId];
-        if (fileId) {
-            fetchfiles(fileId);
-        } else {
-            console.error('file_id no encontrado para el mensaje:', messageId);
-        }
-    }
+    const handleFileClick = (fileId) => {
+        fetchfiles(fileId);
+    };
+
     function formatText(text) {
         let helper = text;
         formatSource(text);
@@ -203,11 +199,28 @@ export const ChatBox = () => {
         helper.content[0].text.value = text.content[0].text.value.replace(/【/g, ' [')
         .replace(/】/g, ']')
         .replace(/\[(\d+):(\d+)†[^\]]*\]/g, (match, p1, p2) => {
-            return `<span onClick="handleFileClick('${helper.id}')" style="cursor:pointer;">[${p1}:${p2}]</span>`;
+             const fileId = text.content[0].text.annotations[0].file_citation.file_id;
+                setFileIds(prevIds => ({ ...prevIds, [`${p1}:${p2}`]: fileId }));
+
+                return `<span class="clickable-ref" style="cursor: pointer;" data-file-id="${fileId}">[${p1}:${p2}]</span>`;
         });
         return helper;
     }
-    
+
+    useEffect(() => {
+        const handleClick = (event) => {
+            if (event.target.classList.contains("clickable-ref")) {
+                const fileId = event.target.getAttribute("data-file-id");
+                handleFileClick(fileId);
+            }
+        };
+
+        document.addEventListener("click", handleClick);
+        return () => {
+            document.removeEventListener("click", handleClick);
+        };
+    }, []);
+
     const formatArrayText = (text) => {
         setMessages([]);
         for (let index = 0; index < text.length; index++) {
