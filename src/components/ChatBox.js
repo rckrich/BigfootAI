@@ -182,6 +182,10 @@ export const ChatBox = () => {
     function formatText(text) {
         let helper = text;
         helper.content[0].text.value = text.content[0].text.value.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        helper.content[0].text.value = text.content[0].text.value.replace(
+            /### (.*)/g,
+            '<span style="font-weight:bold; font-size:1.2em;">$1</span>'
+        );
         helper.content[0].text.value = text.content[0].text.value.replace(/- /g, '• ');
         helper.content[0].text.value = text.content[0].text.value.replace(/【/g, ' [').replace(/】/g, ']').replace(/\[(\d+):\d+†[^\]]*\]/g, '[$1]');
         return helper;
@@ -248,7 +252,6 @@ export const ChatBox = () => {
                     }
                 }
 
-                
             }
         }
 
@@ -264,13 +267,8 @@ export const ChatBox = () => {
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
-                
-                
                 <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Type message here" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
                 </MessageInput>
-
-                
-                
                 </ChatContainer>
             </MainContainer>
             </div>
