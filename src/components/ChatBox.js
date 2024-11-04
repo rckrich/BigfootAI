@@ -29,8 +29,15 @@ export const ChatBox = () => {
 
 
     const scrolltoBottom = () => {
-        containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
+        if (containerRef.current) {
+            console.log("Scrolling to bottom");
+            containerRef.current.scrollToBottom();
+        }
+    };
+
+    useEffect(() => {
+        scrolltoBottom();
+    }, [messages]);
 
     const handleMessageToThread =( ) => {
         if(UserMessage === ""){
@@ -253,7 +260,7 @@ export const ChatBox = () => {
             <div style={{  height: "89vh", width: "100%" }}>
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyleChatContainer" >
-                <MessageList scrollBehavior={"auto"} className="overrideStyleMessageList" ref={containerRef} style={{paddingLeft: "40px", paddingRight: "40px"}} >
+                <MessageList scrollBehavior={"auto"} className="overrideStyleMessageList" ref={containerRef} style={{paddingLeft: "40px", paddingRight: "40px", height: "89vh", overflowY: "auto"}} >
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
