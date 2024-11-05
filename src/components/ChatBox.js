@@ -17,6 +17,7 @@ export const ChatBox = () => {
     const assistant_id = "asst_zrSOh8NUnr9XkoSAcZOkFP8d";
     const [newMessageToType, setnewMessageToType] = useState();
     const [fileIds, setFileIds] = useState({});
+    const [filePopup, setFilePopup] = useState({ visible: false, filename: '', x: 0, y: 0 });
     let messageList = [];
 
     useEffect(() => {
@@ -156,7 +157,10 @@ export const ChatBox = () => {
             }
         })
         .then(response => response.json())
-        .then(data => {console.log(data);})
+        .then(data => {
+            console.log(data.filename);
+            //data.filename;
+        })
         .catch(error => {
             console.error('Error:', error);
         });
@@ -177,14 +181,18 @@ export const ChatBox = () => {
             link: link ? link[0] : null,
           };
     }
-      
+    
     const isImageUrl = (url) => {
         const cleanUrl = url[0].split('?')[0];
         const clean2 = cleanUrl.split('#')[0]
         return (/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i).test(clean2);
     }
-    const handleFileHover = (fileId) => {
-        fetchfiles(fileId);
+
+    const handleFileHover = async (fileId, x, y) => {
+        const filename = await fetchfiles(fileId);
+        if (filename) {
+            setFilePopup({ visible: true, filename, x, y });
+        }
     };
 
     function formatText(text) {
@@ -206,18 +214,29 @@ export const ChatBox = () => {
         });
         return helper;
     }
-
+    const hideFilePopup = () => {
+        setFilePopup({ ...filePopup, visible: false });
+    };
     useEffect(() => {
-        const handleHover = (event) => {
+        const handleMouseOver = (event) => {
             if (event.target.classList.contains("hoverable-ref")) {
                 const fileId = event.target.getAttribute("data-file-id");
-                handleFileHover(fileId);
+                const { clientX: x, clientY: y } = event;
+                handleFileHover(fileId, x, y);
             }
         };
 
-        document.addEventListener("mouseover", handleHover);
+        const handleMouseOut = (event) => {
+            if (event.target.classList.contains("hoverable-ref")) {
+                hideFilePopup();
+            }
+        };
+
+        document.addEventListener("mouseover", handleMouseOver);
+        document.addEventListener("mouseout", handleMouseOut);
         return () => {
-            document.removeEventListener("mouseover", handleHover);
+            document.removeEventListener("mouseover", handleMouseOver);
+            document.removeEventListener("mouseout", handleMouseOut);
         };
     }, []);
 
@@ -342,6 +361,25 @@ export const ChatBox = () => {
                             ↓
                         </button>
             </div>
+            {filePopup.visible && (
+                <div
+                    style={{
+                        position: "absolute",
+                        top: filePopup.y + 10,
+                        left: filePopup.x + 10,
+                        backgroundColor: "#333",
+                        color: "#fff",
+                        padding: "5px 10px",
+                        borderRadius: "4px",
+                        fontSize: "12px",
+                        pointerEvents: "none",
+                        zIndex: 1000,
+                    }}
+                >
+                    {filePopup.filename}
+                </div>
+            )}
         </div>
+        
     )
 }
