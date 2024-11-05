@@ -183,7 +183,7 @@ export const ChatBox = () => {
         const clean2 = cleanUrl.split('#')[0]
         return (/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i).test(clean2);
     }
-    const handleFileClick = (fileId) => {
+    const handleFileHover = (fileId) => {
         fetchfiles(fileId);
     };
 
@@ -202,22 +202,22 @@ export const ChatBox = () => {
              const fileId = text.content[0].text.annotations[0].file_citation.file_id;
                 setFileIds(prevIds => ({ ...prevIds, [`${p1}:${p2}`]: fileId }));
 
-                return `<span class="clickable-ref" style="cursor: pointer;" data-file-id="${fileId}">[${p1}:${p2}]</span>`;
+                return `<span class="hoverable-ref" style="cursor: pointer;" data-file-id="${fileId}">[${p1}:${p2}]</span>`;
         });
         return helper;
     }
 
     useEffect(() => {
-        const handleClick = (event) => {
-            if (event.target.classList.contains("clickable-ref")) {
+        const handleHover = (event) => {
+            if (event.target.classList.contains("hoverable-ref")) {
                 const fileId = event.target.getAttribute("data-file-id");
-                handleFileClick(fileId);
+                handleFileHover(fileId);
             }
         };
 
-        document.addEventListener("click", handleClick);
+        document.addEventListener("mouseover", handleHover);
         return () => {
-            document.removeEventListener("click", handleClick);
+            document.removeEventListener("mouseover", handleHover);
         };
     }, []);
 
