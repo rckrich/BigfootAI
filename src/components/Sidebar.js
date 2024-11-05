@@ -156,7 +156,11 @@ export const Sidebar = () => {
       let element;
       if(prevData !== undefined && prevData !== null && prevData !== ""){
         element = (prevData.thread_bundles.map(item => (
-          <ChatHistoryPrefab date={item.updated_at} name={item.title} threadId={item.thread_id} internalId={item.id}></ChatHistoryPrefab>)))
+          <ChatHistoryPrefab
+          date={item.updated_at}
+          name={item.title.length > 40 ? `${item.title.substring(0, 30)}...` : item.title}
+          threadId={item.thread_id}
+          internalId={item.id}></ChatHistoryPrefab>)))
       }else{
         element = (<><ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder> <ChatHistoryPlaceholder></ChatHistoryPlaceholder></>)
       }

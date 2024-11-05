@@ -328,7 +328,9 @@ export const ChatBox = () => {
 
     return (
         <div className="ChatboxContainer">
-            <h3 style={{height: "10vh", textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">{Title}</h3>
+            <h3 style={{ height: "10vh", textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold" }} className="TitleText">
+                {Title.length > 30 ? `${Title.substring(0, 30)}...` : Title}
+            </h3>
             <div style={{  height: "89vh", width: "100%" }}>
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyleChatContainer" >
