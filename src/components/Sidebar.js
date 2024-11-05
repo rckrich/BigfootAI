@@ -77,7 +77,7 @@ export const Sidebar = () => {
     .catch(error => console.error('Error:', error));
   }
     const handleNextThread = async () => {
-      fetch(`https://kodexai-bigfoot.coolnerdypipol.com/api${prevData.next}`,{
+      fetch(`https://kodexai-bigfoot.coolnerdypipol.com/api/${prevData.next}`,{
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
