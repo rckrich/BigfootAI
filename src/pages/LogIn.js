@@ -13,7 +13,7 @@ export const LogIn = () => {
     const {changeUserData} = useContext(AuthContext);
     const gotToNewPage= async ()=>{
         if(inputRefEmail.current.value.trim() !== "" && inputRefPassword.current.value.trim() !== ""){
-            const response = fetch("http://165.22.178.7/back/api/v1/login",{
+            const response = fetch(" https://kodexai-bigfoot.coolnerdypipol.com/back/api/v1/login",{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

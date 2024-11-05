@@ -47,7 +47,7 @@ export const Sidebar = () => {
     }
   }
   const gotToNewPage= async ()=>{
-    const response = fetch("https://kodexai-bigfoot.coolnerdypipol.com/back/api/v1/logout",{
+    const response = fetch("https://kodexai-bigfoot.coolnerdypipol.com/api/v1/logout",{
       method: "POST",
       headers: {
           'Authorization': `Bearer ${userData.access_token}`,
@@ -57,7 +57,7 @@ export const Sidebar = () => {
       .catch(error => console.error('Error:', error))
   }
   const handlethreadsUserByUser= async () => {
-    fetch(`https://kodexai-bigfoot.coolnerdypipol.com/back/api/v1/threads/${limit}/${offset}`,{
+    fetch(`https://kodexai-bigfoot.coolnerdypipol.com/api/v1/threads/${limit}/${offset}`,{
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export const Sidebar = () => {
     .catch(error => console.error('Error:', error));
   }
     const handleNextThread = async () => {
-      fetch(`https://kodexai-bigfoot.coolnerdypipol.com/back/api${prevData.next}`,{
+      fetch(`https://kodexai-bigfoot.coolnerdypipol.com/api${prevData.next}`,{
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
