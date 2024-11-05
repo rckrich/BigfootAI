@@ -10,7 +10,7 @@ export const CreateChat = () => {
 
     return (
         <div className="createChatContainer" >
-                    <button className= "imgClear" onClick={handleClick} style={{alignItems: "center"}}> <h4 className="CreateNewChatText">CREAR NUEVO CHAT</h4> <img src={add} style={{paddingLeft: "10px"}}></img></button>
+                    <button className= "imgClear" onClick={handleClick} style={{alignItems: "center"}}> <h4 className="ChatHistoryTime">CREAR NUEVO CHAT</h4> <img src={add} style={{paddingLeft: "10px"}}></img></button>
         </div>
     )
 }

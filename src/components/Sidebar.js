@@ -9,10 +9,11 @@ import{ CreateChat} from "./CreateChat";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { AuthContext } from "../pages/AuthContext";
 import useIndexedDB from '../hooks/useIndexedDB';
-
+import { ElementContextSidebar } from "../context/SidebarContext";
 import { ElementContextPopUp } from "../context/PopUpContext";
 export const Sidebar = () => {
   const {value} = useContext(ElementContextPopUp);
+  const {changeValueSideBar, valueSB} = useContext(ElementContextSidebar);
   const { getItems, deleteItem } = useIndexedDB();
   const [prevData, setData] = useState("");
   const [offset] = useState(0);
@@ -108,7 +109,6 @@ export const Sidebar = () => {
           <img src={account} alt="sidebar" className="iconSideBar"></img>
         </a>
       ));
-    const[isOpen, setIsOpen] = useState(true)
     const[isDisplay, setIsDisplay] = useState(false)
     const botonRef = useRef(null);
     const navigate = useNavigate()
@@ -167,7 +167,7 @@ export const Sidebar = () => {
 
     return (
         <div key={prevData}>
-        {isOpen ?
+        {valueSB ?
             <div className="sidebarParentContainer">
               
                 <div className="rowContainer" style={{ width: "100%", paddingTop: "10px", paddingRight: "15px", alignItems: "center", justifyContent: "space-between"}}>
@@ -180,7 +180,7 @@ export const Sidebar = () => {
                     </Dropdown.Menu>
                     </Dropdown>
                     <h2 className="TitleText" style={{ textAlign: "center", fontSize: "20px", paddingTop: "2.2%"}}>{userData.user.name}</h2>
-                    <img src= {sidebar} alt="sidebar" className="iconSideBar"   onClick={()=> setIsOpen(!isOpen)}></img>
+                    <img src= {sidebar} alt="sidebar" className="iconSideBar"   onClick={()=> changeValueSideBar(!valueSB)}></img>
                 </div>
                 <div className="sidebarContainer" onScroll={handleScroll}>
                   <>{element}</>
@@ -192,7 +192,7 @@ export const Sidebar = () => {
 
             <div className="rowContainer" style={{ paddingTop: "30px"}}>
 
-             <img src= {sidebar} alt="sidebar" className="iconSideBar" onClick={()=> setIsOpen(!isOpen)}></img>
+             <img src= {sidebar} alt="sidebar" className="iconSideBar" onClick={()=> changeValueSideBar(!valueSB)}></img>
             </div>
 
          </div>

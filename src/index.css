@@ -37,29 +37,33 @@ code {
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  min-width: 400px;
+  width:  19vw;
   z-index: 2;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 400px) and (max-width: 950px) {
   .sidebarParentContainer {
-    min-width: 50vw; /* Ancho para dispositivos móviles */
+    width: 30vw;
   }
 }
+
+
 .createChatContainer{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   align-items: center;
-  width: 400px;
+  width: 19vw;
   height: 100px;
   bottom: 0;
 }
 
-@media (max-width: 768px) {
+
+
+@media (min-width: 400px) and (max-width: 950px)  {
   .createChatContainer {
-    width: 50vw; /* Ancho para dispositivos móviles */
+    width: 30vw; /* Ancho para dispositivos móviles */
   }
 }
 
@@ -99,11 +103,44 @@ code {
 .ChatboxContainer{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   background-color: #FFFFFF;
   height: 100vh;
-  width: 100vw;
+  width: 81vw;
   z-index: 1;
+}
+
+
+
+@media (min-width: 400px) and (max-width: 950px) {
+  .ChatboxContainer {
+    width: 70vw;
+  }
+}
+
+.ChatboxContainerClose{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFFFF;
+  height: 100vh;
+  max-width: 97vw;
+  z-index: 1;
+}
+
+
+
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .ChatboxContainerClose {
+    width: 92vw;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 700px) {
+  .ChatboxContainerClose {
+    width: 89vw;
+  }
 }
 
 .sidebarClosed{
@@ -112,7 +149,19 @@ code {
   align-items: "center";
   background-color: rgba(49, 24, 24, 0.39);
   height: 100vh;
-  width: 40px;
+  width: 3vw;
+}
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .sidebarClosed {
+    width: 8vw;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 700px) {
+  .sidebarClosed {
+    width: 11vw;
+  }
 }
 
 .sidebarClosedAni{
@@ -128,7 +177,7 @@ code {
   flex-direction: column;
   align-items: flex-start;
   background-color: #282B3A;
-  height: 100px;
+  height: 72px;
   width: 95%;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -232,13 +281,26 @@ code {
   color: white;
 }
 
-
-
 @media (min-width: 510px) and (max-width: 1100px) {
   .TitleText {
     font-size: 20px;
   }
 }
+
+.TitleTextChat{
+  font-size: 2vw;
+  text-align: center;
+  font-weight: bold;
+  
+}
+
+@media (min-width: 510px) and (max-width: 1100px) {
+  .TitleTextChat {
+    font-size: 20px;
+  }
+}
+
+
 
 .overrideStyle{
   background-color: white !important; 
@@ -592,4 +654,8 @@ section.cs-message.cs-message--incoming{
   justify-content: flex-start;
   padding: 5px;
   
+}
+
+section.cs-message.cs-message--incoming{
+  padding-bottom: 5px !important;
 }

@@ -76,6 +76,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
         helper = "";
     }
     let MiniMenu;
+    console.log(position);
     if(window.innerHeight/2 > position){
         MiniMenu = (<FloatingOverlay style={{position: "static"}}>
             <div className="sideBarMiniMenu">
