@@ -32,14 +32,9 @@ export const ChatBox = () => {
 
     const scrolltoBottom = () => {
         if (containerRef.current) {
-            console.log("Scrolling to bottom");
             containerRef.current.scrollToBottom();
         }
     };
-
-    useEffect(() => {
-        scrolltoBottom();
-    }, [messages]);
 
     const handleMessageToThread =( ) => {
         if(UserMessage === ""){
@@ -55,6 +50,7 @@ export const ChatBox = () => {
 
             setUserMessage("");
             setWaiting(true);
+            scrolltoBottom();
             fetch(`https://api.openai.com/v1/threads/${Active}/messages`, {
                 method: 'POST',
                 headers: {
@@ -148,23 +144,22 @@ export const ChatBox = () => {
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
-    const fetchfiles = (filesid) => {
-        fetch(`https://api.openai.com/v1/files/${filesid}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${userData.open_ia_key}`,
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.filename);
-            //data.filename;
-        })
-        .catch(error => {
+    const fetchfiles = async (filesid) => {
+        try {
+            const response = await fetch(`https://api.openai.com/v1/files/${filesid}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${userData.open_ia_key}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+            const data = await response.json();
+            return data.filename;
+        } catch (error) {
             console.error('Error:', error);
-        });
-    }
+            return null;
+        }
+    };
     const extractLinkAndBracketContent = (text) => {
         const urlRegex = /(https?:\/\/[^\s]+)/g;
         let link = text.match(urlRegex);
@@ -204,6 +199,7 @@ export const ChatBox = () => {
             '<span style="font-weight:bold; font-size:1.2em;">$1</span>'
         );
         helper.content[0].text.value = text.content[0].text.value.replace(/- /g, '• ');
+        helper.content[0].text.value = helper.content[0].text.value.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank" style="color: blue; text-decoration: underline;">$1</a>');
         helper.content[0].text.value = text.content[0].text.value.replace(/【/g, ' [')
         .replace(/】/g, ']')
         .replace(/\[(\d+):(\d+)†[^\]]*\]/g, (match, p1, p2) => {
@@ -217,6 +213,7 @@ export const ChatBox = () => {
     const hideFilePopup = () => {
         setFilePopup({ ...filePopup, visible: false });
     };
+
     useEffect(() => {
         const handleMouseOver = (event) => {
             if (event.target.classList.contains("hoverable-ref")) {
@@ -225,6 +222,7 @@ export const ChatBox = () => {
                 handleFileHover(fileId, x, y);
             }
         };
+        
 
         const handleMouseOut = (event) => {
             if (event.target.classList.contains("hoverable-ref")) {
@@ -278,7 +276,7 @@ export const ChatBox = () => {
                     console.log(result.link);
                     if(index === messages.length - 1 && newMessageToType) {
                         let helper = result.textWithoutLink;
-                        messageList.push(<TypingAni WordToType={{helper}} scroll={scrolltoBottom}></TypingAni>)
+                        messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
                     }else{
                         if(messages[index].role === "assistant"){
                             messageList.push(<Message key={messages[index].id} model={{
@@ -303,7 +301,7 @@ export const ChatBox = () => {
                             }}></Message>)
                         }else{
                             let helper = messages[index].content[0].text.value;
-                            messageList.push(<TypingAni WordToType={{helper}} scroll={scrolltoBottom}></TypingAni>)
+                            messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
                         }
                     }else{
                         if(messages[index].role === "user"){
@@ -342,6 +340,25 @@ export const ChatBox = () => {
                 </MessageInput>
                 </ChatContainer>
             </MainContainer>
+            {filePopup.visible && (
+                <div
+                    style={{
+                        position: "absolute",
+                        top: filePopup.y - 50,
+                        left: filePopup.x,
+                        transform: "translateX(-50%)",
+                        backgroundColor: "white",
+                        color: "black",
+                        padding: "5px 10px",
+                        borderRadius: "4px",
+                        fontSize: "12px",
+                        pointerEvents: "none",
+                        zIndex: 1000,
+                    }}
+                >
+                    {filePopup.filename}
+                </div>
+            )}
             <button
                             onClick={scrolltoBottom}
                             style={{
@@ -361,24 +378,7 @@ export const ChatBox = () => {
                             ↓
                         </button>
             </div>
-            {filePopup.visible && (
-                <div
-                    style={{
-                        position: "absolute",
-                        top: filePopup.y + 10,
-                        left: filePopup.x + 10,
-                        backgroundColor: "#333",
-                        color: "#fff",
-                        padding: "5px 10px",
-                        borderRadius: "4px",
-                        fontSize: "12px",
-                        pointerEvents: "none",
-                        zIndex: 1000,
-                    }}
-                >
-                    {filePopup.filename}
-                </div>
-            )}
+            
         </div>
         
     )
