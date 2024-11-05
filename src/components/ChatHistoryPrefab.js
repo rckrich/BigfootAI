@@ -124,7 +124,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
     const sidebarRef = useRef(null);
     useOutsideAlerter(sidebarRef, setIsClicked, setIgnoreNextClick);
     return (
-        <div  ref= {componentRef} style={{paddingTop: "10px", width: "100%", paddingRight: "5px"}}>
+        <div  ref= {componentRef} style={{paddingTop: "10px", width: "100%", paddingRight: "5px", paddingBottom: "10px"}}>
             <div onClick={handleClick} className="ChatHistoryPrefabContainer" style={{position: "relative"}}>
                 <div className="rowContainer" style={{justifyContent: "space-between", width: "100%", height:"100%", alignItems: "center"}}>
                     <div className="ColumnContainer" style={{paddingLeft: "20px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
