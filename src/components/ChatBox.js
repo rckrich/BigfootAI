@@ -373,7 +373,7 @@ export const ChatBox = () => {
 
     return (
         <div className= {classHelper}>
-            <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
+            <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "80%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
                 {Title}
             </h3>
             <div style={{  height: "89vh", width: "100%" }}>
