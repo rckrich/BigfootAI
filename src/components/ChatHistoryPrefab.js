@@ -5,9 +5,11 @@ import edit from "../img/editar.png";
 import delate from "../img/eliminar.png";
 import { ElementContextThread } from "../context/ThreadContext";
 import {FloatingOverlay} from '@floating-ui/react';
+import { ElementContextSidebar } from "../context/SidebarContext";
 export const ChatHistoryPrefab = ({date, name, threadId}) => {
     const componentRef = useRef(null);
     const { changeValuePopUP } = useContext(ElementContextPopUp);
+    const { scrollPos } = useContext(ElementContextSidebar);
     const [isClicked, setIsClicked] = useState(false);
     const {updateActive, changeValueThread, changeTitle } = useContext(ElementContextThread);
     const [ignoreNextClick, setIgnoreNextClick] = useState(false);
@@ -76,15 +78,15 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
         helper = "";
     }
     let MiniMenu;
-    console.log(position);
-    if(window.innerHeight/2 > position){
+
+    if(window.innerHeight/2 > position- scrollPos){
         MiniMenu = (<FloatingOverlay style={{position: "static"}}>
-            <div className="sideBarMiniMenu">
-                <div className="rowContainer" style={{justifyContent: "flex-start", paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p className="MiniMenuText">Editar</p></button>
+            <div className="sideBarMiniMenu" >
+                <div className="rowContainer" style={{justifyContent: "center"}}>
+                    <button className="sidebarMiniMenuButton" style={{borderRadius: "10px"}}onClick={handleClickEdit}><img src={edit} style={{width: "25px", paddingLeft: "5px"}} alt="edit"></img> <p className="MiniMenuText">Editar</p></button>
                 </div>
-                <div className="rowContainer" style={{paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p className="MiniMenuText">Eliminar</p></button>
+                <div className="rowContainer" style={{justifyContent: "center"}}>
+                    <button className="sidebarMiniMenuButton" style={{borderRadius: "10px"}} onClick={handleClickDelete}><img src={delate} style={{width: "25px", paddingLeft: "5px"}} alt="delete"></img> <p className="MiniMenuText">Eliminar</p></button>
                 </div>
 
             </div> 
@@ -92,11 +94,11 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
     }else{
         MiniMenu = (<FloatingOverlay style={{position: "static"}}>
             <div className="sideBarMiniMenuTop" >
-                <div className="rowContainer" style={{justifyContent: "flex-start", paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickEdit}><img src={edit} style={{width: "25px"}} alt="edit"></img> <p className="MiniMenuText">Editar</p></button>
+                <div className="rowContainer" style={{justifyContent: "center"}}>
+                    <button className="sidebarMiniMenuButton" style={{borderRadius: "10px"}} onClick={handleClickEdit}><img src={edit} style={{width: "25px", paddingLeft: "5px"}} alt="edit"></img> <p className="MiniMenuText">Editar</p></button>
                 </div>
-                <div className="rowContainer" style={{paddingLeft: "10px"}}>
-                    <button className="sidebarMiniMenuButton" onClick={handleClickDelete}><img src={delate} style={{width: "25px"}} alt="delete"></img> <p className="MiniMenuText">Eliminar</p></button>
+                <div className="rowContainer" style={{justifyContent: "center"}}>
+                    <button className="sidebarMiniMenuButton" style={{borderRadius: "10px"}} onClick={handleClickDelete}><img src={delate} style={{width: "25px", paddingLeft: "5px"}} alt="delete"></img> <p className="MiniMenuText">Eliminar</p></button>
                 </div>
 
             </div> 

@@ -1,7 +1,7 @@
 import { ElementContextPopUp } from "../context/PopUpContext";
 import React, { useContext } from "react";
 import { ElementContextThread } from "../context/ThreadContext";
-
+import useIndexedDB from '../hooks/useIndexedDB';
 import { useRef } from "react";
 import { AuthContext } from "../pages/AuthContext";
 
@@ -15,6 +15,7 @@ export const PopUpPrefab = ({identifier}) => {
 
   const inputEdit = useRef("");
   const inputNew = useRef("");
+  const { getItems, saveItem, deleteItem } = useIndexedDB();
   const { changeValuePopUP } = useContext(ElementContextPopUp);
   const { changeActive, value, Title, Active, changeTitle, setActive } = useContext(ElementContextThread);
   const { userData } = useContext(AuthContext);
@@ -105,12 +106,23 @@ export const PopUpPrefab = ({identifier}) => {
         if (response.ok) {
           changeTitle("");
           setActive("");
-          changeValuePopUP("deleteSuccess")
+          changeValuePopUP("deleteSuccess");
+          deleteDb();
         }
       })
       .catch(error => console.error('Error:', error));
       
 
+  }
+
+  const deleteDb = async ( ) => {
+    let holder =  await getItems();
+    let item = {};
+    item.userData = holder[0].userData;
+    item.ThreadId = "";
+    item.ThreadName = "";
+    deleteItem(holder[0].id);
+    saveItem(item);
   }
 
   if(identifier === "new") {

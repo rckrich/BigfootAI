@@ -651,7 +651,7 @@ section.cs-message.cs-message--incoming{
 
 
 .sidebarMiniMenuButton{
-  background-color:white;
+  background-color:rgb(255, 255, 255);
   border-color: rgba(255, 255, 255, 0);
   display: flex;
   width: 100%;

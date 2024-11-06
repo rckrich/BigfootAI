@@ -13,7 +13,7 @@ import { ElementContextSidebar } from "../context/SidebarContext";
 import { ElementContextPopUp } from "../context/PopUpContext";
 export const Sidebar = () => {
   const {value} = useContext(ElementContextPopUp);
-  const {changeValueSideBar, valueSB} = useContext(ElementContextSidebar);
+  const {changeValueSideBar, valueSB, setScrollPos} = useContext(ElementContextSidebar);
   const { getItems, deleteItem } = useIndexedDB();
   const [prevData, setData] = useState("");
   const [offset] = useState(0);
@@ -37,7 +37,7 @@ export const Sidebar = () => {
   const handleScroll = (e) => {
     let tolerance = 1;
     const bottom = e.target.scrollHeight - e.target.scrollTop - tolerance <= e.target.clientHeight;
-    
+    setScrollPos(e.target.scrollTop);
     if (bottom && flag) {
       if(prevData.next != null && prevData.next !== ""){
         setFlag(false);
