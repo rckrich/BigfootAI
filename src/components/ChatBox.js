@@ -259,21 +259,44 @@ export const ChatBox = () => {
         }
     }
     }
-    const resizeText = () => {
-        const containerWidth = titleRef.current?.offsetWidth || 0;
-        const textWidth = titleRef.current?.scrollWidth || 0;
-        
-        if (textWidth > containerWidth * 0.8 && fontSize > 14) {
-            setFontSize(prevFontSize => prevFontSize - 1);
-        } else if (textWidth < containerWidth * 0.6 && fontSize < 20) {
-            setFontSize(prevFontSize => prevFontSize + 1);
-        }
-        console.log(Title);
-    };
-
     useEffect(() => {
-        resizeText();
-    }, [Title, fontSize]);
+        const adjustFontSize = () => {
+            const containerWidth = titleRef.current ? titleRef.current.offsetWidth : 0; // Obtener el ancho del contenedor
+          let newFontSize = 30;
+          const minFontSize = 18;
+          if (containerWidth < 300) {
+            newFontSize = 18;
+          } else if (containerWidth < 500) {
+            newFontSize = 20;
+          } else if (containerWidth < 800) {
+            newFontSize = 25;
+          } else {
+            newFontSize = 30;
+          }
+          const adjustFontSizeToFit = () => {
+            if (titleRef.current) {
+              const titleElement = titleRef.current;
+              let titleHeight = titleElement.scrollHeight;
+              let containerHeight = titleElement.clientHeight;
+              while (titleHeight > containerHeight && newFontSize > minFontSize) {
+                newFontSize -= 1;
+                titleElement.style.fontSize = `${newFontSize}px`;
+                titleHeight = titleElement.scrollHeight;
+              }
+            }
+          };
+    
+          adjustFontSizeToFit();
+          setFontSize(newFontSize);
+    };
+    const resizeObserver = new ResizeObserver(adjustFontSize);
+    if (titleRef.current) {
+        resizeObserver.observe(titleRef.current);
+    }
+    return () => {
+        resizeObserver.disconnect();
+      };
+    }, []);
     let isDisabled
     if(Active !== undefined && Active !== null && Active !== ""){
         isDisabled = false;
