@@ -215,7 +215,8 @@ export const ChatBox = () => {
     const hideFilePopup = () => {
         setFilePopup({ ...filePopup, visible: false });
     };
-
+    let scrollTimeoutId;
+    let timeoutId;
     useEffect(() => {
         const handleMouseOver = (event) => {
             if (event.target.classList.contains("hoverable-ref")) {
@@ -225,13 +226,19 @@ export const ChatBox = () => {
             }
         };
         
-
         const handleMouseOut = (event) => {
-            if (event.target.classList.contains("hoverable-ref")) {
-                hideFilePopup();
-            }
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                if (event.target.classList.contains("hoverable-ref")) {
+                    hideFilePopup();
+                }else{
+                    hideFilePopup();
+                    console.log("1");
+                }
+            }, 50);
         };
-
+        
+        
         document.addEventListener("mouseover", handleMouseOver);
         document.addEventListener("mouseout", handleMouseOut);
         return () => {
@@ -239,7 +246,20 @@ export const ChatBox = () => {
             document.removeEventListener("mouseout", handleMouseOut);
         };
     }, []);
-
+    const handleScroll = () => {
+            
+        clearTimeout(scrollTimeoutId);
+        scrollTimeoutId = setTimeout(() => {
+            hideFilePopup();
+        }, 50);
+    };
+    useEffect(() => {
+        window.addEventListener("wheel", handleScroll);
+        return () => {
+            window.removeEventListener("wheel", handleScroll);
+            clearTimeout(scrollTimeoutId);
+        };
+    }, []);
     const formatArrayText = (text) => {
         setMessages([]);
         for (let index = 0; index < text.length; index++) {
