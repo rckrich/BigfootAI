@@ -4,12 +4,13 @@ import { ElementContextThread } from "../context/ThreadContext";
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { TypingAni } from "./TypingAni";
 import { AuthContext } from "../pages/AuthContext";
-
+import { ElementContextSidebar } from "../context/SidebarContext";
 
 export const ChatBox = () => {
 
     const { Active, Title } = useContext(ElementContextThread);
     const { userData, setUserData } = useContext(AuthContext);
+    const { valueSB } = useContext(ElementContextSidebar);
     const [UserMessage, setUserMessage] = useState("");
     const [waiting, setWaiting] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -339,8 +340,16 @@ export const ChatBox = () => {
 
     }
 
+    let classHelper
+    if(!valueSB){
+        classHelper = "ChatboxContainerClose";
+    }else{
+        classHelper = "ChatboxContainer";
+        
+    }
+
     return (
-        <div className="ChatboxContainer">
+        <div className= {classHelper}>
             <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "100%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
                 {Title}
             </h3>
