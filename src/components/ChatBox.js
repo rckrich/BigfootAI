@@ -328,10 +328,11 @@ export const ChatBox = () => {
     }
 
     let classHelper
-    if(valueSB){
-        classHelper = "ChatboxContainer";
-    }else{
+    if(!valueSB){
         classHelper = "ChatboxContainerClose";
+    }else{
+        classHelper = "ChatboxContainer";
+        
     }
 
     return (

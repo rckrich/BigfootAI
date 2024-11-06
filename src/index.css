@@ -59,6 +59,13 @@ code {
   bottom: 0;
 }
 
+.inputPopUp{
+  padding-top: 5px;
+  padding-bottom: 3%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
 
 
 @media (min-width: 400px) and (max-width: 950px)  {
@@ -124,7 +131,7 @@ code {
   align-items: center;
   background-color: #FFFFFF;
   height: 100vh;
-  max-width: 97vw;
+  width: 97vw;
   z-index: 1;
 }
 
@@ -504,7 +511,6 @@ code {
 .input {
   width: 85%;
   height: 45px;
-  min-width: 400px;
   padding: 12px;
   border-radius: 5px;
   border: 1.5px solid lightgrey;
@@ -645,7 +651,7 @@ section.cs-message.cs-message--incoming{
 
 
 .sidebarMiniMenuButton{
-  background-color: rgba(255, 255, 255, 0);
+  background-color:white;
   border-color: rgba(255, 255, 255, 0);
   display: flex;
   width: 100%;
@@ -654,6 +660,12 @@ section.cs-message.cs-message--incoming{
   justify-content: flex-start;
   padding: 5px;
   
+}
+
+.sidebarMiniMenuButton:hover{
+
+  background-color: #dddddd;
+
 }
 
 section.cs-message.cs-message--incoming{
