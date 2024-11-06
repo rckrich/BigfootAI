@@ -158,7 +158,7 @@ export const Sidebar = () => {
         element = (prevData.thread_bundles.map(item => (
           <ChatHistoryPrefab
           date={item.updated_at}
-          name={item.title.length > 40 ? `${item.title.substring(0, 30)}...` : item.title}
+          name={item.title}
           threadId={item.thread_id}
           internalId={item.id}></ChatHistoryPrefab>)))
       }else{

@@ -130,12 +130,12 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
             <div onClick={handleClick} className="ChatHistoryPrefabContainer" style={{position: "relative"}}>
                 <div className="rowContainer" style={{justifyContent: "space-between", width: "100%", height:"100%", alignItems: "center"}}>
                     <div className="ColumnContainer" style={{paddingLeft: "20px", paddingRight: "5px", alignItems: "flex-start", height:"100%", justifyContent:"center"}}>
-                        <p className="ChatHistoryTime" style={{paddingBottom: "5px"}}>{name}</p>
+                        <p className="ChatHistoryTime" style={{paddingBottom: "5px"}}>{name.length > 16 ? `${name.substring(0, 16)}...` : name}</p>
                         <p className="ChatHistoryText">{helper}</p>
                     </div>
                     <div style={{paddingRight: "10px"}}>
                         <button className="imgClear" onClick={handleClickMiniMenu}><img src={more}></img></button>
-                        {isClicked && 
+                        {isClicked &&
                         <div ref={sidebarRef}>{MiniMenu} </div>
                         }
                     </div>
