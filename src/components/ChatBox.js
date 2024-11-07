@@ -281,9 +281,10 @@ export const ChatBox = () => {
     }
     useEffect(() => {
         const adjustFontSize = () => {
-            const containerWidth = titleRef.current ? titleRef.current.offsetWidth : 0; // Obtener el ancho del contenedor
+            const containerWidth = titleRef.current ? titleRef.current.offsetWidth : 0;
           let newFontSize = 30;
           const minFontSize = 10;
+          const maxFontSize = 30;
           if (containerWidth < 300) {
             newFontSize = 18;
           } else if (containerWidth < 500) {
@@ -298,11 +299,22 @@ export const ChatBox = () => {
               const titleElement = titleRef.current;
               let titleHeight = titleElement.scrollHeight;
               let containerHeight = titleElement.clientHeight;
+              let currentFontSize = parseInt(window.getComputedStyle(titleElement).fontSize, 10);
               while (titleHeight > containerHeight && newFontSize > minFontSize) {
                 newFontSize -= 1;
                 titleElement.style.fontSize = `${newFontSize}px`;
                 titleHeight = titleElement.scrollHeight;
               }
+              while (titleElement.scrollHeight <= containerHeight && currentFontSize < maxFontSize && titleElement.scrollWidth <= containerWidth) {
+                currentFontSize += 1;
+                titleElement.style.fontSize = `${currentFontSize}px`;
+                console.log("5");
+                if (titleElement.scrollHeight > containerHeight || titleElement.scrollWidth > containerWidth) {
+                    currentFontSize -= 1; 
+                    titleElement.style.fontSize = `${currentFontSize}px`;
+                    break;
+                }
+            }
             }
           };
     
