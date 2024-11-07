@@ -283,7 +283,7 @@ export const ChatBox = () => {
         const adjustFontSize = () => {
             const containerWidth = titleRef.current ? titleRef.current.offsetWidth : 0; // Obtener el ancho del contenedor
           let newFontSize = 30;
-          const minFontSize = 18;
+          const minFontSize = 10;
           if (containerWidth < 300) {
             newFontSize = 18;
           } else if (containerWidth < 500) {
