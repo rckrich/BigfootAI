@@ -17,7 +17,7 @@ export const PopUpPrefab = ({identifier}) => {
   const inputNew = useRef("");
   const { getItems, saveItem, deleteItem } = useIndexedDB();
   const { changeValuePopUP } = useContext(ElementContextPopUp);
-  const { changeActive, value, Title, Active, changeTitle, setActive } = useContext(ElementContextThread);
+  const { changeActive, value, Title, Active, changeTitle, setActive, TitlePopUp } = useContext(ElementContextThread);
   const { userData } = useContext(AuthContext);
   const handleCancelButton = () => {
     changeValuePopUP("");
@@ -104,10 +104,14 @@ export const PopUpPrefab = ({identifier}) => {
     })
       .then(response => {
         if (response.ok) {
-          changeTitle("");
-          setActive("");
+          if(Active === value){
+            changeTitle("");
+            setActive("");
+            deleteDb();
+          }
+          
           changeValuePopUP("deleteSuccess");
-          deleteDb();
+          
         }
       })
       .catch(error => console.error('Error:', error));
@@ -225,7 +229,7 @@ export const PopUpPrefab = ({identifier}) => {
             ref={inputEdit}
             type="text"
             name="text"
-            placeholder={Title}
+            placeholder={TitlePopUp}
             className="input"
             
           /></div>

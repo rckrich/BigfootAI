@@ -10,6 +10,7 @@ const ElementProviderThread= ({ children }) => {
   const [flag, setFlag] = useState(true);
   const [Active, setActive] = useState("");
   const [Title, setTitle] = useState("");
+  const [TitlePopUp, setTitlePopUp] = useState("");
 
   const changeValueThread = (newValue) => {
     setValue(newValue);
@@ -18,6 +19,11 @@ const ElementProviderThread= ({ children }) => {
   const changeTitle = (newValue) => {
     setTitle(newValue);
   }
+
+  const changeTitlePopUp = (newValue) => {
+    setTitlePopUp(newValue);
+  }
+
   useEffect(() => {
     const fetchItems = async () => {
       const savedItems = await getItems();
@@ -79,7 +85,7 @@ const ElementProviderThread= ({ children }) => {
   };
 
   return (
-    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive, Title, changeTitle, setActive }}>
+    <ElementContextThread.Provider value={{ value, changeValueThread, Active, changeActive, updateActive, Title, changeTitle, setActive, changeTitlePopUp, TitlePopUp  }}>
       {children}
     </ElementContextThread.Provider>
   );

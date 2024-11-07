@@ -11,7 +11,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
     const { changeValuePopUP } = useContext(ElementContextPopUp);
     const { scrollPos } = useContext(ElementContextSidebar);
     const [isClicked, setIsClicked] = useState(false);
-    const {updateActive, changeValueThread, changeTitle } = useContext(ElementContextThread);
+    const {updateActive, changeValueThread, changeTitlePopUp } = useContext(ElementContextThread);
     const [ignoreNextClick, setIgnoreNextClick] = useState(false);
     const [position, setPosition] = useState();
 
@@ -32,7 +32,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
 
     const handleClickEdit = () => {
         changeValueThread(threadId);
-        changeTitle(name);
+        changeTitlePopUp(name);
         changeValuePopUP("edit");
         setIsClicked(false);
     } 
@@ -105,7 +105,11 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
             </FloatingOverlay>)
     }
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        
+        if(e.target.className === "" || e.target.className === "sidebarMiniMenuButton"  || e.target.className === "MiniMenuText"){
+            return;
+        }
         updateActive(threadId, name);
     };
 
