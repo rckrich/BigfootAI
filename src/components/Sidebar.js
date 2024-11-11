@@ -72,7 +72,12 @@ export const Sidebar = () => {
     return response.json();
     })
     .then(data => {
+        
         setData(data);
+        console.log(data.thread_bundles);
+        if(data.thread_bundles.length > 9){
+          handleNextThread();
+        }
     })
     .then()
     .catch(error => console.error('Error:', error));
