@@ -28,7 +28,9 @@
   }
 
   .input{
-    height: 40px !important;
+    height: 5vh !important;
+    width: 95% !important;
+    
   }
   
   .input-container {

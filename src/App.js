@@ -13,7 +13,7 @@ import { Test } from "./pages/Test";
 function App() {
 
   const { value } = useContext(ElementContextPopUp);
-
+  console.log(value);
   return (
     <>
     <div className="Appcontainer">
