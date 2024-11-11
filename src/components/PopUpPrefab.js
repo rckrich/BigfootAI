@@ -133,8 +133,9 @@ export const PopUpPrefab = ({identifier}) => {
     return (
       <div className="popUpContainer">
           <div className="popUpMessage">
+          <div style={{paddingTop: "10px"}}>
           <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%" , textAlign: "center"}}>Ingrese título de la conversación</h3>
-
+          </div>
 
           <div className="inputPopUp"><input
             ref={inputNew}
@@ -170,8 +171,9 @@ export const PopUpPrefab = ({identifier}) => {
     return (
       <div className="popUpContainer">
           <div className="popUpMessage">
+          <div style={{paddingTop: "10px"}}>
           <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%", textAlign: "center"}}>¿Está seguro que desea eliminar la conversación? </h3>
-
+          </div>
           
           <div className="rowContainer" style={{width: "100%", justifyContent: "space-evenly"}}>
           <button
@@ -200,8 +202,9 @@ export const PopUpPrefab = ({identifier}) => {
     return (
       <div className="popUpContainer">
           <div className="popUpMessage">
+          <div style={{paddingTop: "10px"}}>
           <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%", textAlign: "center"}}>Se ha eliminado con éxito</h3>
-
+          </div>
 
           <div className="rowContainer" style={{width: "100%" , justifyContent: "space-evenly"}}>
           <button
@@ -223,8 +226,9 @@ export const PopUpPrefab = ({identifier}) => {
     return (
       <div className="popUpContainer">
           <div className="popUpMessage">
+            <div style={{paddingTop: "10px"}}>
           <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%", textAlign: "center"}}>Ingrese nuevo título de la conversación</h3>
-
+          </div>
           <div className="inputPopUp"><input
             ref={inputEdit}
             type="text"
@@ -234,7 +238,7 @@ export const PopUpPrefab = ({identifier}) => {
             
           /></div>
           
-          <div className="rowContainer" style={{width: "100%", justifyContent: "space-evenly"}}>
+          <div className="rowContainer" style={{width: "100%", paddingTop: "10px", justifyContent: "space-evenly"}}>
           <button
             className="styleCancelButtonPopUpDesktop"
             onClick={() => {

@@ -60,7 +60,7 @@ code {
 }
 
 .inputPopUp{
-  padding-top: .5%;
+  padding-top: 3%;
   padding-bottom: .5%;
   width: 90%;
   display: flex;
@@ -285,6 +285,7 @@ code {
 
 .TitleText{
   font-size: 1.1vw;
+  
   color: white;
 }
 
@@ -450,16 +451,18 @@ code {
 .popUpMessage{
   width: 35vw;
   min-width: 450px;
-  padding-bottom: 20px;
   background-color: rgb(230, 230, 230);
   display: flex;
   align-items: center;
   flex-direction: column;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.178);
   border-radius: 20px;
-  height: 30vh;
+  height: 32vh;
   justify-content: space-evenly;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+
 }
 
 .styleButtonPopUpDesktop {
