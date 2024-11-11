@@ -3,6 +3,7 @@ import { useContext, useRef, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { AuthContext } from './AuthContext';
 
+
 export const LogIn = () => {
 
     const navigate = useNavigate();
@@ -11,6 +12,8 @@ export const LogIn = () => {
     const inputRefPassword = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const {changeUserData} = useContext(AuthContext);
+
+
     const gotToNewPage= async ()=>{
         if(inputRefEmail.current.value.trim() !== "" && inputRefPassword.current.value.trim() !== ""){
             const response = fetch(" https://kodexai-bigfoot.coolnerdypipol.com/back/api/v1/login",{

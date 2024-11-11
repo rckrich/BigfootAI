@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { TypingAni } from "./TypingAni";
 import { AuthContext } from "../pages/AuthContext";
 import { ElementContextSidebar } from "../context/SidebarContext";
-import { TypingContextProvider } from '../context/TypingContext';
+import { ElementContextAni } from '../context/AniContext';
 
 export const ChatBox = () => {
     const { Active, Title } = useContext(ElementContextThread);

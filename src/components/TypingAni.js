@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useContext  } from 'react';
 import { Message, } from "@chatscope/chat-ui-kit-react";
-import { TypingContextProvider } from '../context/TypingContext';
+
+import { ElementContextAni } from '../context/AniContext';
 
 
 export const TypingAni = ({WordToType, scroll}) => {
     const [value, setValue] = useState("");
     const [count, setCount] = useState(0);
-    const { isTyping, setIsTyping } = useContext(TypingContextProvider);
-    const str = WordToType.helper;
 
+    const str = WordToType.helper;
+    const {valueAni, setValueAni} = useContext(ElementContextAni);
     useEffect(() => {
-        console.log(isTyping);
-        setIsTyping(true);
+        console.log(valueAni);
+        setValueAni(true);
         if(str === value){
-            setIsTyping(false);
+            setValueAni(false);
             return;
         }
         const timeout = setTimeout(() => {
