@@ -5,9 +5,9 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { TypingAni } from "./TypingAni";
 import { AuthContext } from "../pages/AuthContext";
 import { ElementContextSidebar } from "../context/SidebarContext";
+import { TypingContextProvider } from '../context/TypingContext';
 
 export const ChatBox = () => {
-
     const { Active, Title } = useContext(ElementContextThread);
     const { userData, setUserData } = useContext(AuthContext);
     const { valueSB } = useContext(ElementContextSidebar);
@@ -21,6 +21,7 @@ export const ChatBox = () => {
     const [filePopup, setFilePopup] = useState({ visible: false, filename: '', x: 0, y: 0 });
     let messageList = [];
     const [fontSize, setFontSize] = useState(20);
+    
     const titleRef = useRef(null);
     useEffect(() => {
         if(Active !== undefined && Active !== null && Active !== "") {

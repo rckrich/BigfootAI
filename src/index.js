@@ -8,22 +8,25 @@ import { ElementProviderPopUp } from "./context/PopUpContext";
 import { ElementProviderThread } from "./context/ThreadContext";
 import { ElementProviderAccess } from "./context/AccessContext";
 import { ElementProviderSidebar } from "./context/SidebarContext";
+import { TypingContextProvider } from './context/TypingContext';
 import { AuthProvider } from "./pages/AuthContext";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
-    <ElementProviderSidebar>
-      <AuthProvider>
-        <ElementProviderPopUp>
-          <ElementProviderThread>
-              <ElementProviderAccess>
-                  <App />
-              </ElementProviderAccess>
-          </ElementProviderThread>
-        </ElementProviderPopUp>
-      </AuthProvider>
-    </ElementProviderSidebar>
+    <TypingContextProvider>
+      <ElementProviderSidebar>
+        <AuthProvider>
+          <ElementProviderPopUp>
+            <ElementProviderThread>
+                <ElementProviderAccess>
+                    <App />
+                </ElementProviderAccess>
+            </ElementProviderThread>
+          </ElementProviderPopUp>
+        </AuthProvider>
+      </ElementProviderSidebar>
+    </TypingContextProvider>
   </Router>
 );
 
