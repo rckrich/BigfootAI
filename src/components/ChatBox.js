@@ -21,7 +21,7 @@ export const ChatBox = () => {
     const [filePopup, setFilePopup] = useState({ visible: false, filename: '', x: 0, y: 0 });
     let messageList = [];
     const [fontSize, setFontSize] = useState(20);
-    
+    const {valueAni} = useContext(ElementContextAni);
     const titleRef = useRef(null);
     useEffect(() => {
         if(Active !== undefined && Active !== null && Active !== "") {
@@ -404,6 +404,8 @@ export const ChatBox = () => {
         
     }
 
+
+
     return (
         <div className= {classHelper}>
             <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "90%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
@@ -420,7 +422,7 @@ export const ChatBox = () => {
                 </MessageInput>
                 </ChatContainer>
             </MainContainer>
-            {filePopup.visible && (
+            {filePopup.visible && !valueAni ? (
                 <div
                     style={{
                         position: "absolute",
@@ -438,7 +440,7 @@ export const ChatBox = () => {
                 >
                     {filePopup.filename}
                 </div>
-            )}
+            ) : <></>}
             <button
                             onClick={scrolltoBottom}
                             style={{
