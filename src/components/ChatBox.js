@@ -22,7 +22,7 @@ export const ChatBox = () => {
     const [filePopup, setFilePopup] = useState({ visible: false, filename: '', x: 0, y: 0 });
     let messageList = [];
     const [fontSize, setFontSize] = useState(20);
-    const {valueAni} = useContext(ElementContextAni);
+    const {valueAni, changeAniStop, AniStop} = useContext(ElementContextAni);
     const titleRef = useRef(null);
     useEffect(() => {
         if(Active !== undefined && Active !== null && Active !== "") {
@@ -40,7 +40,14 @@ export const ChatBox = () => {
         }
     };
 
-    const handleMessageToThread =( ) => {
+    const handleStop = () => {
+        if(!AniStop){
+            changeAniStop(true);
+        }
+    };
+
+    const handleMessageToThread = async() => {
+        await changeAniStop(false);
         if(UserMessage === ""){
            return;
         }else{
@@ -336,6 +343,8 @@ export const ChatBox = () => {
         isDisabled = true;
     }
 
+    console.log(AniStop);
+
     if(true){
         messageList.push(<></>)
         if(messages !== undefined){
@@ -345,7 +354,16 @@ export const ChatBox = () => {
                     console.log(result.link);
                     if(index === messages.length - 1 && newMessageToType) {
                         let helper = result.textWithoutLink;
-                        messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+                        if(!AniStop){
+                            messageList.push(<Message key={messages[index].id} model={{
+                                message: result.textWithoutLink,
+                                sender: messages[index].role,
+                                direction: "incoming"
+                            }}></Message>)
+                        }else{
+                            messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+                        }
+                        
                     }else{
                         if(messages[index].role === "assistant"){
                             messageList.push(<Message key={messages[index].id} model={{
@@ -370,7 +388,16 @@ export const ChatBox = () => {
                             }}></Message>)
                         }else{
                             let helper = messages[index].content[0].text.value;
-                            messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+                            if(!AniStop){
+                                messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+                            }else{
+                                messageList.push(<Message key={messages[index].id} model={{
+                                    message: messages[index].content[0].text.value,
+                                    sender: messages[index].role,
+                                    direction: "incoming"
+                                }}></Message>)
+                            }
+                            
                         }
                     }else{
                         if(messages[index].role === "user"){
@@ -443,23 +470,41 @@ export const ChatBox = () => {
                 </div>
             ) : <></>}
             <button
-                            onClick={scrolltoBottom}
-                            style={{
-                                position: "fixed",
-                                bottom: "100px",
-                                right: "70px",
-                                padding: "10px",
-                                borderRadius: "50%",
-                                backgroundColor: "#ededf8",
-                                color: "black",
-                                border: "none",
-                                cursor: "pointer",
-                                zIndex: "100",
-                                width: "40px",
-                            }}
-                        >
-                            ↓
-                        </button>
+                onClick={scrolltoBottom}
+                style={{
+                    position: "fixed",
+                    bottom: "100px",
+                    right: "70px",
+                    padding: "10px",
+                    borderRadius: "50%",
+                    backgroundColor: "#ededf8",
+                    color: "black",
+                    border: "none",
+                    cursor: "pointer",
+                    zIndex: "100",
+                    width: "40px",
+                }}
+            >
+                ↓
+            </button>
+            <button
+                onClick={handleStop}
+                style={{
+                    position: "fixed",
+                    bottom: "100px",
+                    right: "115px",
+                    padding: "10px",
+                    borderRadius: "50%",
+                    backgroundColor: "#ededf8",
+                    color: "black",
+                    border: "none",
+                    cursor: "pointer",
+                    zIndex: "100",
+                    width: "40px",
+                }}
+            >
+                ■
+            </button>
             </div>
             
         </div>

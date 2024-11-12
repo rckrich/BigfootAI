@@ -6,6 +6,7 @@ import delate from "../img/eliminar.png";
 import { ElementContextThread } from "../context/ThreadContext";
 import {FloatingOverlay} from '@floating-ui/react';
 import { ElementContextSidebar } from "../context/SidebarContext";
+import { ElementContextAni } from '../context/AniContext';
 export const ChatHistoryPrefab = ({date, name, threadId}) => {
     const componentRef = useRef(null);
     const { changeValuePopUP } = useContext(ElementContextPopUp);
@@ -14,7 +15,7 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
     const {updateActive, changeValueThread, changeTitlePopUp } = useContext(ElementContextThread);
     const [ignoreNextClick, setIgnoreNextClick] = useState(false);
     const [position, setPosition] = useState();
-
+    const {changeAniStop, AniStop} = useContext(ElementContextAni);
     const updatePosition = () => {
         if (componentRef.current) {
           const rect = componentRef.current.getBoundingClientRect();
@@ -110,6 +111,10 @@ export const ChatHistoryPrefab = ({date, name, threadId}) => {
         if(e.target.className === "" || e.target.className === "sidebarMiniMenuButton"  || e.target.className === "MiniMenuText"){
             return;
         }
+        if(!AniStop){
+            changeAniStop(true);
+        }
+        
         updateActive(threadId, name);
     };
 

@@ -29,7 +29,7 @@ export const TypingAni = ({WordToType, scroll}) => {
                     }
                 }
             }
-        }, 20)
+        }, 10)
     })
 
     return (
