@@ -11,7 +11,6 @@ export const TypingAni = ({WordToType, scroll}) => {
     const str = WordToType.helper;
     const {valueAni, changeValueAni} = useContext(ElementContextAni);
     useEffect(() => {
-        console.log(valueAni);
         if(!valueAni){
             changeValueAni(true);
         }

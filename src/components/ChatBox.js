@@ -343,7 +343,6 @@ export const ChatBox = () => {
         isDisabled = true;
     }
 
-    console.log(AniStop);
 
     if(true){
         messageList.push(<></>)
