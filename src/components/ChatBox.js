@@ -235,7 +235,6 @@ export const ChatBox = () => {
                     hideFilePopup();
                 }else{
                     hideFilePopup();
-                    console.log("1");
                 }
             }, 50);
         };
@@ -310,7 +309,6 @@ export const ChatBox = () => {
               while (titleElement.scrollHeight <= containerHeight && currentFontSize < maxFontSize && titleElement.scrollWidth <= containerWidth) {
                 currentFontSize += 1;
                 titleElement.style.fontSize = `${currentFontSize}px`;
-                console.log("5");
                 if (titleElement.scrollHeight > containerHeight || titleElement.scrollWidth > containerWidth) {
                     currentFontSize -= 1; 
                     titleElement.style.fontSize = `${currentFontSize}px`;
@@ -416,7 +414,6 @@ export const ChatBox = () => {
             <div style={{  height: "89vh", width: "100%" }}>
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyleChatContainer" >
-                <div className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>
                 <MessageList scrollBehavior={"auto"} className="overrideStyleMessageList" ref={containerRef} style={{paddingLeft: "40px", paddingRight: "40px", height: "89vh", overflowY: "auto"}} >
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
@@ -424,6 +421,7 @@ export const ChatBox = () => {
                 <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
                 </MessageInput>
                 </ChatContainer>
+                <div style={{paddingTop: "10px", position: "absolute", bottom: "0px", width: "100%", zIndex: "100000", fontSize: "12PX", textAlign: "center"}} className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>
             </MainContainer>
             {filePopup.visible && !valueAni ? (
                 <div

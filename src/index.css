@@ -322,7 +322,8 @@ code {
 }
 
 .overrideStyleInput{
-  background-color: white !important; 
+  background-color: white !important;
+  overflow: visible !important;
   border-color: white!important; 
   padding-left: 40px !important;
   padding-right: 0px !important;

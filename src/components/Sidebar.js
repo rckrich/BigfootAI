@@ -42,7 +42,6 @@ export const Sidebar = () => {
     if (bottom && flag) {
       if(prevData.next != null && prevData.next !== ""){
         setFlag(false);
-        console.log("next")
         handleNextThread();
       }
       
