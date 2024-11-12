@@ -134,7 +134,7 @@ export const PopUpPrefab = ({identifier}) => {
       <div className="popUpContainer">
           <div className="popUpMessage">
           <div style={{paddingTop: "10px"}}>
-          <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%" , textAlign: "center"}}>Ingrese título de la conversación</h3>
+          <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%" , textAlign: "center"}}>Ingresa el título de la conversación</h3>
           </div>
 
           <div className="inputPopUp"><input
@@ -227,7 +227,7 @@ export const PopUpPrefab = ({identifier}) => {
       <div className="popUpContainer">
           <div className="popUpMessage">
             <div style={{paddingTop: "10px"}}>
-          <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%", textAlign: "center"}}>Ingrese nuevo título de la conversación</h3>
+          <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%", textAlign: "center"}}>Ingresa el título de la conversación</h3>
           </div>
           <div className="inputPopUp"><input
             ref={inputEdit}

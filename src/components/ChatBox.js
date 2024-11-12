@@ -6,6 +6,7 @@ import { TypingAni } from "./TypingAni";
 import { AuthContext } from "../pages/AuthContext";
 import { ElementContextSidebar } from "../context/SidebarContext";
 import { ElementContextAni } from '../context/AniContext';
+import logo from "../img/kodexLogo.png";
 
 export const ChatBox = () => {
     const { Active, Title } = useContext(ElementContextThread);
@@ -408,17 +409,19 @@ export const ChatBox = () => {
 
     return (
         <div className= {classHelper}>
-            <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "90%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
+            <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "70%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
                 {Title}
+                <img src={logo} style={{height: "2vw", position: "absolute", top: "3.5%", right: "2.5%"}} ></img>
             </h3>
             <div style={{  height: "89vh", width: "100%" }}>
             <MainContainer className="overrideStyle">
                 <ChatContainer className="overrideStyleChatContainer" >
+                <div className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>
                 <MessageList scrollBehavior={"auto"} className="overrideStyleMessageList" ref={containerRef} style={{paddingLeft: "40px", paddingRight: "40px", height: "89vh", overflowY: "auto"}} >
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
-                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Escriba su mensaje aquí" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
+                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
                 </MessageInput>
                 </ChatContainer>
             </MainContainer>
