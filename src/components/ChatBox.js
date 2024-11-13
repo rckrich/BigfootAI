@@ -273,7 +273,7 @@ export const ChatBox = () => {
     const [greetingMessage] = useState({
         id: Date.now(),
         role: "assistant",
-        content: [{ text: { value: "¡Hola! ¿En qué puedo ayudarte hoy?" } }]
+        content: [{ text: { value: "¡Hola soy kodex! Estoy aquí para ayudarte ¿Dime qué necesitas hoy?" } }]
     });
     const formatArrayText = (text) => {
        // setMessages([]);
@@ -286,24 +286,22 @@ export const ChatBox = () => {
         return filteredMessages;
         });
     };
-      useEffect(() => {
+    useEffect(() => {
+        if (Active !== undefined && Active !== null && Active !== "") {
+            setMessages(prevMessages => {
+                const messagesWithoutGreeting = prevMessages.filter(msg => msg.id !== greetingMessage.id);
+                return [greetingMessage, ...messagesWithoutGreeting];
+            });
+            fetchMessages();
+        }
+    }, [Active]);
+    
+    
+    useEffect(() => {
         if (Active === "") {
             setGreetingSent(false);
         }
     }, [Active]);
-
-    useEffect(() => {
-        if (Active !== undefined && Active !== null && Active !== "") {
-            if (!greetingSent) {
-                setMessages(prevMessages => [
-                    ...prevMessages,
-                    greetingMessage
-                ]);
-                setGreetingSent(true);
-            }
-            fetchMessages();
-        }
-    }, [Active, greetingSent]);
 
     function formatSource(text){
         let helper = text;
