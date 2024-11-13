@@ -475,7 +475,19 @@ export const ChatBox = () => {
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
-                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}} onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
+                <MessageInput value={UserMessage} disabled={isDisabled} onSend={() => {handleMessageToThread()}} onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false} onPaste={(evt) =>{
+                    evt.preventDefault();
+                    let pastedText = evt.clipboardData.getData("Text");
+
+                    const formattedTextContainer = document.createElement("div");
+                    formattedTextContainer.textContent = pastedText;
+                    formattedTextContainer.style.backgroundColor = "transparent";
+                    formattedTextContainer.style.color = "black";
+
+                    let formattedText = formattedTextContainer.textContent;
+                    setUserMessage(formattedText);
+                }
+                }>
                 </MessageInput>
                 </ChatContainer>
                 <div style={{paddingTop: "10px", position: "absolute", bottom: "0px", width: "100%", zIndex: "100000", fontSize: "12PX", textAlign: "center"}} className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>
