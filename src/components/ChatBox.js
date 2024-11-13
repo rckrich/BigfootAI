@@ -458,7 +458,13 @@ export const ChatBox = () => {
         
     }
 
+    let CanSeeWelcomeText = false;
 
+    if(Active !== undefined || Active !== null || Active !== ""){
+        CanSeeWelcomeText = true
+    }
+
+    console.log(Active);
 
     return (
         <div className= {classHelper}>
@@ -527,7 +533,10 @@ export const ChatBox = () => {
             >
                 ■
             </button>
-
+            {CanSeeWelcomeText && <div className="WelcomeTextContainer">
+                <p className="WelcomeText"> Bienvenido a Kodex by Bigfoot. Por favor crea un nuevo chat o dale click a un chat en el menú lateral </p>
+            </div> }
+            
 
             </div>
             
