@@ -470,40 +470,24 @@ export const ChatBox = () => {
             ) : <></>}
             <button
                 onClick={scrolltoBottom}
+                className="onTopButtons"
                 style={{
-                    position: "fixed",
-                    bottom: "100px",
-                    right: "70px",
-                    padding: "10px",
-                    borderRadius: "50%",
-                    backgroundColor: "#ededf8",
-                    color: "black",
-                    border: "none",
-                    cursor: "pointer",
-                    zIndex: "100",
-                    width: "40px",
+                    right: "60px",
                 }}
             >
                 ↓
             </button>
             <button
                 onClick={handleStop}
+                className="onTopButtons"
                 style={{
-                    position: "fixed",
-                    bottom: "100px",
                     right: "115px",
-                    padding: "10px",
-                    borderRadius: "50%",
-                    backgroundColor: "#ededf8",
-                    color: "black",
-                    border: "none",
-                    cursor: "pointer",
-                    zIndex: "100",
-                    width: "40px",
                 }}
             >
                 ■
             </button>
+
+
             </div>
             
         </div>
