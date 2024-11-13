@@ -24,7 +24,9 @@ export const ChatBox = () => {
     const [fontSize, setFontSize] = useState(20);
     const {valueAni, changeAniStop, AniStop} = useContext(ElementContextAni);
     const titleRef = useRef(null);
+    const [greetingSent, setGreetingSent] = useState(false);
     useEffect(() => {
+        
         if(Active !== undefined && Active !== null && Active !== "") {
             setMessages([]);
             fetchMessages();
@@ -268,12 +270,40 @@ export const ChatBox = () => {
             clearTimeout(scrollTimeoutId);
         };
     }, []);
+    const [greetingMessage] = useState({
+        id: Date.now(),
+        role: "assistant",
+        content: [{ text: { value: "¡Hola! ¿En qué puedo ayudarte hoy?" } }]
+    });
     const formatArrayText = (text) => {
-        setMessages([]);
+       // setMessages([]);
+       setMessages(prevMessages => {
+        const filteredMessages = prevMessages.filter(msg => msg.id === greetingMessage.id);
         for (let index = 0; index < text.length; index++) {
-            setMessages(prevMessages => [...prevMessages, formatText(text[index])]);
+            filteredMessages.push(formatText(text[index]));
         }
-      };
+
+        return filteredMessages;
+        });
+    };
+      useEffect(() => {
+        if (Active === "") {
+            setGreetingSent(false);
+        }
+    }, [Active]);
+
+    useEffect(() => {
+        if (Active !== undefined && Active !== null && Active !== "") {
+            if (!greetingSent) {
+                setMessages(prevMessages => [
+                    ...prevMessages,
+                    greetingMessage
+                ]);
+                setGreetingSent(true);
+            }
+            fetchMessages();
+        }
+    }, [Active, greetingSent]);
 
     function formatSource(text){
         let helper = text;
@@ -287,6 +317,7 @@ export const ChatBox = () => {
         }
         }
     }
+
     useEffect(() => {
         const adjustFontSize = () => {
             const containerWidth = titleRef.current ? titleRef.current.offsetWidth : 0;
