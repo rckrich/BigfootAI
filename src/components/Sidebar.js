@@ -74,16 +74,20 @@ export const Sidebar = () => {
     .then(data => {
         
         setData(data);
-        console.log(data.thread_bundles);
+        let helper = data;
         if(data.thread_bundles.length > 9){
-          handleNextThread();
+          handleNextThread(helper);
         }
     })
     .then()
     .catch(error => console.error('Error:', error));
   }
-    const handleNextThread = async () => {
-      fetch(`https://kodexai-bigfoot.coolnerdypipol.com/back/api${prevData.next}`,{
+    const handleNextThread = async (data) => {
+      let url = `https://kodexai-bigfoot.coolnerdypipol.com/back/api${prevData.next}`;
+      if(data !== undefined){
+        url =`https://kodexai-bigfoot.coolnerdypipol.com/back/api${data.next}`;
+      }
+      fetch(url,{
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
