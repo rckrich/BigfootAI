@@ -187,7 +187,7 @@ export const ChatBox = () => {
             link: link ? link[0] : null,
           };
     }
-    
+
     const isImageUrl = (url) => {
         const cleanUrl = url[0].split('?')[0];
         const clean2 = cleanUrl.split('#')[0]
@@ -285,7 +285,7 @@ export const ChatBox = () => {
                 [`${helper.id}`]: annotation.file_citation.file_id
             }));
         }
-    }
+        }
     }
     useEffect(() => {
         const adjustFontSize = () => {
@@ -444,7 +444,7 @@ export const ChatBox = () => {
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
-                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}}  onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
+                <MessageInput disabled={isDisabled} onSend={() => {handleMessageToThread()}} onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false}>
                 </MessageInput>
                 </ChatContainer>
                 <div style={{paddingTop: "10px", position: "absolute", bottom: "0px", width: "100%", zIndex: "100000", fontSize: "12PX", textAlign: "center"}} className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>

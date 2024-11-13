@@ -249,6 +249,7 @@ code {
   color: white;
   font-size: .8vw;
   font-weight: bold;
+  line-height: 1.2 !important;
 }
 
 @media (min-width: 740px) and (max-width: 1900px) {
@@ -323,7 +324,6 @@ code {
 
 .overrideStyleInput{
   background-color: white !important;
-  overflow: visible !important;
   border-color: white!important; 
   padding-left: 40px !important;
   padding-right: 0px !important;
@@ -678,3 +678,4 @@ section.cs-message.cs-message--incoming{
 section.cs-message.cs-message--incoming{
   padding-bottom: 5px !important;
 }
+
