@@ -484,6 +484,7 @@ code {
 .popUpMessage{
   width: 35vw;
   min-width: 450px;
+  max-width: 620px;
   background-color: rgb(230, 230, 230);
   display: flex;
   align-items: center;
