@@ -522,7 +522,7 @@ export const ChatBox = () => {
                     right: "60px",
                 }}
             >
-                ↓
+                <p style={{color: "rgba(88,88,150,255)"}}>↓</p>
             </button>
             <button
                 onClick={handleStop}
@@ -531,7 +531,7 @@ export const ChatBox = () => {
                     right: "115px",
                 }}
             >
-                ■
+                <p style={{color: "rgba(131,131,183,255)"}}>■</p>
             </button>
             {CanSeeWelcomeText && <div className="WelcomeTextContainer">
                 <p className="WelcomeText"> Bienvenido a Kodex by Bigfoot. Por favor crea un nuevo chat o dale click a un chat en el menú lateral </p>

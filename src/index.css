@@ -220,8 +220,10 @@ code {
   z-index: 100;
   height: 45px;
   width: 45px;
-  border-color: rgb(0, 0, 0);
-  border-style: dashed;
+
+  border-color: rgba(131,131,183,255);
+  border-style:solid;
+  border-width: thin;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -698,6 +700,12 @@ section.cs-message.cs-message--incoming{
   padding-right: 20%;
 }
 
+@media (max-width: 800px) {
+  .WelcomeTextContainer {
+    top: -65%; /* Ancho para dispositivos móviles */
+  }
+}
+
 .WelcomeText{
   color: gray;
   font-weight: 400;
@@ -706,13 +714,13 @@ section.cs-message.cs-message--incoming{
 
 @media (min-width: 700px) and(max-width: 800px) {
   .WelcomeText {
-    font-size: 10px; /* Ancho para dispositivos móviles */
+    font-size: 10px; 
   }
 }
 
 @media (min-width: 801px) and (max-width: 1100px){
   .WelcomeText {
-    font-size: 15px; /* Ancho para dispositivos móviles */
+    font-size: 15px; 
   }
 }
 
