@@ -459,12 +459,10 @@ export const ChatBox = () => {
     }
 
     let CanSeeWelcomeText = false;
-
-    if(Active !== undefined || Active !== null || Active !== ""){
+    if(Active === undefined || Active === null || Active === ""){
         CanSeeWelcomeText = true
     }
 
-    console.log(Active);
 
     return (
         <div className= {classHelper}>
