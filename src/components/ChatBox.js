@@ -304,14 +304,19 @@ export const ChatBox = () => {
 
     const formatArrayText = (text) => {
        // setMessages([]);
-       
-       setMessages(prevMessages => {
-        const filteredMessages = prevMessages.filter(msg => msg.id === greetingMessage.id);
-        for (let index = 0; index < text.length; index++) {
-            filteredMessages.push(formatText(text[index]));
-        }
-        return filteredMessages;
-        });
+       if(text.length > 0) {
+        setMessages(prevMessages => {
+            const hasGreetingMessage = prevMessages.some(msg => msg.id === greetingMessage.id);
+            const newMessages = hasGreetingMessage ? prevMessages : [
+                { ...greetingMessage, id: Date.now() },
+                ...prevMessages,
+            ];
+            text.forEach(t => newMessages.push(formatText(t)));
+            return newMessages;
+            });
+       } else{
+        return;
+       }
     };
 
     function formatSource(text){
