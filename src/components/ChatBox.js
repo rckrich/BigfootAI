@@ -491,8 +491,6 @@ export const ChatBox = () => {
     if(Active === undefined || Active === null || Active === ""){
         CanSeeWelcomeText = true;
     }
-
-
     return (
         <div className= {classHelper}>
             <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "70%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
@@ -510,15 +508,28 @@ export const ChatBox = () => {
                     evt.preventDefault();
                     let pastedText = evt.clipboardData.getData("Text");
 
-                    const formattedTextContainer = document.createElement("div");
-                    formattedTextContainer.textContent = pastedText;
-                    formattedTextContainer.style.backgroundColor = "transparent";
-                    formattedTextContainer.style.color = "black";
+                    const input = evt.target;
+                    const selection = window.getSelection();
+                    const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+                    setUserMessage(prevMessage => {
+                      if (range && !selection.isCollapsed) {
+                        const textBefore = prevMessage.slice(0, range.startOffset);
+                        const textAfter = prevMessage.slice(range.endOffset);
+                        const newText = textBefore + pastedText + textAfter;
 
-                    let formattedText = formattedTextContainer.textContent;
-                    setUserMessage(prevMessage => prevMessage + formattedText);
-                }
-                }>
+                        return newText;
+                      } else {
+                        return prevMessage + pastedText;
+                      }
+                    });
+                    setTimeout(() => {
+                      if (input.selectionStart !== undefined) {
+                        const newCursorPos = input.selectionStart + pastedText.length;
+                        input.setSelectionRange(newCursorPos, newCursorPos);
+                      }
+                    }, 0);
+                  }}
+                >
                 </MessageInput>
                 </ChatContainer>
                 <div style={{paddingTop: "10px", position: "absolute", bottom: "0px", width: "100%", zIndex: "100000", fontSize: "12PX", textAlign: "center"}} className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>
