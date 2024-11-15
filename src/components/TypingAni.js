@@ -5,9 +5,9 @@ import { ElementContextAni } from '../context/AniContext';
 
 
 export const TypingAni = ({WordToType, scroll}) => {
+    
     const [value, setValue] = useState("");
     const [count, setCount] = useState(0);
-
     const str = WordToType.helper;
     const {valueAni, changeValueAni} = useContext(ElementContextAni);
     useEffect(() => {
@@ -32,7 +32,6 @@ export const TypingAni = ({WordToType, scroll}) => {
     })
 
     return (
-
         <Message key={"0101010"} model={{
                             message: value,
                             sender: "assistant",

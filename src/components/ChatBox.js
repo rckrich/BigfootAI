@@ -24,7 +24,9 @@ export const ChatBox = () => {
     const [fontSize, setFontSize] = useState(20);
     const {valueAni, changeAniStop, AniStop} = useContext(ElementContextAni);
     const titleRef = useRef(null);
-    const [greetingSent, setGreetingSent] = useState(false);
+    const [isNewChat, setIsNewChat] = useState(true);
+    const [greetingShown, setGreetingShown] = useState(false);
+    const [loadingMessages, setLoadingMessages] = useState(true);    
     useEffect(() => {
         
         if(Active !== undefined && Active !== null && Active !== "") {
@@ -35,6 +37,16 @@ export const ChatBox = () => {
         }
     },[Active])
 
+    useEffect(() => {
+        if (messages.length === 0 && !loadingMessages ) {
+          changeAniStop(false);
+          setLoadingMessages(false);
+          setIsNewChat(true);
+          setGreetingShown(false);
+        } else {
+          setIsNewChat(false);
+        }
+      }, [messages, loadingMessages]);
 
     const scrolltoBottom = () => {
         if (containerRef.current) {
@@ -140,6 +152,7 @@ export const ChatBox = () => {
     }
 
     const fetchMessages = () => {
+        setLoadingMessages(true);
         fetch(`https://api.openai.com/v1/threads/${Active}/messages?limit=100`, {
             method: 'GET',
             headers: {
@@ -154,6 +167,7 @@ export const ChatBox = () => {
                 if(data.length !== 0){
                     formatArrayText(data.data.reverse());
                 }
+                setLoadingMessages(false);
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
@@ -275,33 +289,30 @@ export const ChatBox = () => {
         role: "assistant",
         content: [{ text: { value: "¡Hola soy kodex! Estoy aquí para ayudarte ¿Dime qué necesitas hoy?" } }]
     });
+
+  useEffect(() => {
+    if (!loadingMessages && isNewChat && !greetingShown) {
+      setMessages(prevMessages => [
+        { ...greetingMessage, id: Date.now() },
+        ...prevMessages
+      ]);
+      
+      setGreetingShown(true);
+      setIsNewChat(false);
+    }
+  }, [isNewChat, greetingShown, loadingMessages]);
+
     const formatArrayText = (text) => {
        // setMessages([]);
+       
        setMessages(prevMessages => {
         const filteredMessages = prevMessages.filter(msg => msg.id === greetingMessage.id);
         for (let index = 0; index < text.length; index++) {
             filteredMessages.push(formatText(text[index]));
         }
-
         return filteredMessages;
         });
     };
-    useEffect(() => {
-        if (Active !== undefined && Active !== null && Active !== "") {
-            setMessages(prevMessages => {
-                const messagesWithoutGreeting = prevMessages.filter(msg => msg.id !== greetingMessage.id);
-                return [greetingMessage, ...messagesWithoutGreeting];
-            });
-            fetchMessages();
-        }
-    }, [Active]);
-    
-    
-    useEffect(() => {
-        if (Active === "") {
-            setGreetingSent(false);
-        }
-    }, [Active]);
 
     function formatSource(text){
         let helper = text;
@@ -315,7 +326,6 @@ export const ChatBox = () => {
         }
         }
     }
-
     useEffect(() => {
         const adjustFontSize = () => {
             const containerWidth = titleRef.current ? titleRef.current.offsetWidth : 0;
@@ -357,6 +367,7 @@ export const ChatBox = () => {
           adjustFontSizeToFit();
           setFontSize(newFontSize);
     };
+    
     const resizeObserver = new ResizeObserver(adjustFontSize);
     if (titleRef.current) {
         resizeObserver.observe(titleRef.current);
@@ -375,6 +386,15 @@ export const ChatBox = () => {
 
     if(true){
         messageList.push(<></>)
+        if (!loadingMessages && isNewChat && !greetingShown) {
+            let helper = greetingMessage.content[0].text.value;
+            console.log("Mostrar saludo:", helper);
+            
+            if (messages.length === 0 && !loadingMessages && !greetingShown) {
+                
+                messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+            }
+        }
         if(messages !== undefined){
             for (let index = 0; index < messages.length; index++) {
                 let result = extractLinkAndBracketContent(messages[index].content[0].text.value);
@@ -388,6 +408,7 @@ export const ChatBox = () => {
                                 sender: messages[index].role,
                                 direction: "incoming"
                             }}></Message>)
+
                         }else{
                             messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
                         }
@@ -418,6 +439,7 @@ export const ChatBox = () => {
                             let helper = messages[index].content[0].text.value;
                             if(!AniStop){
                                 messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+                                
                             }else{
                                 messageList.push(<Message key={messages[index].id} model={{
                                     message: messages[index].content[0].text.value,
@@ -487,7 +509,7 @@ export const ChatBox = () => {
                     formattedTextContainer.style.color = "black";
 
                     let formattedText = formattedTextContainer.textContent;
-                    setUserMessage(formattedText);
+                    setUserMessage(prevMessage => prevMessage + formattedText);
                 }
                 }>
                 </MessageInput>
