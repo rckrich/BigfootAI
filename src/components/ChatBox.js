@@ -308,6 +308,7 @@ export const ChatBox = () => {
     const formatArrayText = (text) => {
        // setMessages([]);
        if (text.length > 0) {
+        setMessages([]);
         setMessages(prevMessages => {
             const hasGreetingMessage = prevMessages.some(msg => msg.id === 'greeting');
             const newMessages = hasGreetingMessage ? [...prevMessages] : [
