@@ -26,19 +26,22 @@ export const ChatBox = () => {
     const titleRef = useRef(null);
     const [isNewChat, setIsNewChat] = useState(true);
     const [greetingShown, setGreetingShown] = useState(false);
-    const [loadingMessages, setLoadingMessages] = useState(true);    
+    const [loadingMessages, setLoadingMessages] = useState(true);
+    const [ereasedThread, setEreasedThread] = useState(false);
     useEffect(() => {
         
         if(Active !== undefined && Active !== null && Active !== "") {
             setMessages([]);
             fetchMessages();
+            setEreasedThread(false);
         }else{
             setMessages([]);
+            setEreasedThread(true);
         }
     },[Active])
 
     useEffect(() => {
-        if (messages.length === 0 && !loadingMessages ) {
+        if (messages.length === 0 && !loadingMessages && !ereasedThread) {
           changeAniStop(false);
           setLoadingMessages(false);
           setIsNewChat(true);
@@ -304,19 +307,20 @@ export const ChatBox = () => {
 
     const formatArrayText = (text) => {
        // setMessages([]);
-       if(text.length > 0) {
+       if (text.length > 0) {
         setMessages(prevMessages => {
-            const hasGreetingMessage = prevMessages.some(msg => msg.id === greetingMessage.id);
-            const newMessages = hasGreetingMessage ? prevMessages : [
-                { ...greetingMessage, id: Date.now() },
+            const hasGreetingMessage = prevMessages.some(msg => msg.id === 'greeting');
+            const newMessages = hasGreetingMessage ? [...prevMessages] : [
+                { ...greetingMessage, id: 'greeting' },
                 ...prevMessages,
             ];
+
             text.forEach(t => newMessages.push(formatText(t)));
             return newMessages;
-            });
-       } else{
+        });
+    } else {
         return;
-       }
+    }
     };
 
     function formatSource(text){
@@ -391,17 +395,14 @@ export const ChatBox = () => {
 
     if(true){
         messageList.push(<></>)
-        if (!loadingMessages && isNewChat && !greetingShown) {
-            let helper = greetingMessage.content[0].text.value;
-            console.log("Mostrar saludo:", helper);
-            
-            if (messages.length === 0 && !loadingMessages && !greetingShown) {
-                
-                messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
-            }
-        }
         if(messages !== undefined){
             for (let index = 0; index < messages.length; index++) {
+                if (!loadingMessages && isNewChat && !greetingShown && !ereasedThread) {
+                    let helper = greetingMessage.content[0].text.value;
+                    if (messages.length === 0 && !loadingMessages && !greetingShown && !ereasedThread) {
+                        messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+                    }
+                }
                 let result = extractLinkAndBracketContent(messages[index].content[0].text.value);
                 if(result.link !== null){
                     console.log(result.link);
@@ -487,7 +488,7 @@ export const ChatBox = () => {
 
     let CanSeeWelcomeText = false;
     if(Active === undefined || Active === null || Active === ""){
-        CanSeeWelcomeText = true
+        CanSeeWelcomeText = true;
     }
 
 
