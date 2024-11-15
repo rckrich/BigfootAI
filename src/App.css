@@ -163,10 +163,10 @@
 
 .sideBarMiniMenu{
   position:absolute;
-  width: 200px;
+  width: 150px;
+  left: 11vw;
   height: auto;
   z-index: 100;
-  left: 7vw;
   background-color: white;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -176,48 +176,45 @@
 }
 
 .buttonFont{
-  font-size: 1.2vw;
+  font-size: 25px;
   color: white;
+  font-weight: 450;
+  line-height: 1.5;
 }
 
-@media (max-width: 1200px) {
-  .buttonFont {
-    font-size: 2vw;
-  }
-}
 
 @media (min-width: 1950px) and (max-width: 2500px) {
   .sideBarMiniMenu {
-    left: 7vw;
+    left: 10vw;
   }
 }
 
 @media (min-width: 1800px) and (max-width: 1949px) {
   .sideBarMiniMenu {
-    left: 6vw;
+    left: 9vw;
   }
 }
 
 @media (min-width: 1700px) and (max-width: 1899px) {
   .sideBarMiniMenu {
-    left: 5vw;
+    left: 8vw;
   }
 }
 
 @media (min-width: 1550px) and (max-width: 1699px) {
   .sideBarMiniMenu {
-    left: 4vw;
+    left: 7vw;
   }
 }
 @media (min-width: 1450px) and (max-width: 1549px) {
   .sideBarMiniMenu {
-    left: 3vw;
+    left: 6vw;
   }
 }
 
 @media (min-width: 1350px) and (max-width: 1449px) {
   .sideBarMiniMenu {
-    left: 2vw;
+    left: 5vw;
   }
 }
 

@@ -144,14 +144,14 @@ export const PopUpPrefab = ({identifier}) => {
             className="input"
           /></div>
           
-          <div className="rowContainer" style={{width: "100%" , justifyContent: "space-evenly"}}>
+          <div className="rowContainer" style={{width: "95%" , justifyContent: "space-between"}}>
           <button
             className="styleCancelButtonPopUpDesktop"
             onClick={() => {
               handleCancelButton();
             }}
           >
-            <h3 className="buttonFont">Cancelar</h3>
+            <p className="buttonFont">Cancelar</p>
           </button>
           <button
             className="styleButtonPopUpDesktop"
@@ -159,7 +159,7 @@ export const PopUpPrefab = ({identifier}) => {
               handleNewThread();
             }}
           >
-            <h3 className="buttonFont">Aceptar</h3>
+            <p className="buttonFont">Aceptar</p>
           </button>
           </div>
         </div>
@@ -175,14 +175,14 @@ export const PopUpPrefab = ({identifier}) => {
           <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%", textAlign: "center"}}>¿Está seguro que desea eliminar la conversación? </h3>
           </div>
           
-          <div className="rowContainer" style={{width: "100%", justifyContent: "space-evenly"}}>
+          <div className="rowContainer" style={{width: "95%" , justifyContent: "space-between"}}>
           <button
             className="styleButtonPopUpDesktop"
             onClick={() => {
               handleCancelButton();
             }}
           >
-            <h3 className="buttonFont">Cancelar</h3>
+            <p className="buttonFont">Cancelar</p>
           </button>
           <button
             className="styleCancelButtonPopUpDesktop"
@@ -190,7 +190,7 @@ export const PopUpPrefab = ({identifier}) => {
               handleEliminateThread();
             }}
           >
-            <h3 className="buttonFont">Eliminar</h3>
+            <p className="buttonFont">Eliminar</p>
           </button>
           </div>
         </div>
@@ -206,14 +206,14 @@ export const PopUpPrefab = ({identifier}) => {
           <h3 className="TitleText" style={{color: "black", fontWeight: "bold", paddingTop: "1%", textAlign: "center"}}>Se ha eliminado con éxito</h3>
           </div>
 
-          <div className="rowContainer" style={{width: "100%" , justifyContent: "space-evenly"}}>
+          <div className="rowContainer" style={{width: "95%" , justifyContent: "space-between"}}>
           <button
             className="styleButtonPopUpDesktop"
             onClick={() => {
               handleCancelButton();
             }}
           >
-            <h3 className="buttonFont">Aceptar</h3>
+            <p className="buttonFont">Aceptar</p>
           </button>
   
           </div>
@@ -238,14 +238,14 @@ export const PopUpPrefab = ({identifier}) => {
             
           /></div>
           
-          <div className="rowContainer" style={{width: "100%", paddingTop: "10px", justifyContent: "space-evenly"}}>
+          <div className="rowContainer" style={{width: "95%" , justifyContent: "space-between"}}>
           <button
             className="styleCancelButtonPopUpDesktop"
             onClick={() => {
               handleCancelButton();
             }}
           >
-            <h3 className="buttonFont">Cancelar</h3>
+            <p className="buttonFont">Cancelar</p>
           </button>
           <button
             className="styleButtonPopUpDesktop"
@@ -253,7 +253,7 @@ export const PopUpPrefab = ({identifier}) => {
               handleEditThread();
             }}
           >
-            <h3 className="buttonFont">Aceptar</h3>
+            <p className="buttonFont">Aceptar</p>
           </button>
           </div>
         </div>
