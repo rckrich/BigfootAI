@@ -9,13 +9,14 @@ export const TypingAni = ({WordToType, scroll}) => {
     const [value, setValue] = useState("");
     const [count, setCount] = useState(0);
     const str = WordToType.helper;
-    const {valueAni, changeValueAni} = useContext(ElementContextAni);
+    const {valueAni, changeValueAni, setUseButton } = useContext(ElementContextAni);
     useEffect(() => {
         if(!valueAni){
             changeValueAni(true);
         }
         if(str === value){
             changeValueAni(false);
+            setUseButton(false);
             return;
         }
         const timeout = setTimeout(() => {

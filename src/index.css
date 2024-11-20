@@ -215,13 +215,12 @@ code {
   bottom: 100px;
   padding: 10px;
   border-radius: 50%;
-  background-color: #ededf8;
+  background-color: #53536b;
   cursor: pointer;
   z-index: 100;
   height: 45px;
   width: 45px;
 
-  border-color: rgba(131,131,183,255);
   border-style:solid;
   border-width: thin;
   -webkit-border-radius: 50%;

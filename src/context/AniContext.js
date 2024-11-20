@@ -5,6 +5,7 @@ const ElementContextAni = createContext();
 const ElementProviderAni = ({ children }) => {
   const [valueAni, setValueAni] = useState(false);
   const [AniStop, setAniStop] = useState(false);
+  const [useButton, setUseButton] = useState(false);
   const changeValueAni = (newValue) => {
     setValueAni(newValue);
   };
@@ -14,7 +15,7 @@ const ElementProviderAni = ({ children }) => {
   };
 
   return (
-    <ElementContextAni.Provider value={{ valueAni, changeValueAni, changeAniStop, AniStop  }}>
+    <ElementContextAni.Provider value={{ valueAni, changeValueAni, changeAniStop, AniStop, useButton, setUseButton  }}>
       {children}
     </ElementContextAni.Provider>
   );

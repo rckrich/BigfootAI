@@ -22,9 +22,10 @@ export const ChatBox = () => {
     const [filePopup, setFilePopup] = useState({ visible: false, filename: '', x: 0, y: 0 });
     let messageList = [];
     const [fontSize, setFontSize] = useState(20);
-    const {valueAni, changeAniStop, AniStop} = useContext(ElementContextAni);
+    const {valueAni, changeAniStop, AniStop, useButton, setUseButton, changeValueAni} = useContext(ElementContextAni);
     const titleRef = useRef(null);
     const [isNewChat, setIsNewChat] = useState(true);
+    const [runIdHolder, setRunId] = useState("");
     const [greetingShown, setGreetingShown] = useState(false);
     const [loadingMessages, setLoadingMessages] = useState(true);
     const [ereasedThread, setEreasedThread] = useState(false);
@@ -39,6 +40,7 @@ export const ChatBox = () => {
             setEreasedThread(true);
         }
     },[Active])
+
 
     useEffect(() => {
         if (messages.length === 0 && !loadingMessages && !ereasedThread) {
@@ -58,8 +60,17 @@ export const ChatBox = () => {
     };
 
     const handleStop = () => {
+        if(useButton){
+            setUseButton(false);
+        }
         if(!AniStop){
+            changeValueAni(false);
             changeAniStop(true);
+            if(waiting){
+                cancelRun(runIdHolder);
+                setWaiting(false);
+            }
+            scrolltoBottom();
         }
     };
 
@@ -98,7 +109,10 @@ export const ChatBox = () => {
 
     }
 
-    const handleRun =( ) => {
+
+
+    const handleRun =async( ) => {
+        await setUseButton(true);
         fetch(`https://api.openai.com/v1/threads/${Active}/runs`, {
             method: 'POST',
             headers: {
@@ -113,11 +127,24 @@ export const ChatBox = () => {
           })
           .then(response => response.json())
             .then(data => {
-
+                setRunId(data.id);
                 checkRunStatus(data.id)
             })
 
             .catch(error => console.error('Error:', error));
+    }
+
+    const cancelRun =(runId) => {
+        console.log("cancel")
+        fetch(`https://api.openai.com/v1/threads/${Active}/runs/${runId}/cancel`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${userData.open_ia_key}`,
+              'OpenAI-Beta' : 'assistants=v2',
+            },
+          })
+          .then(fetchMessages())
+        .catch(error => console.error('Error:', error));
     }
 
     const checkRunStatus = (runId) => {
@@ -143,8 +170,10 @@ export const ChatBox = () => {
                         clearInterval(interval);
                         setWaiting(false);
                         fetchMessages();
-                    } else {
-
+                    }
+                    if(data.status === "cancelled") {
+                        setnewMessageToType(false);
+                        clearInterval(interval);
                     }
                 })
                 .catch(error => {
@@ -166,7 +195,6 @@ export const ChatBox = () => {
         })
         .then(response => response.json())
             .then(data => {
-                console.log(data);
                 if(data.length !== 0){
                     formatArrayText(data.data.reverse());
                 }
@@ -557,20 +585,38 @@ export const ChatBox = () => {
                 onClick={scrolltoBottom}
                 className="onTopButtons"
                 style={{
+                    borderColor: "rgba(131,131,183,255)",
+                    backgroundColor: "#ededf8",
                     right: "60px",
                 }}
             >
                 <p style={{color: "rgba(88,88,150,255)"}}>↓</p>
             </button>
-            <button
+            {useButton || valueAni ? <button
                 onClick={handleStop}
                 className="onTopButtons"
                 style={{
+                    borderColor: "rgba(131,131,183,255)",
+                    backgroundColor: "#ededf8",
                     right: "115px",
                 }}
             >
-                <p style={{color: "rgba(131,131,183,255)"}}>■</p>
-            </button>
+
+                <p style={{color: "rgba(88,88,150,255)"}}>■</p>
+            </button> : 
+            <button
+            onClick={handleStop}
+            className="onTopButtons"
+            style={{
+                borderColor: "rgba(88,88,150,255)",
+                backgroundColor: "#ccccce",
+                right: "115px",
+            }}
+            disabled={true}
+        >
+
+            <p style={{color: "#53536b)"}}>■</p>
+        </button>}
             {CanSeeWelcomeText && <div className="WelcomeTextContainer">
                 <p className="WelcomeText"> Bienvenido a Kodex by Bigfoot. Por favor crea un nuevo chat o dale click a un chat en el menú lateral </p>
             </div> }
