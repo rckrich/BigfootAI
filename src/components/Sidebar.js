@@ -12,9 +12,11 @@ import { AuthContext } from "../pages/AuthContext";
 import useIndexedDB from '../hooks/useIndexedDB';
 import { ElementContextSidebar } from "../context/SidebarContext";
 import { ElementContextPopUp } from "../context/PopUpContext";
+import { ElementContextThread } from "../context/ThreadContext";
 export const Sidebar = () => {
   const {value} = useContext(ElementContextPopUp);
   const {changeValueSideBar, valueSB, setScrollPos} = useContext(ElementContextSidebar);
+  const {setActive, changeTitle, changeValueThread} = useContext(ElementContextThread)
   const { getItems, deleteItem } = useIndexedDB();
   const [prevData, setData] = useState("");
   const [offset] = useState(0);
@@ -132,6 +134,9 @@ export const Sidebar = () => {
             await deleteItem(savedItems[index].id);
           }
         }
+        changeTitle(""); 
+        setActive("");
+        changeValueThread("");
         setUserData(null);
         navigate("/");
     }
