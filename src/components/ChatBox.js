@@ -473,7 +473,7 @@ export const ChatBox = () => {
                         }else{
                             let helper = messages[index].content[0].text.value;
                             if(!AniStop){
-                                messageList.push(<TypingAni WordToType={{helper}} ></TypingAni>)
+                                messageList.push(<TypingAni WordToType={{helper}} scroll={scrolltoBottom} ></TypingAni>)
                                 
                             }else{
                                 messageList.push(<Message key={messages[index].id} model={{
