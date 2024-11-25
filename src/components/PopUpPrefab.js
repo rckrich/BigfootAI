@@ -1,5 +1,5 @@
 import { ElementContextPopUp } from "../context/PopUpContext";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ElementContextThread } from "../context/ThreadContext";
 import useIndexedDB from '../hooks/useIndexedDB';
 import { useRef } from "react";
@@ -17,7 +17,7 @@ export const PopUpPrefab = ({identifier}) => {
   const inputNew = useRef("");
   const { getItems, saveItem, deleteItem } = useIndexedDB();
   const { changeValuePopUP } = useContext(ElementContextPopUp);
-  const { changeActive, value, Title, Active, changeTitle, setActive, TitlePopUp } = useContext(ElementContextThread);
+  const { changeActive, value, Title, Active, changeTitle, setActive,TitlePopUp } = useContext(ElementContextThread);
   const { userData } = useContext(AuthContext);
   const handleCancelButton = () => {
     changeValuePopUP("");
@@ -128,6 +128,10 @@ export const PopUpPrefab = ({identifier}) => {
     deleteItem(holder[0].id);
     saveItem(item);
   }
+  const handleInputChange = (e) => {
+    changeTitle(e.target.value);
+  }
+  
 
   if(identifier === "new") {
     return (
@@ -233,7 +237,8 @@ export const PopUpPrefab = ({identifier}) => {
             ref={inputEdit}
             type="text"
             name="text"
-            placeholder={TitlePopUp}
+            value={Title}
+            onChange={(e) => handleInputChange(e)}
             className="input"
             
           /></div>

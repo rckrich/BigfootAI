@@ -198,6 +198,7 @@ export const ChatBox = () => {
                 if(data.length !== 0){
                     formatArrayText(data.data.reverse());
                 }
+                console.log(data);
                 setLoadingMessages(false);
             })
             .catch(error => console.error('Error fetching messages:', error));
@@ -255,6 +256,9 @@ export const ChatBox = () => {
         helper.content[0].text.value = text.content[0].text.value.replace(
             /### (.*)/g,
             '<span style="font-weight:bold; font-size:1.2em;">$1</span>'
+        );
+        helper.content[0].text.value = text.content[0].text.value.replace(
+            /#/g, ""
         );
         helper.content[0].text.value = text.content[0].text.value.replace(/- /g, '• ');
         helper.content[0].text.value = helper.content[0].text.value.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank" style="color: blue; text-decoration: underline;">$1</a>');
@@ -532,7 +536,7 @@ export const ChatBox = () => {
                     <>{messageList}</>
                     {waiting === true ? <TypingIndicator className="typingOverride" content="Kodex está pensando..." /> : <></>}
                 </MessageList>
-                <MessageInput value={UserMessage} disabled={isDisabled} onSend={() => {handleMessageToThread()}} onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false} onPaste={(evt) =>{
+                {!CanSeeWelcomeText && <MessageInput value={UserMessage} disabled={isDisabled} onSend={() => {handleMessageToThread()}} onChange={e =>  setUserMessage(e)}autoFocus placeholder="Pregunta a Kodex AI" className="overrideStyleInput" attachButton={false} fancyScroll={false} onPaste={(evt) =>{
                     evt.preventDefault();
                     let pastedText = evt.clipboardData.getData("Text");
 
@@ -558,9 +562,9 @@ export const ChatBox = () => {
                     }, 0);
                   }}
                 >
-                </MessageInput>
+                </MessageInput>}
                 </ChatContainer>
-                <div style={{paddingTop: "10px", position: "absolute", bottom: "0px", width: "100%", zIndex: "100000", fontSize: "12PX", textAlign: "center"}} className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>
+                {!CanSeeWelcomeText && <div style={{paddingTop: "10px", position: "absolute", bottom: "0px", width: "100%", zIndex: "100000", fontSize: "12PX", textAlign: "center"}} className="disclaimer">Kodex AI puede cometer errores. Verifica la información importante.</div>}
             </MainContainer>
             {filePopup.visible && !valueAni ? (
                 <div
@@ -581,7 +585,7 @@ export const ChatBox = () => {
                     {filePopup.filename}
                 </div>
             ) : <></>}
-            <button
+            {!CanSeeWelcomeText && <button
                 onClick={scrolltoBottom}
                 className="onTopButtons"
                 style={{
@@ -591,8 +595,8 @@ export const ChatBox = () => {
                 }}
             >
                 <p style={{color: "rgba(88,88,150,255)"}}>↓</p>
-            </button>
-            {useButton || valueAni ? <button
+            </button>}
+            {!CanSeeWelcomeText && ((useButton || valueAni) ? <button
                 onClick={handleStop}
                 className="onTopButtons"
                 style={{
@@ -616,7 +620,7 @@ export const ChatBox = () => {
         >
 
             <p style={{color: "#53536b)"}}>■</p>
-        </button>}
+        </button>)}
             {CanSeeWelcomeText && <div className="WelcomeTextContainer">
                 <p className="WelcomeText"> Bienvenido a Kodex by Bigfoot. Por favor crea un nuevo chat o dale click a un chat en el menú lateral </p>
             </div> }
