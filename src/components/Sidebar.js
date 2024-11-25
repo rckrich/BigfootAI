@@ -3,7 +3,7 @@ import { ChatHistoryPlaceholder } from "./ChatHistoryPlaceHolder"
 import logout from "../img/salir.png";
 import account from "../img/account.svg";
 import sidebar from "../img/sidebar.svg";
-import logoBlanco from "../img/LogoBlanco.svg";
+import logoBlanco from "../img/kodex-logo-final-02.png";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef, useContext} from "react";
 import{ CreateChat} from "./CreateChat";
@@ -183,7 +183,6 @@ export const Sidebar = () => {
         <div key={prevData}>
         {valueSB ?
             <div className="sidebarParentContainer">
-              
                 <div className="rowContainer" style={{ width: "100%", paddingTop: "10px", paddingRight: "15px", alignItems: "center", justifyContent: "space-between"}}>
                     <Dropdown className= "iconClearSideBar"  style={{paddingLeft: "20px"}}>
                     <Dropdown.Toggle  as={CustomToggle} variant="success" id="dropdown-basic">
@@ -193,7 +192,7 @@ export const Sidebar = () => {
                         <Dropdown.Item onClick={() => gotToNewPage()}><img src={logout} alt="close" style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
-                    <h2 className="TitleText" style={{ textAlign: "center", fontSize: "20px", paddingTop: "2.2%"}}><img src={logoBlanco} style={{height: "2vw"}}></img></h2>
+                    <h2 className="TitleText" style={{ textAlign: "center", fontSize: "20px", paddingTop: "2.2%"}}><img src={logoBlanco} style={{height: "3.5vw"}}></img></h2>
                     <img src= {sidebar} alt="sidebar" className="iconSideBar"   onClick={()=> changeValueSideBar(!valueSB)}></img>
                 </div>
                 <div className="sidebarContainer" onScroll={handleScroll}>

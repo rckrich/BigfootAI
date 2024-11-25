@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { AuthContext } from './AuthContext';
-import logo from "../img/kodexLogo.png";
+import logo from "../img/KodexLogoBlack2.png";
 
 
 export const LogIn = () => {
@@ -49,8 +49,8 @@ export const LogIn = () => {
 
     return (
         <div style={{display:"flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center", backgroundColor: "#282828"}}>
-                <div className="LoginContainer">
-                <h1 ><img src={logo} style={{width: "15vw", justifyContent: "center", alignContent: "center"}}></img></h1>
+                <div className="LoginContainer" style={{padding: "20px"}}>
+                <h1 style={{padding: "0"}}><img src={logo} style={{width: "15vw", justifyContent: "center", alignContent: "center"}}></img></h1>
                     <h4 className="subText" style={{fontSize: "25px"}}>Iniciar sesión</h4>
                     <div className="input-container">
                         <input placeholder="Introducir correo electrónico" type="email" ref={inputRefEmail}/>
