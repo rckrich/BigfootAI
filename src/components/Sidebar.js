@@ -192,7 +192,7 @@ export const Sidebar = () => {
                         <Dropdown.Item onClick={() => gotToNewPage()}><img src={logout} alt="close" style={{color: "black", paddingRight: "20px", width: "35px", paddingBottom: "2.2%"}}></img>Cerrar sesión</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
-                    <h2 className="TitleText" style={{ textAlign: "center", fontSize: "20px", paddingTop: "2.2%"}}><img src={logoBlanco} style={{height: "3.5vw"}}></img></h2>
+                    <h2 className="TitleText" style={{ textAlign: "center", fontSize: "20px", paddingTop: "2.2%"}}><img src={logoBlanco} style={{height: "2.5vw"}}></img></h2>
                     <img src= {sidebar} alt="sidebar" className="iconSideBar"   onClick={()=> changeValueSideBar(!valueSB)}></img>
                 </div>
                 <div className="sidebarContainer" onScroll={handleScroll}>

@@ -527,7 +527,7 @@ export const ChatBox = () => {
         <div className= {classHelper}>
             <h3 ref={titleRef} style={{ height: "10vh", textAlign: "center", width: "70%", paddingTop:"10px", paddingBottom: "10px", backgroundColor: "#FFFFFF", color: "black", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)", fontWeight: "bold"}} className="TitleText">
                 {Title}
-                <img src={logo} style={{height: "8vh", position: "absolute", top: "0vw", right: "2.5%"}} ></img>
+                <img src={logo} style={{height: "5vh", position: "absolute", top: "1vw", right: "2.5%"}} ></img>
             </h3>
             <div style={{  height: "89vh", width: "100%" }}>
             <MainContainer className="overrideStyle">
