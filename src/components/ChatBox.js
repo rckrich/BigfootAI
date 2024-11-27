@@ -622,7 +622,8 @@ export const ChatBox = () => {
             <p style={{color: "#53536b)"}}>■</p>
         </button>)}
             {CanSeeWelcomeText && <div className="WelcomeTextContainer">
-                <p className="WelcomeText"> Bienvenido a Kodex by Bigfoot. Por favor crea un nuevo chat o dale click a un chat en el menú lateral </p>
+                <p className="WelcomeText"> Bienvenido a Kodex by BigFoot. Tu compañero para descubrir insights culturales y navegar el futuro con datos inteligentes.
+                Crea un nuevo chat para comenzar tu exploración, o selecciona un chat en el menú lateral para continuar donde lo dejaste. </p>
             </div> }
             
 

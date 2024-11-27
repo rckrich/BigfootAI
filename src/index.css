@@ -705,7 +705,7 @@ section.cs-message.cs-message--incoming{
 
 @media (max-width: 800px) {
   .WelcomeTextContainer {
-    top: -65%; /* Ancho para dispositivos móviles */
+    top: -85%;
   }
 }
 
@@ -717,7 +717,7 @@ section.cs-message.cs-message--incoming{
 
 @media (min-width: 700px) and(max-width: 800px) {
   .WelcomeText {
-    font-size: 10px; 
+    font-size: 10.WelcomeTextContainerpx; 
   }
 }
 
